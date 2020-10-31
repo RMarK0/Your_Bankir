@@ -1,0 +1,6 @@
+Dmitry:passwordDmitry2002       hash:1364475428ad82dda84cbf2dce41e909
+Zhanna:passwordZhanna1978       hash:325ccfad88a9025cbb704ed0f12fa602
+Andrey:passwordAndrew1978       hash:3fbb16dead2a8acac3fe81e6dcc7b3c2
+Leonid:passwordLeonid1947       hash:0a7083c14b732d58416ecaf9b082cd97
+Taya:passwordTaya1998       hash:9627d171eff9e712f370d981d8cca894
+Galina:passwordGalina1958       hash:bc6c62b9d688cdf9e2e8fd3747fe8272
