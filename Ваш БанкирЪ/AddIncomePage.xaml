@@ -1,0 +1,73 @@
+﻿<Page
+    x:Class="Ваш_БанкирЪ.AddIncomePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Ваш_БанкирЪ"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <VisualStateManager.VisualStateGroups>
+        <VisualStateGroup>
+            <VisualState>
+                <VisualState.StateTriggers>
+                    <!-- Big Window Trigger -->
+                    <AdaptiveTrigger MinWindowWidth="1250" MinWindowHeight="600"/>
+                </VisualState.StateTriggers>
+
+                <!-- TODO: TRIGGERS MAFUKAAA -->
+            </VisualState>
+            <VisualState>
+                <VisualState.StateTriggers>
+                    <!-- Small Window Trigger -->
+                    <AdaptiveTrigger MinWindowWidth="0" MinWindowHeight="0"/>
+                </VisualState.StateTriggers>
+
+                <!-- TODO: TRIGGERS MAFUKAAA -->
+            </VisualState>
+        </VisualStateGroup>
+    </VisualStateManager.VisualStateGroups>
+
+
+    <Grid>
+        <TextBox x:Name="IncomeSum" PlaceholderText="Введите сумму дохода..." FontSize="30" 
+                 Width="600" Height="55"
+                 HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-400 -415 0 0"/>
+
+        <ComboBox Name="IncomeCategory" PlaceholderText="Выберите категорию" FontSize="30"
+                  Width="600" Height="70"
+                  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-400 -265 0 0">
+            <x:String>Зарплата</x:String>
+            <x:String>Подработка</x:String>
+            <x:String>Пенсия</x:String>
+            <x:String>Подарок</x:String>
+            
+        </ComboBox>
+
+        <TextBox x:Name="IncomeComments" PlaceholderText="Введите комментарий..." FontSize="30" Width="600" Height="210"
+                 HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-400 45 0 0" 
+                 AcceptsReturn="True" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" HorizontalScrollMode="Disabled"
+                      Height="405" Width="400" BorderThickness="5"
+                      HorizontalAlignment="Center" VerticalAlignment="Center" Margin="650 0 0 65" BorderBrush="#33FFFFFF" 
+                      >
+        </ScrollViewer>
+
+        <Button x:Name="IncomeAddButton" Width="600" Height="80"
+                HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 380 400 0"
+                Content="Добавить доход" FontSize="30" VerticalContentAlignment="Center"/>
+
+        <Rectangle x:Name="HistorySwitchBackground" Width="400" Height="60"
+                   HorizontalAlignment="Center" VerticalAlignment="Center" Margin="650 400 0 0"
+                   Fill="#33FFFFFF"/>
+
+        <TextBlock x:Name="IncomeUserToggleText" Text="Только для этого пользователя" FontSize="20"
+                   HorizontalAlignment="Center" VerticalAlignment="Center" Margin="590 395 0 0"
+                   />
+
+        <ToggleSwitch x:Name="ExpensesUserToggle" OnContent="" OffContent="" IsOn="False"
+                      HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1050 400 0 0"/>
+    </Grid>
+</Page>

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Core;
@@ -22,42 +21,31 @@ namespace Ваш_БанкирЪ
     /// <summary>
     /// Пустая страница, которую можно использовать саму по себе или для перехода внутри фрейма.
     /// </summary>
-    public sealed partial class MainMenuPage : Page
+    public sealed partial class AddExpensesPage : Page
     {
-        public MainMenuPage()
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            SystemNavigationManager.GetForCurrentView().BackRequested -= OnBackRequested;
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
+                AppViewBackButtonVisibility.Disabled;
+        }
+
+        private void OnBackRequested(object sender, BackRequestedEventArgs e)
+        {
+            Frame.Navigate(typeof(MainMenuPage));
+            e.Handled = true;
+        }
+
+        public AddExpensesPage()
         {
             this.InitializeComponent();
-            
-        }
-
-        public void AddIncomeButton_Click(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(AddIncomePage));
-        }
-
-        public void AddExpensesButton_Click(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(AddExpensesPage));
-        }
-
-        public void FinanceAnalysisButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        public void AddTargetButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        public void SettingsButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        public void ExitButton_Click(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(LoginPage));
+            var currentView = SystemNavigationManager.GetForCurrentView();
+            currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
         }
     }
 }

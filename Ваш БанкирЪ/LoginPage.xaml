@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="Ваш_БанкирЪ.MainPage"
+    x:Class="Ваш_БанкирЪ.LoginPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Ваш_БанкирЪ"
@@ -31,6 +31,8 @@
                     </Flyout.Content>
                 </Flyout>
             </Button.Flyout>
-            </Button>
+        </Button>
+        <TextBlock Text="v1.0.0" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Row="1" Margin="0 0 0 25"/>
+        <TextBlock Text="Dmitry Rybalko" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Row="1" Margin="0 0 0 5"/>
     </Grid>
 </Page>

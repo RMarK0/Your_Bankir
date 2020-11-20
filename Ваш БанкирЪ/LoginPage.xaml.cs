@@ -20,11 +20,9 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-
-
 namespace Ваш_БанкирЪ
 {
-    public sealed partial class MainPage : Page
+    public sealed partial class LoginPage : Page
     {
         private bool CheckPasswordComplete(string login, string password)
         {
@@ -58,11 +56,13 @@ namespace Ваш_БанкирЪ
             return false;
         }
 
-        public MainPage()
+        public LoginPage()
         {
+            ApplicationView.PreferredLaunchViewSize = new Size { Height = 720, Width = 1280 };
+            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
+
             this.InitializeComponent();
         }
-
 
         private void loginButton_Clicked(object sender, RoutedEventArgs e)
         {
@@ -79,7 +79,6 @@ namespace Ваш_БанкирЪ
                 PasswordErrorFlyout.ShowAt((Button)LoginButton);
             }
         }
-
 
         private void PasswordErrorButton_OnClick(object sender, RoutedEventArgs e)
         {

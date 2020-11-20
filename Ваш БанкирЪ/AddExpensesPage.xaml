@@ -1,0 +1,59 @@
+﻿<Page
+    x:Class="Ваш_БанкирЪ.AddExpensesPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Ваш_БанкирЪ"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <VisualStateManager.VisualStateGroups>
+        <!-- TODO: TRIGGERS MAFUKAAA -->
+    </VisualStateManager.VisualStateGroups>
+
+
+            <Grid>
+        <TextBox x:Name="ExpensesSum" PlaceholderText="Введите сумму расхода..." FontSize="30" 
+                 Width="600" Height="55"
+                 HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-400 -415 0 0"/>
+
+        <ComboBox Name="ExpensesCategory" PlaceholderText="Выберите категорию" FontSize="30"
+                  Width="600" Height="70"
+                  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-400 -265 0 0">
+            <x:String>Транспорт</x:String>
+            <x:String>Еда</x:String>
+            <x:String>Здоровье</x:String>
+            <x:String>Досуг</x:String>
+            <x:String>Подарки</x:String>
+            <x:String>Покупки</x:String>
+            <x:String>Семья</x:String>
+            <x:String>Другое</x:String>
+        </ComboBox>
+
+        <TextBox x:Name="ExpensesComments" PlaceholderText="Введите комментарий..." FontSize="30" Width="600" Height="210"
+                 HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-400 45 0 0" 
+                 AcceptsReturn="True" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" HorizontalScrollMode="Disabled"
+                      Height="405" Width="400" BorderThickness="5"
+                      HorizontalAlignment="Center" VerticalAlignment="Center" Margin="650 0 0 65" BorderBrush="#33FFFFFF" 
+                      >
+        </ScrollViewer>
+
+        <Button x:Name="ExpensesAddButton" Width="600" Height="80"
+                HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 380 400 0"
+                Content="Добавить расход" FontSize="30" VerticalContentAlignment="Center"/>
+
+        <Rectangle x:Name="HistorySwitchBackground" Width="400" Height="60"
+                   HorizontalAlignment="Center" VerticalAlignment="Center" Margin="650 400 0 0"
+                   Fill="#33FFFFFF"/>
+
+        <TextBlock x:Name="ExpensesUserToggleText" Text="Только для этого пользователя" FontSize="20"
+                   HorizontalAlignment="Center" VerticalAlignment="Center" Margin="590 395 0 0"
+                   />
+        
+        <ToggleSwitch x:Name="ExpensesUserToggle" OnContent="" OffContent="" IsOn="False"
+                      HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1050 400 0 0"/>
+    </Grid>
+</Page>
