@@ -8,12 +8,14 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid Background="Black">
+    <Grid Background="Black" KeyDown="Grid_KeyDown">
         <Grid.RowDefinitions>
             <RowDefinition Height="265"/>
             <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
-        <TextBox x:Name="LoginTextBox" Height="50" Width="450" PlaceholderText="Введите логин..." MaxLength="70"
+        
+
+            <TextBox x:Name="LoginTextBox" Height="50" Width="450" PlaceholderText="Введите логин..." MaxLength="70"
                  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Margin="0,-260,0,0" Grid.Row="1"/>
         <PasswordBox x:Name="PasswordBox" Height="50" Width="450" PlaceholderText="Введите пароль..." MaxLength="70"
                  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Margin="0,-140,0,0" Grid.Row="1"/>

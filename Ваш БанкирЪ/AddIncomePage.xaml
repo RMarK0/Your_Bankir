@@ -8,56 +8,81 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <VisualStateManager.VisualStateGroups>
-        <VisualStateGroup>
-            <VisualState>
-                <VisualState.StateTriggers>
-                    <!-- Big Window Trigger -->
-                    <AdaptiveTrigger MinWindowWidth="1250" MinWindowHeight="600"/>
-                </VisualState.StateTriggers>
-
-                <!-- TODO: TRIGGERS MAFUKAAA -->
-            </VisualState>
-            <VisualState>
-                <VisualState.StateTriggers>
-                    <!-- Small Window Trigger -->
-                    <AdaptiveTrigger MinWindowWidth="0" MinWindowHeight="0"/>
-                </VisualState.StateTriggers>
-
-                <!-- TODO: TRIGGERS MAFUKAAA -->
-            </VisualState>
-        </VisualStateGroup>
-    </VisualStateManager.VisualStateGroups>
-
-
     <Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="BigWindowTrigger">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1250" MinWindowHeight="600"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="HistorySwitchBackground.Visibility" Value="Visible"/>
+                        <Setter Target="IncomeUserToggle.Visibility" Value="Visible"/>
+                        <Setter Target="IncomeHistoryViewer.Visibility" Value="Visible"/>
+                        <Setter Target="IncomeUserToggleText.Visibility" Value="Visible"/>
+
+                        <Setter Target="IncomeCategory.Margin" Value="-400 -265 0 0"/>
+                        <Setter Target="IncomeSum.Margin" Value="-400 -415 0 0"/>
+                        <Setter Target="IncomeComments.Margin" Value="-400 45 0 0"/>
+                        <Setter Target="IncomeAddButton.Margin" Value="0 380 400 0"/>
+
+                        <Setter Target="IncomeCategory.Width" Value="600"/>
+                        <Setter Target="IncomeSum.Width" Value="600"/>
+                        <Setter Target="IncomeAddButton.Width" Value="600"/>
+                        <Setter Target="IncomeComments.Width" Value="600"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="SmallWindowTrigger">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" MinWindowHeight="0"/>
+                    </VisualState.StateTriggers>
+
+                    <VisualState.Setters>
+                        <Setter Target="HistorySwitchBackground.Visibility" Value="Collapsed"/>
+                        <Setter Target="IncomeUserToggle.Visibility" Value="Collapsed"/>
+                        <Setter Target="IncomeHistoryViewer.Visibility" Value="Collapsed"/>
+                        <Setter Target="IncomeUserToggleText.Visibility" Value="Collapsed"/>
+
+                        <Setter Target="IncomeCategory.Margin" Value="0 -265 0 0"/>
+                        <Setter Target="IncomeSum.Margin" Value="0 -415 0 0"/>
+                        <Setter Target="IncomeComments.Margin" Value="0 45 0 0"/>
+                        <Setter Target="IncomeAddButton.Margin" Value="0 380 0 0"/>
+
+                        <Setter Target="IncomeCategory.Width" Value="480"/>
+                        <Setter Target="IncomeSum.Width" Value="480"/>
+                        <Setter Target="IncomeAddButton.Width" Value="480"/>
+                        <Setter Target="IncomeComments.Width" Value="480"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
         <TextBox x:Name="IncomeSum" PlaceholderText="Введите сумму дохода..." FontSize="30" 
                  Width="600" Height="55"
-                 HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-400 -415 0 0"/>
+                 HorizontalAlignment="Center" VerticalAlignment="Center" />
 
         <ComboBox Name="IncomeCategory" PlaceholderText="Выберите категорию" FontSize="30"
                   Width="600" Height="70"
-                  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-400 -265 0 0">
+                  HorizontalAlignment="Center" VerticalAlignment="Center" >
             <x:String>Зарплата</x:String>
             <x:String>Подработка</x:String>
             <x:String>Пенсия</x:String>
             <x:String>Подарок</x:String>
-            
         </ComboBox>
 
         <TextBox x:Name="IncomeComments" PlaceholderText="Введите комментарий..." FontSize="30" Width="600" Height="210"
-                 HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-400 45 0 0" 
+                 HorizontalAlignment="Center" VerticalAlignment="Center"
                  AcceptsReturn="True" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
 
-        <ScrollViewer HorizontalScrollBarVisibility="Disabled" HorizontalScrollMode="Disabled"
-                      Height="405" Width="400" BorderThickness="5"
-                      HorizontalAlignment="Center" VerticalAlignment="Center" Margin="650 0 0 65" BorderBrush="#33FFFFFF" 
-                      >
-        </ScrollViewer>
-
         <Button x:Name="IncomeAddButton" Width="600" Height="80"
-                HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 380 400 0"
+                HorizontalAlignment="Center" VerticalAlignment="Center" 
                 Content="Добавить доход" FontSize="30" VerticalContentAlignment="Center"/>
+
+        <ScrollViewer x:Name="IncomeHistoryViewer"  HorizontalScrollBarVisibility="Disabled" HorizontalScrollMode="Disabled"
+                      Height="405" Width="400" BorderThickness="5"
+                      HorizontalAlignment="Center" VerticalAlignment="Center" Margin="650 0 0 65" BorderBrush="#33FFFFFF">
+
+        </ScrollViewer>
 
         <Rectangle x:Name="HistorySwitchBackground" Width="400" Height="60"
                    HorizontalAlignment="Center" VerticalAlignment="Center" Margin="650 400 0 0"
@@ -67,7 +92,7 @@
                    HorizontalAlignment="Center" VerticalAlignment="Center" Margin="590 395 0 0"
                    />
 
-        <ToggleSwitch x:Name="ExpensesUserToggle" OnContent="" OffContent="" IsOn="False"
+        <ToggleSwitch x:Name="IncomeUserToggle" OnContent="" OffContent="" IsOn="False"
                       HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1050 400 0 0"/>
     </Grid>
 </Page>

@@ -11,6 +11,7 @@ using System.IO;
 using System.Xml.Linq;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.System;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -62,6 +63,14 @@ namespace Ваш_БанкирЪ
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
 
             this.InitializeComponent();
+        }
+
+        private void Grid_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == VirtualKey.Enter)
+            {
+                loginButton_Clicked(sender, e);
+            }
         }
 
         private void loginButton_Clicked(object sender, RoutedEventArgs e)

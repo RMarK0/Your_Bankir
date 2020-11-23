@@ -42,7 +42,7 @@ namespace Ваш_БанкирЪ
 
         public void FinanceAnalysisButton_Click(object sender, RoutedEventArgs e)
         {
-
+            Frame.Navigate(typeof(FinanceAnalysisPage));
         }
 
         public void AddTargetButton_Click(object sender, RoutedEventArgs e)

@@ -1,0 +1,25 @@
+﻿<Page
+    x:Class="Ваш_БанкирЪ.FinanceAnalysisPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Ваш_БанкирЪ"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Charting="using:WinRTXamlToolkit.Controls.DataVisualization.Charting"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Button x:Name="PrevMonthButton" Content="🢀" FontSize="25" Width="50" Height="50"
+                HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 450 1000 0"
+                VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Button x:Name="NextMonthButton" Content="🢂" FontSize="25" Width="50" Height="50"
+                HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 450 200 0"
+                VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+
+        <TextBlock x:Name="DiagramDateTextBlock" Text="Тест месяц 2019" Width="350" Height="50" FontSize="35"
+                   TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 450 600 0"
+                   />
+            
+    </Grid>
+</Page>

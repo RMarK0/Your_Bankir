@@ -8,12 +8,56 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <VisualStateManager.VisualStateGroups>
-        <!-- TODO: TRIGGERS MAFUKAAA -->
-    </VisualStateManager.VisualStateGroups>
+    <Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="BigWindowTrigger">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1250" MinWindowHeight="600"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="HistorySwitchBackground.Visibility" Value="Visible"/>
+                        <Setter Target="ExpensesUserToggle.Visibility" Value="Visible"/>
+                        <Setter Target="ExpensesHistoryViewer.Visibility" Value="Visible"/>
+                        <Setter Target="ExpensesUserToggleText.Visibility" Value="Visible"/>
+
+                        <Setter Target="ExpensesCategory.Margin" Value="-400 -265 0 0"/>
+                        <Setter Target="ExpensesSum.Margin" Value="-400 -415 0 0"/>
+                        <Setter Target="ExpensesComments.Margin" Value="-400 45 0 0"/>
+                        <Setter Target="ExpensesAddButton.Margin" Value="0 380 400 0"/>
+
+                        <Setter Target="ExpensesCategory.Width" Value="600"/>
+                        <Setter Target="ExpensesSum.Width" Value="600"/>
+                        <Setter Target="ExpensesAddButton.Width" Value="600"/>
+                        <Setter Target="ExpensesComments.Width" Value="600"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="SmallWindowTrigger">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" MinWindowHeight="0"/>
+                    </VisualState.StateTriggers>
+
+                    <VisualState.Setters>
+                        <Setter Target="HistorySwitchBackground.Visibility" Value="Collapsed"/>
+                        <Setter Target="ExpensesUserToggle.Visibility" Value="Collapsed"/>
+                        <Setter Target="ExpensesHistoryViewer.Visibility" Value="Collapsed"/>
+                        <Setter Target="ExpensesUserToggleText.Visibility" Value="Collapsed"/>
+
+                        <Setter Target="ExpensesCategory.Margin" Value="0 -265 0 0"/>
+                        <Setter Target="ExpensesSum.Margin" Value="0 -415 0 0"/>
+                        <Setter Target="ExpensesComments.Margin" Value="0 45 0 0"/>
+                        <Setter Target="ExpensesAddButton.Margin" Value="0 380 0 0"/>
+
+                        <Setter Target="ExpensesCategory.Width" Value="480"/>
+                        <Setter Target="ExpensesSum.Width" Value="480"/>
+                        <Setter Target="ExpensesAddButton.Width" Value="480"/>
+                        <Setter Target="ExpensesComments.Width" Value="480"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
 
 
-            <Grid>
         <TextBox x:Name="ExpensesSum" PlaceholderText="Введите сумму расхода..." FontSize="30" 
                  Width="600" Height="55"
                  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-400 -415 0 0"/>
@@ -35,7 +79,7 @@
                  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-400 45 0 0" 
                  AcceptsReturn="True" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
 
-        <ScrollViewer HorizontalScrollBarVisibility="Disabled" HorizontalScrollMode="Disabled"
+        <ScrollViewer x:Name="ExpensesHistoryViewer" HorizontalScrollBarVisibility="Disabled" HorizontalScrollMode="Disabled"
                       Height="405" Width="400" BorderThickness="5"
                       HorizontalAlignment="Center" VerticalAlignment="Center" Margin="650 0 0 65" BorderBrush="#33FFFFFF" 
                       >
