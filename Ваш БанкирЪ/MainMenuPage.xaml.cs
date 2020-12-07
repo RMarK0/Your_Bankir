@@ -22,12 +22,21 @@ namespace Ваш_БанкирЪ
     /// <summary>
     /// Пустая страница, которую можно использовать саму по себе или для перехода внутри фрейма.
     /// </summary>
+
     public sealed partial class MainMenuPage : Page
     {
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            var currentView = SystemNavigationManager.GetForCurrentView();
+            currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Disabled;
+        }
+        
         public MainMenuPage()
         {
             this.InitializeComponent();
-            
+            ActiveClientTextBlock.Text =
+                String.Format(
+                    $"ID:{LoginPage.ActiveClient.ID} GEN:{LoginPage.ActiveClient.Generation} NAME:{LoginPage.ActiveClient.Name}");
         }
 
         public void AddIncomeButton_Click(object sender, RoutedEventArgs e)
@@ -47,16 +56,17 @@ namespace Ваш_БанкирЪ
 
         public void AddTargetButton_Click(object sender, RoutedEventArgs e)
         {
-
+            Frame.Navigate(typeof(AddTargetSelectPage));
         }
 
         public void SettingsButton_Click(object sender, RoutedEventArgs e)
         {
-
+            Frame.Navigate(typeof(SettingsPage));
         }
 
         public void ExitButton_Click(object sender, RoutedEventArgs e)
         {
+            //Session.Close(); или что-то типа этого
             Frame.Navigate(typeof(LoginPage));
         }
     }

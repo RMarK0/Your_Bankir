@@ -92,6 +92,9 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="ActiveTargetsPage.xaml.cs">
+      <DependentUpon>ActiveTargetsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AddExpensesPage.xaml.cs">
       <DependentUpon>AddExpensesPage.xaml</DependentUpon>
     </Compile>
@@ -110,6 +113,7 @@
     <Compile Include="FinanceAnalysisPage.xaml.cs">
       <DependentUpon>FinanceAnalysisPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FinanceElements.cs" />
     <Compile Include="MainMenuPage.xaml.cs">
       <DependentUpon>MainMenuPage.xaml</DependentUpon>
     </Compile>
@@ -117,6 +121,9 @@
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -125,12 +132,14 @@
     <None Include="Ваш БанкирЪ_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\icons8-выход-96.png" />
-    <Content Include="Assets\icons8-график-96.png" />
-    <Content Include="Assets\icons8-добавить-квитанцию-96.png" />
-    <Content Include="Assets\icons8-настройки-96.png" />
-    <Content Include="Assets\icons8-отменить-платеж-96.png" />
-    <Content Include="Assets\icons8-получить-доллары-наличными-96.png" />
+    <Content Include="Assets\icons8-выход-96 %281%29.png" />
+    <Content Include="Assets\icons8-график-96 %281%29.png" />
+    <Content Include="Assets\icons8-добавить-квитанцию-96 %281%29.png" />
+    <Content Include="Assets\icons8-информация-96.png" />
+    <Content Include="Assets\icons8-настройки-96 %281%29.png" />
+    <Content Include="Assets\icons8-отменить-платеж-96 %281%29.png" />
+    <Content Include="Assets\icons8-получить-доллары-наличными-96 %281%29.png" />
+    <Content Include="Assets\icons8-редактировать-96.png" />
     <Content Include="Assets\logo-placeholder.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
@@ -149,6 +158,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="ActiveTargetsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AddExpensesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -177,13 +190,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="SettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.1.5</Version>
-    </PackageReference>
-    <PackageReference Include="WinRTXamlToolkit.Controls.DataVisualization.UWP">
-      <Version>2.3.0</Version>
+      <Version>6.2.11</Version>
     </PackageReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

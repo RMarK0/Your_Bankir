@@ -2,20 +2,26 @@
 <users>
   <user login="Dmitry">
     <passMD5>1364475428ad82dda84cbf2dce41e909</passMD5>
+    <ID>1</ID>
   </user>
   <user login="Zhanna">
     <passMD5>325ccfad88a9025cbb704ed0f12fa602</passMD5>
+    <ID>2</ID>
   </user>
   <user login="Andrey">
     <passMD5>3fbb16dead2a8acac3fe81e6dcc7b3c2</passMD5>
+    <ID>3</ID>
   </user>
   <user login="Taya">
     <passMD5>9627d171eff9e712f370d981d8cca894</passMD5>
+    <ID>4</ID>
   </user>
   <user login="Leonid">
     <passMD5>0a7083c14b732d58416ecaf9b082cd97</passMD5>
+    <ID>5</ID>
   </user>
   <user login="Galina">
     <passMD5>bc6c62b9d688cdf9e2e8fd3747fe8272</passMD5>
+    <ID>6</ID>
   </user>
 </users>

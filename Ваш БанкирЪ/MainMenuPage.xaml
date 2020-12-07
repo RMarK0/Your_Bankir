@@ -86,25 +86,28 @@
                Height="168" Width="168" Margin="0,0,0,0" Grid.Row="0"/>
 
         <Button x:Name="AddExpensesButton" Click="AddExpensesButton_Click">
-            <Image Source="Assets/icons8-отменить-платеж-96.png" HorizontalAlignment="Center" VerticalAlignment="Center" Height="90" Width="90"/>
+            <Image Source="Assets/icons8-отменить-платеж-96 (1).png" HorizontalAlignment="Center" VerticalAlignment="Center" Height="90" Width="90"/>
         </Button>
         <Button x:Name="AddIncomeButton" Click="AddIncomeButton_Click">
-            <Image Source="Assets/icons8-добавить-квитанцию-96.png" HorizontalAlignment="Center" VerticalAlignment="Center" Height="90" Width="90"/>
+            <Image Source="Assets/icons8-добавить-квитанцию-96 (1).png" HorizontalAlignment="Center" VerticalAlignment="Center" Height="90" Width="90"/>
         </Button>
         <Button x:Name="FinanceAnalysisButton" Click="FinanceAnalysisButton_Click">
-            <Image Source="Assets/icons8-график-96.png" HorizontalAlignment="Center" VerticalAlignment="Center" Height="90" Width="90"/>
+            <Image Source="Assets/icons8-график-96 (1).png" HorizontalAlignment="Center" VerticalAlignment="Center" Height="90" Width="90"/>
         </Button>
         <Button x:Name="AddTargetButton" Click="AddTargetButton_Click">
-            <Image Source="Assets/icons8-получить-доллары-наличными-96.png" HorizontalAlignment="Center" VerticalAlignment="Center" Height="90" Width="90"/>
+            <Image Source="Assets/icons8-получить-доллары-наличными-96 (1).png" HorizontalAlignment="Center" VerticalAlignment="Center" Height="90" Width="90"/>
         </Button>
         <Button x:Name="SettingsButton" Click="SettingsButton_Click">
-            <Image Source="Assets/icons8-настройки-96.png" HorizontalAlignment="Center" VerticalAlignment="Center" Height="90" Width="90"/>
+            <Image Source="Assets/icons8-настройки-96 (1).png" HorizontalAlignment="Center" VerticalAlignment="Center" Height="90" Width="90"/>
         </Button>
         <Button x:Name="ExitButton" Click="ExitButton_Click">
-            <Image Source="Assets/icons8-выход-96.png" HorizontalAlignment="Center" VerticalAlignment="Center" Height="90" Width="90"/>
+            <Image Source="Assets/icons8-выход-96 (1).png" HorizontalAlignment="Center" VerticalAlignment="Center" Height="90" Width="90"/>
         </Button>
 
-        <TextBlock Text="v1.0.0 Dmitry Rybalko" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Row="1" Margin="0 0 0 5"/>
+        <TextBlock x:Name="ActiveClientTextBlock" HorizontalAlignment="Center" VerticalAlignment="Bottom" 
+                   Grid.Row="1" FontSize="20" Margin="0 0 0 5" Text=""/>
 
     </Grid>
 </Page>
+    
+    <!-- TODO: 2. Сделать адаптивку и протестить цели и анализ финансов; -->

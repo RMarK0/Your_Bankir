@@ -9,6 +9,59 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="BigWindowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="720" MinWindowHeight="600"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="TargetCommsTextBox.Width" Value="700"/>
+                        <Setter Target="TargetNameTextBox.Width" Value="700"/>
+                        <Setter Target="TargetSumTextBox.Width" Value="700"/>
+                        <Setter Target="AddTargetButton.Width" Value="700"/>
+
+                        <Setter Target="TargetCommsTextBox.Height" Value="210"/>
+
+                        <Setter Target="TargetCommsTextBox.Margin" Value="0 30 0 0"/>
+                        <Setter Target="TargetSumTextBox.Margin" Value="0 0 0 280"/>
+                        <Setter Target="TargetNameTextBox.Margin" Value="0 0 0 450"/>
+                        <Setter Target="AddTargetButton.Margin" Value="0 400 0 0"/>
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="SmallWindowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" MinWindowHeight="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="TargetCommsTextBox.Width" Value="460"/>
+                        <Setter Target="TargetNameTextBox.Width" Value="460"/>
+                        <Setter Target="TargetSumTextBox.Width" Value="460"/>
+                        <Setter Target="AddTargetButton.Width" Value="460"/>
+
+                        <Setter Target="TargetCommsTextBox.Height" Value="180"/>
+
+                        <Setter Target="TargetCommsTextBox.Margin" Value="0 30 0 0"/>
+                        <Setter Target="TargetSumTextBox.Margin" Value="0 0 0 250"/>
+                        <Setter Target="TargetNameTextBox.Margin" Value="0 0 0 420"/>
+                        <Setter Target="AddTargetButton.Margin" Value="0 370 0 0"/>
+                    </VisualState.Setters>
+                </VisualState>
+
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <Button x:Name="AddTargetButton"  Height="100" Content="Добавить цель" FontSize="35"
+                VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 400 0 0"/>
+
+        <TextBox x:Name="TargetNameTextBox" Height="70" PlaceholderText="Введите название..." FontSize="35"
+                 VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 0 450"/>
+        <TextBox x:Name="TargetSumTextBox" Height="70" PlaceholderText="Введите сумму..." FontSize="35"
+                 VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 0 280"/>
+        <TextBox x:Name="TargetCommsTextBox" Height="210" PlaceholderText="Введите комментарий..." FontSize="35"
+                 VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 40 0 0"
+                 AcceptsReturn="True" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
 
     </Grid>
 </Page>

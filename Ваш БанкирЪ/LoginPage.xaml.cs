@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.IO;
+using System.ServiceModel.Dispatcher;
 using System.Xml.Linq;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -25,7 +26,7 @@ namespace Ваш_БанкирЪ
 {
     public sealed partial class LoginPage : Page
     {
-        private bool CheckPasswordComplete(string login, string password)
+        private bool InitializeUser(string login, string password, ref string ID)
         {
             XmlReader logPassReader = XmlReader.Create("G:\\Курсач\\Ваш БанкирЪ\\Ваш БанкирЪ\\bin\\x86\\Debug\\AppX\\LogPassDB.xml");
             XmlDocument logPassDocument = new XmlDocument();
@@ -49,7 +50,14 @@ namespace Ваш_БанкирЪ
                         foreach (XmlNode UserChildNode in User.ChildNodes)
                         {
                             if (UserChildNode.Name == "passMD5" && UserChildNode.InnerText == InputPasswordHash)
+                            {
+                                foreach (XmlNode ChildNode in User.ChildNodes)
+                                {
+                                    if (ChildNode.Name == "ID" && ChildNode != null)
+                                        ID = ChildNode.InnerText;
+                                }
                                 return true;
+                            }
                         }
                     }
                 }
@@ -73,14 +81,17 @@ namespace Ваш_БанкирЪ
             }
         }
 
+        public static Client ActiveClient;
         private void loginButton_Clicked(object sender, RoutedEventArgs e)
         {
             string login = LoginTextBox.Text;
             string password = PasswordBox.Password;
+            string ID = null;
 
-            if (CheckPasswordComplete(login, password))
+            if (InitializeUser(login, password, ref ID))
             {
                 PasswordErrorFlyout.Hide();
+                ActiveClient = new Client(login, ID); // ОБЯЗАТЕЛЬНО СДЕЛАТЬ ПАРСЕР ИЗ XML
                 Frame.Navigate(typeof(MainMenuPage));
             }
             else

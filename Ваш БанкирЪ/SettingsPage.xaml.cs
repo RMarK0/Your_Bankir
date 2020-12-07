@@ -5,7 +5,6 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -21,29 +20,11 @@ namespace Ваш_БанкирЪ
     /// <summary>
     /// Пустая страница, которую можно использовать саму по себе или для перехода внутри фрейма.
     /// </summary>
-    public sealed partial class AddTargetPage : Page
+    public sealed partial class SettingsPage : Page
     {
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
-        }
-
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
-        {
-            SystemNavigationManager.GetForCurrentView().BackRequested -= OnBackRequested;
-        }
-
-        private void OnBackRequested(object sender, BackRequestedEventArgs e)
-        {
-            Frame.Navigate(typeof(AddTargetSelectPage));
-            e.Handled = true;
-        }
-
-        public AddTargetPage()
+        public SettingsPage()
         {
             this.InitializeComponent();
-            var currentView = SystemNavigationManager.GetForCurrentView();
-            currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
         }
     }
 }

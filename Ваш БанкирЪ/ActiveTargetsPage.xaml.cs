@@ -21,7 +21,8 @@ namespace Ваш_БанкирЪ
     /// <summary>
     /// Пустая страница, которую можно использовать саму по себе или для перехода внутри фрейма.
     /// </summary>
-    public sealed partial class AddTargetSelectPage : Page
+
+    public sealed partial class ActiveTargetsPage : Page
     {
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -35,25 +36,20 @@ namespace Ваш_БанкирЪ
 
         private void OnBackRequested(object sender, BackRequestedEventArgs e)
         {
-            Frame.Navigate(typeof(MainMenuPage));
+            Frame.Navigate(typeof(AddTargetSelectPage));
             e.Handled = true;
         }
 
-        public AddTargetSelectPage()
+        public ActiveTargetsPage()
         {
             this.InitializeComponent();
             var currentView = SystemNavigationManager.GetForCurrentView();
             currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
+
+            
         }
 
-        private void AddTargetButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(AddTargetPage));
-        }
+        
 
-        private void EditTargetButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(ActiveTargetsPage));
-        }
     }
 }
