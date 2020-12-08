@@ -8,6 +8,7 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+
     <Grid>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
@@ -21,15 +22,15 @@
                         <Setter Target="IncomeHistoryViewer.Visibility" Value="Visible"/>
                         <Setter Target="IncomeUserToggleText.Visibility" Value="Visible"/>
 
-                        <Setter Target="IncomeCategory.Margin" Value="-400 -265 0 0"/>
-                        <Setter Target="IncomeSum.Margin" Value="-400 -415 0 0"/>
-                        <Setter Target="IncomeComments.Margin" Value="-400 45 0 0"/>
+                        <Setter Target="IncomeCategoryComboBox.Margin" Value="-400 -265 0 0"/>
+                        <Setter Target="IncomeSumTextBox.Margin" Value="-400 -415 0 0"/>
+                        <Setter Target="IncomeCommentsTextBox.Margin" Value="-400 45 0 0"/>
                         <Setter Target="IncomeAddButton.Margin" Value="0 380 400 0"/>
 
-                        <Setter Target="IncomeCategory.Width" Value="600"/>
-                        <Setter Target="IncomeSum.Width" Value="600"/>
+                        <Setter Target="IncomeCategoryComboBox.Width" Value="600"/>
+                        <Setter Target="IncomeSumTextBox.Width" Value="600"/>
                         <Setter Target="IncomeAddButton.Width" Value="600"/>
-                        <Setter Target="IncomeComments.Width" Value="600"/>
+                        <Setter Target="IncomeCommentsTextBox.Width" Value="600"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="SmallWindowTrigger">
@@ -43,25 +44,25 @@
                         <Setter Target="IncomeHistoryViewer.Visibility" Value="Collapsed"/>
                         <Setter Target="IncomeUserToggleText.Visibility" Value="Collapsed"/>
 
-                        <Setter Target="IncomeCategory.Margin" Value="0 -265 0 0"/>
-                        <Setter Target="IncomeSum.Margin" Value="0 -415 0 0"/>
-                        <Setter Target="IncomeComments.Margin" Value="0 45 0 0"/>
+                        <Setter Target="IncomeCategoryComboBox.Margin" Value="0 -265 0 0"/>
+                        <Setter Target="IncomeSumTextBox.Margin" Value="0 -415 0 0"/>
+                        <Setter Target="IncomeCommentsTextBox.Margin" Value="0 45 0 0"/>
                         <Setter Target="IncomeAddButton.Margin" Value="0 380 0 0"/>
 
-                        <Setter Target="IncomeCategory.Width" Value="480"/>
-                        <Setter Target="IncomeSum.Width" Value="480"/>
+                        <Setter Target="IncomeCategoryComboBox.Width" Value="480"/>
+                        <Setter Target="IncomeSumTextBox.Width" Value="480"/>
                         <Setter Target="IncomeAddButton.Width" Value="480"/>
-                        <Setter Target="IncomeComments.Width" Value="480"/>
+                        <Setter Target="IncomeCommentsTextBox.Width" Value="480"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
-        <TextBox x:Name="IncomeSum" PlaceholderText="Введите сумму дохода..." FontSize="30" 
-                 Width="600" Height="55"
+        <TextBox x:Name="IncomeSumTextBox" PlaceholderText="Введите сумму дохода..." FontSize="30" 
+                 Width="600" Height="55" BeforeTextChanging="IncomeSumTextBox_OnBeforeTextChanging"
                  HorizontalAlignment="Center" VerticalAlignment="Center" />
 
-        <ComboBox Name="IncomeCategory" PlaceholderText="Выберите категорию" FontSize="30"
+        <ComboBox Name="IncomeCategoryComboBox" PlaceholderText="Выберите категорию" FontSize="30"
                   Width="600" Height="70"
                   HorizontalAlignment="Center" VerticalAlignment="Center" >
             <x:String>Зарплата</x:String>
@@ -70,7 +71,7 @@
             <x:String>Подарок</x:String>
         </ComboBox>
 
-        <TextBox x:Name="IncomeComments" PlaceholderText="Введите комментарий..." FontSize="30" Width="600" Height="210"
+        <TextBox x:Name="IncomeCommentsTextBox" PlaceholderText="Введите комментарий..." FontSize="30" Width="600" Height="210"
                  HorizontalAlignment="Center" VerticalAlignment="Center"
                  AcceptsReturn="True" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
 

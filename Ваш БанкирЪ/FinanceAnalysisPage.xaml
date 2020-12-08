@@ -5,11 +5,20 @@
     xmlns:local="using:Ваш_БанкирЪ"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ch="using:WinRTXamlToolkit.Controls.DataVisualization.Charting"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <Button x:Name="PrevMonthButton" Content="🢀" FontSize="25" Width="50" Height="50"
+        <ch:Chart x:Name="PieChart" Width="500" Height="500" Margin="0 0 600 100" 
+                  VerticalAlignment="Center" HorizontalAlignment="Center">
+            <ch:PieSeries Margin="0 0 0 0" IndependentValuePath="DataName" 
+                          DependentValuePath="DataValue" IsSelectionEnabled="False">
+                
+            </ch:PieSeries>
+        </ch:Chart>
+
+                <Button x:Name="PrevMonthButton" Content="🢀" FontSize="25" Width="50" Height="50"
                 HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 450 1000 0"
                 VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
         <Button x:Name="NextMonthButton" Content="🢂" FontSize="25" Width="50" Height="50"

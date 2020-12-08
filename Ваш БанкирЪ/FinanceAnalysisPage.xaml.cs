@@ -13,6 +13,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using WinRTXamlToolkit.Controls.DataVisualization.Charting;
+
 // Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace Ваш_БанкирЪ
@@ -20,6 +22,13 @@ namespace Ваш_БанкирЪ
     /// <summary>
     /// Пустая страница, которую можно использовать саму по себе или для перехода внутри фрейма.
     /// </summary>
+
+    public class ChartData
+    {
+        public string DataName { get; set; }
+        public int DataValue { get; set; }
+    }
+
     public sealed partial class FinanceAnalysisPage : Page
     {
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -45,6 +54,13 @@ namespace Ваш_БанкирЪ
             this.InitializeComponent();
             var currentView = SystemNavigationManager.GetForCurrentView();
             currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
+
+            List<ChartData> ChartInfo = new List<ChartData>();
+            ChartInfo.Add(new ChartData() { DataName = "Порно", DataValue = 20 });
+            ChartInfo.Add(new ChartData() { DataName = "Социальные сети", DataValue = 10 });
+            ChartInfo.Add(new ChartData() { DataName = "Почта", DataValue = 5 });
+            ChartInfo.Add(new ChartData() { DataName = "Скачивание другого браузера", DataValue = 200 });
+            (PieChart.Series[0] as PieSeries).ItemsSource = ChartInfo;
         }
     }
 }

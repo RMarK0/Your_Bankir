@@ -12,28 +12,92 @@ namespace Ваш_БанкирЪ
     {
         private DateTime date;
         private int sum;
+        private string category;
         private Client client;
         private bool isIncome;
         private string comment;
 
-        public FinancialChange(int sum, bool isIncome, string comment)
+        public FinancialChange(int sum, bool isIncome, string comment, string category)
         {
             this.comment = comment;
             this.sum = sum;
             this.isIncome = isIncome;
+            this.category = category;
 
             client = LoginPage.ActiveClient;
             date = DateTime.Now;
         }
 
-        public FinancialChange(int sum, bool isIncome)
+        public FinancialChange(int sum, bool isIncome, string category)
         {
             this.sum = sum;
             this.isIncome = isIncome;
+            this.category = category;
 
             comment = "Комментарий отсутствует";
             client = LoginPage.ActiveClient;
             date = DateTime.Now;
+        }
+    }
+
+    public class FinancialChangeList : IEnumerable
+    {
+        FinancialChange[] _financialChangesList = new FinancialChange[100];
+
+        private bool _isFull;
+        public void AddFinancialChange(int sum, bool isIncome, string comment, string category)
+        {
+            FinancialChange temp = new FinancialChange(sum, isIncome, comment, category);
+            _isFull = true;
+            for (int i = 0; i < _financialChangesList.Length; i++)
+            {
+                if (_financialChangesList[i] == null)
+                {
+                    _financialChangesList[i] = temp;
+                    _isFull = false;
+                }
+            }
+        }
+
+        public void AddFinancialChange(int sum, bool isIncome, string category)
+        {
+            FinancialChange temp = new FinancialChange(sum, isIncome, category);
+            _isFull = true;
+            for (int i = 0; i < _financialChangesList.Length; i++)
+            {
+                if (_financialChangesList[i] == null)
+                {
+                    _financialChangesList[i] = temp;
+                    _isFull = false;
+                }
+            }
+        }
+
+        public void DeleteFinancialChange(int index)
+        {
+            FinancialChange[] temp = new FinancialChange[15];
+            int i = 0;
+            int i2 = 0;
+            while (i < index)
+            {
+                temp[i2] = _financialChangesList[i];
+                i2++;
+                i++;
+            }
+            i++;
+            for (; i < _financialChangesList.Length; i++)
+            {
+                temp[i2] = _financialChangesList[i];
+                i2++;
+            }
+            temp[i2] = null;
+            _financialChangesList = temp;
+        }
+
+
+        public IEnumerator GetEnumerator()
+        {
+            return _financialChangesList.GetEnumerator();
         }
     }
 

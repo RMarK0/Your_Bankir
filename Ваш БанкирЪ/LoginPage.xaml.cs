@@ -7,7 +7,6 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
-using System.IO;
 using System.ServiceModel.Dispatcher;
 using System.Xml.Linq;
 using Windows.Foundation;
@@ -28,7 +27,7 @@ namespace Ваш_БанкирЪ
     {
         private bool InitializeUser(string login, string password, ref string ID)
         {
-            XmlReader logPassReader = XmlReader.Create("G:\\Курсач\\Ваш БанкирЪ\\Ваш БанкирЪ\\bin\\x86\\Debug\\AppX\\LogPassDB.xml");
+            XmlReader logPassReader = XmlReader.Create("data/LogPassDB.xml");
             XmlDocument logPassDocument = new XmlDocument();
             logPassDocument.Load(logPassReader);
 
