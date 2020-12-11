@@ -31,12 +31,12 @@ namespace Ваш_БанкирЪ
             XmlDocument logPassDocument = new XmlDocument();
             logPassDocument.Load(logPassReader);
 
-            MD5 md5hasher = MD5.Create();
-            byte[] data = md5hasher.ComputeHash(Encoding.UTF8.GetBytes(password));
+            MD5 md5Hasher = MD5.Create();
+            byte[] data = md5Hasher.ComputeHash(Encoding.UTF8.GetBytes(password));
             StringBuilder stringBuilder = new StringBuilder();
             for (int i = 0; i < data.Length; i++)
                 stringBuilder.Append(data[i].ToString("x2"));
-            string InputPasswordHash = stringBuilder.ToString();
+            string inputPasswordHash = stringBuilder.ToString();
 
             XmlElement logPassRoot = logPassDocument.DocumentElement;
             foreach (XmlNode User in logPassRoot)
@@ -46,14 +46,14 @@ namespace Ваш_БанкирЪ
                     XmlNode loginNode = User.Attributes.GetNamedItem("login");
                     if (loginNode.Value == login)
                     {
-                        foreach (XmlNode UserChildNode in User.ChildNodes)
+                        foreach (XmlNode userChildNode in User.ChildNodes)
                         {
-                            if (UserChildNode.Name == "passMD5" && UserChildNode.InnerText == InputPasswordHash)
+                            if (userChildNode.Name == "passMD5" && userChildNode.InnerText == inputPasswordHash)
                             {
-                                foreach (XmlNode ChildNode in User.ChildNodes)
+                                foreach (XmlNode childNode in User.ChildNodes)
                                 {
-                                    if (ChildNode.Name == "ID" && ChildNode != null)
-                                        ID = ChildNode.InnerText;
+                                    if (childNode.Name == "ID" && childNode != null)
+                                        ID = childNode.InnerText;
                                 }
                                 return true;
                             }
@@ -62,6 +62,14 @@ namespace Ваш_БанкирЪ
                 }
             }
             return false;
+        }
+
+
+        private void InitializeData()
+        {
+            // Метод, осущ. ввод в массив FinancialChangesList данных из XML файла
+            // Данные ни в коем случае не должны добавляться до того, как данные из XML файла заполнят массив
+
         }
 
         public LoginPage()
@@ -80,6 +88,7 @@ namespace Ваш_БанкирЪ
             }
         }
 
+        public static FinancialChangeList FinancialChangesList;
         public static Client ActiveClient;
         private void loginButton_Clicked(object sender, RoutedEventArgs e)
         {
@@ -89,13 +98,13 @@ namespace Ваш_БанкирЪ
 
             if (InitializeUser(login, password, ref ID))
             {
-                PasswordErrorFlyout.Hide();
                 ActiveClient = new Client(login, ID); // ОБЯЗАТЕЛЬНО СДЕЛАТЬ ПАРСЕР ИЗ XML
+                InitializeData();
                 Frame.Navigate(typeof(MainMenuPage));
             }
             else
             {
-                PasswordErrorFlyout.ShowAt((Button)LoginButton);
+                PasswordErrorFlyout.ShowAt(LoginButton);
             }
         }
 

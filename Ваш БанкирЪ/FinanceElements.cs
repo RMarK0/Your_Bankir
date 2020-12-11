@@ -10,10 +10,10 @@ namespace Ваш_БанкирЪ
 {
     internal class FinancialChange
     {
-        private DateTime date;
+        private long date;
         private int sum;
         private string category;
-        private Client client;
+        private string clientID;
         private bool isIncome;
         private string comment;
 
@@ -24,8 +24,8 @@ namespace Ваш_БанкирЪ
             this.isIncome = isIncome;
             this.category = category;
 
-            client = LoginPage.ActiveClient;
-            date = DateTime.Now;
+            clientID = LoginPage.ActiveClient.ID;
+            date = DateTime.Now.ToBinary();
         }
 
         public FinancialChange(int sum, bool isIncome, string category)
@@ -35,8 +35,8 @@ namespace Ваш_БанкирЪ
             this.category = category;
 
             comment = "Комментарий отсутствует";
-            client = LoginPage.ActiveClient;
-            date = DateTime.Now;
+            clientID = LoginPage.ActiveClient.ID;
+            date = DateTime.Now.ToBinary();
         }
     }
 
@@ -103,13 +103,13 @@ namespace Ваш_БанкирЪ
 
     public class Target
     {
-        public string Name; // вручную
-        public int FullSum; // вручную
-        public string Comment; // вручную
+        private string Name; // вручную
+        private int FullSum; // вручную
+        private string Comment; // вручную
 
-        public int CurrentSum; // автоматически
-        public DateTime DateAdded; // автоматически
-        public Client ClientAdded; // автоматически
+        private int CurrentSum; // автоматически
+        private long DateAdded; // автоматически
+        private string ClientID; // автоматически
 
         public Target(string name, int fullSum, string comment)
         {
@@ -117,9 +117,9 @@ namespace Ваш_БанкирЪ
             FullSum = fullSum;
             Comment = comment;
 
-            DateAdded = DateTime.Now;
+            DateAdded = DateTime.Now.ToBinary();
             CurrentSum = 0;
-            ClientAdded = LoginPage.ActiveClient;
+            ClientID = LoginPage.ActiveClient.ID;
         }
 
         public Target(string name, int fullSum)
@@ -128,25 +128,25 @@ namespace Ваш_БанкирЪ
             FullSum = fullSum;
             Comment = "Комментарий отсутствует";
 
-            DateAdded = DateTime.Now;
+            DateAdded = DateTime.Now.ToBinary();
             CurrentSum = 0;
-            ClientAdded = LoginPage.ActiveClient;
+            ClientID = LoginPage.ActiveClient.ID;
         }
     }
 
     public class TargetList : IEnumerable
     {
-        Target[] TargetsList = new Target[15];
+        Target[] _targetsList = new Target[15];
 
         public bool IsFull;
         public void AddTarget(string name, int fullSum, string comment)
         {
             IsFull = true;
-            for (int i = 0; i < TargetsList.Length; i++)
+            for (int i = 0; i < _targetsList.Length; i++)
             {
-                if (TargetsList[i] == null)
+                if (_targetsList[i] == null)
                 {
-                    TargetsList[i] = new Target(name, fullSum, comment);
+                    _targetsList[i] = new Target(name, fullSum, comment);
                     IsFull = false;
                 }
             }
@@ -155,11 +155,11 @@ namespace Ваш_БанкирЪ
         public void AddTarget(string name, int fullSum)
         {
             IsFull = true;
-            for (int i = 0; i < TargetsList.Length; i++)
+            for (int i = 0; i < _targetsList.Length; i++)
             {
-                if (TargetsList[i] == null)
+                if (_targetsList[i] == null)
                 {
-                    TargetsList[i] = new Target(name, fullSum);
+                    _targetsList[i] = new Target(name, fullSum);
                     IsFull = false;
                 }
             }
@@ -172,23 +172,23 @@ namespace Ваш_БанкирЪ
             int i2 = 0;
             while (i < index)
             {
-                temp[i2] = TargetsList[i];
+                temp[i2] = _targetsList[i];
                 i2++;
                 i++;
             }
             i++;
-            for (; i < TargetsList.Length; i++)
+            for (; i < _targetsList.Length; i++)
             {
-                temp[i2] = TargetsList[i];
+                temp[i2] = _targetsList[i];
                 i2++;
             }
             temp[i2] = null;
-            TargetsList = temp;
+            _targetsList = temp;
         }
 
         public IEnumerator GetEnumerator()
         {
-            return TargetsList.GetEnumerator();
+            return _targetsList.GetEnumerator();
         }
     }
 

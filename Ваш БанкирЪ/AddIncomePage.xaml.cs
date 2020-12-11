@@ -52,5 +52,46 @@ namespace Ваш_БанкирЪ
         {
             args.Cancel = args.NewText.Any(c => !char.IsDigit(c));
         }
+
+        private void IncomeAddButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            string comment = IncomeCommentsTextBox.Text;
+            if (IncomeSumTextBox.Text.Trim() != "")
+            {
+                int sum = Convert.ToInt32(IncomeSumTextBox.Text);
+                if (IncomeCategoryComboBox.SelectedItem != null)
+                {
+                    string category = IncomeCategoryComboBox.SelectedItem.ToString();
+                    if (comment.Trim() != "")
+                    {
+                        
+                    }
+                    else
+                    {
+                        
+                    }
+
+
+
+
+                    IncomeErrorText.Text = "Доход успешно добавлен";
+                }
+                else
+                {
+                    IncomeErrorText.Text = "Категория не выбрана";
+                    IncomeErrorFlyout.ShowAt(IncomeAddButton);
+                }
+            }
+            else
+            {
+                IncomeErrorText.Text = "Сумма не введена";
+                IncomeErrorFlyout.ShowAt(IncomeAddButton);
+            }
+        }
+
+        private void ErrorFlyout_Click(object sender, RoutedEventArgs e)
+        {
+            IncomeErrorFlyout.Hide();
+        }
     }
 }

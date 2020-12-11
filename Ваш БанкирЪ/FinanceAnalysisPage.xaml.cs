@@ -55,11 +55,13 @@ namespace Ваш_БанкирЪ
             var currentView = SystemNavigationManager.GetForCurrentView();
             currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
 
-            List<ChartData> ChartInfo = new List<ChartData>();
-            ChartInfo.Add(new ChartData() { DataName = "Порно", DataValue = 20 });
-            ChartInfo.Add(new ChartData() { DataName = "Социальные сети", DataValue = 10 });
-            ChartInfo.Add(new ChartData() { DataName = "Почта", DataValue = 5 });
-            ChartInfo.Add(new ChartData() { DataName = "Скачивание другого браузера", DataValue = 200 });
+            List<ChartData> ChartInfo = new List<ChartData>
+            {
+                new ChartData() {DataName = "Порно", DataValue = 20},
+                new ChartData() {DataName = "Социальные сети", DataValue = 10},
+                new ChartData() {DataName = "Почта", DataValue = 5},
+                new ChartData() {DataName = "Скачивание другого браузера", DataValue = 200}
+            };
             (PieChart.Series[0] as PieSeries).ItemsSource = ChartInfo;
         }
     }

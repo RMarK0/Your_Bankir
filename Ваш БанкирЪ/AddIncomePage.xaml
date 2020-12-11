@@ -76,8 +76,21 @@
                  AcceptsReturn="True" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
 
         <Button x:Name="IncomeAddButton" Width="600" Height="80"
-                HorizontalAlignment="Center" VerticalAlignment="Center" 
-                Content="Добавить доход" FontSize="30" VerticalContentAlignment="Center"/>
+                HorizontalAlignment="Center" VerticalAlignment="Center" Click="IncomeAddButton_OnClick"
+                Content="Добавить доход" FontSize="30" VerticalContentAlignment="Center">
+            <Button.Flyout>
+                <Flyout x:Name="IncomeErrorFlyout">
+                    <Flyout.Content>
+                        <StackPanel>
+                            <TextBlock x:Name="IncomeErrorText" Text="" />
+                            <Button Click="ErrorFlyout_Click" Content="OK"/>
+                        </StackPanel>
+                    </Flyout.Content>
+                </Flyout>
+
+            </Button.Flyout>
+
+        </Button>
 
         <ScrollViewer x:Name="IncomeHistoryViewer"  HorizontalScrollBarVisibility="Disabled" HorizontalScrollMode="Disabled"
                       Height="405" Width="400" BorderThickness="5"

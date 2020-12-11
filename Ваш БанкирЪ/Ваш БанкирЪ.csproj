@@ -142,6 +142,7 @@
     <Content Include="Assets\icons8-редактировать-96.png" />
     <Content Include="Assets\logo-placeholder.png" />
     <Content Include="data\ChangesData.xml" />
+    <Content Include="data\TargetsData.xml" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
