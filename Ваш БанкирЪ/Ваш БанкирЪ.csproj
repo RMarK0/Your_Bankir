@@ -114,6 +114,7 @@
       <DependentUpon>FinanceAnalysisPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="FinanceElements.cs" />
+    <Compile Include="FunctionClass.cs" />
     <Compile Include="MainMenuPage.xaml.cs">
       <DependentUpon>MainMenuPage.xaml</DependentUpon>
     </Compile>
@@ -140,9 +141,14 @@
     <Content Include="Assets\icons8-отменить-платеж-96 %281%29.png" />
     <Content Include="Assets\icons8-получить-доллары-наличными-96 %281%29.png" />
     <Content Include="Assets\icons8-редактировать-96.png" />
+    <Content Include="Assets\icons8-удалить-96.png" />
     <Content Include="Assets\logo-placeholder.png" />
-    <Content Include="data\ChangesData.xml" />
-    <Content Include="data\TargetsData.xml" />
+    <Content Include="data\ChangesData.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="data\TargetsData.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

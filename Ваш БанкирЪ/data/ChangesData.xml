@@ -1,12 +1,9 @@
-﻿<?xml version="1.0" encoding="utf-8" ?> 
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <changes>
-  <change>
-    <date> </date>
-    <sum> </sum>
-    <category> </category>
-    <clientID> </clientID>
-    <isIncome> </isIncome>
-    <comment> </comment>
-  </change>
-
+  <date> </date>
+  <sum></sum>
+  <category></category>
+  <clientID></clientID>
+  <isIncome></isIncome>
+  <comment></comment>
 </changes>

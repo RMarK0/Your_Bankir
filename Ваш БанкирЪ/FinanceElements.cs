@@ -5,17 +5,18 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Xml;
+using WinRTXamlToolkit.Controls;
 
 namespace Ваш_БанкирЪ
 {
     internal class FinancialChange
     {
-        private long date;
-        private int sum;
-        private string category;
-        private string clientID;
-        private bool isIncome;
-        private string comment;
+        public long date { get; private set; }
+        public int sum { get; private set; }
+        public string category { get; private set; }
+        public string clientID { get; private set; }
+        public bool isIncome { get; private set; }
+        public string comment { get; private set; }
 
         public FinancialChange(int sum, bool isIncome, string comment, string category)
         {
@@ -24,7 +25,7 @@ namespace Ваш_БанкирЪ
             this.isIncome = isIncome;
             this.category = category;
 
-            clientID = LoginPage.ActiveClient.ID;
+            clientID = App.ActiveClient.ID;
             date = DateTime.Now.ToBinary();
         }
 
@@ -35,46 +36,82 @@ namespace Ваш_БанкирЪ
             this.category = category;
 
             comment = "Комментарий отсутствует";
-            clientID = LoginPage.ActiveClient.ID;
+            clientID = App.ActiveClient.ID;
             date = DateTime.Now.ToBinary();
+        }
+
+        public FinancialChange(int sum, bool isIncome, string comment, string category, long date,
+            string clientID)
+        {
+            this.comment = comment;
+            this.sum = sum;
+            this.isIncome = isIncome;
+            this.category = category;
+            this.clientID = clientID;
+            this.date = date;
         }
     }
 
     public class FinancialChangeList : IEnumerable
     {
-        FinancialChange[] _financialChangesList = new FinancialChange[100];
+        private FinancialChange[] _financialChangesList;
+        public int Capacity { get; }
+        public int Count { get; private set; }
 
-        private bool _isFull;
+        public FinancialChangeList(int capacity)
+        {
+            Capacity = capacity;
+            Count = 0;
+            _financialChangesList = new FinancialChange[Capacity];
+        }
+
+        public void AddFinancialChange(int sum, bool isIncome, string comment, string category, long date,
+            string clientID)
+        {
+            if (Count < Capacity)
+            {
+                _financialChangesList[Count] = new FinancialChange(sum, isIncome, comment, category, date, clientID);
+                FunctionClass.AddToXML(_financialChangesList[Count]);
+                Count++;
+            }
+            else
+            {
+                throw new StackOverflowException("_financialChangesList is full, can't add new change to array");
+            }
+        }
+
         public void AddFinancialChange(int sum, bool isIncome, string comment, string category)
         {
-            FinancialChange temp = new FinancialChange(sum, isIncome, comment, category);
-            _isFull = true;
-            for (int i = 0; i < _financialChangesList.Length; i++)
+            if (Count < Capacity)
             {
-                if (_financialChangesList[i] == null)
-                {
-                    _financialChangesList[i] = temp;
-                    _isFull = false;
-                }
+                _financialChangesList[Count] = new FinancialChange(sum, isIncome, comment, category);
+                FunctionClass.AddToXML(_financialChangesList[Count]);
+                Count++;
+            }
+            else
+            {
+                throw new StackOverflowException("_financialChangesList is full, can't add new change to array");
             }
         }
 
         public void AddFinancialChange(int sum, bool isIncome, string category)
         {
-            FinancialChange temp = new FinancialChange(sum, isIncome, category);
-            _isFull = true;
-            for (int i = 0; i < _financialChangesList.Length; i++)
+            if (Count < Capacity)
             {
-                if (_financialChangesList[i] == null)
-                {
-                    _financialChangesList[i] = temp;
-                    _isFull = false;
-                }
+                _financialChangesList[Count] = new FinancialChange(sum, isIncome, category);
+                FunctionClass.AddToXML(_financialChangesList[Count]);
+                Count++;
+            }
+            else
+            {
+                throw new StackOverflowException("_financialChangesList is full, can't add new change to array");
             }
         }
 
         public void DeleteFinancialChange(int index)
         {
+            FunctionClass.DeleteFromXML(index, new FinancialChange(1, true, ""));
+
             FinancialChange[] temp = new FinancialChange[15];
             int i = 0;
             int i2 = 0;
@@ -92,8 +129,8 @@ namespace Ваш_БанкирЪ
             }
             temp[i2] = null;
             _financialChangesList = temp;
+            Count--;
         }
-
 
         public IEnumerator GetEnumerator()
         {
@@ -101,15 +138,15 @@ namespace Ваш_БанкирЪ
         }
     }
 
-    public class Target
+    internal class Target
     {
-        private string Name; // вручную
-        private int FullSum; // вручную
-        private string Comment; // вручную
+        public string Name { get; private set; }
+        public int FullSum { get; private set; }
+        public string Comment { get; private set; }
 
-        private int CurrentSum; // автоматически
-        private long DateAdded; // автоматически
-        private string ClientID; // автоматически
+        public int CurrentSum { get; private set; } 
+        public long DateAdded { get; private set; } 
+        public string ClientID { get; private set; } 
 
         public Target(string name, int fullSum, string comment)
         {
@@ -119,7 +156,7 @@ namespace Ваш_БанкирЪ
 
             DateAdded = DateTime.Now.ToBinary();
             CurrentSum = 0;
-            ClientID = LoginPage.ActiveClient.ID;
+            ClientID = App.ActiveClient.ID;
         }
 
         public Target(string name, int fullSum)
@@ -130,44 +167,80 @@ namespace Ваш_БанкирЪ
 
             DateAdded = DateTime.Now.ToBinary();
             CurrentSum = 0;
-            ClientID = LoginPage.ActiveClient.ID;
+            ClientID = App.ActiveClient.ID;
+        }
+
+        public Target(string name, int fullSum, string comment, long dateAdded, int currentSum, string clientID)
+        {
+            Name = name;
+            FullSum = fullSum;
+            Comment = comment;
+            DateAdded = dateAdded;
+            CurrentSum = currentSum;
+            ClientID = clientID;
         }
     }
 
     public class TargetList : IEnumerable
     {
-        Target[] _targetsList = new Target[15];
+        private Target[] _targetsList;
+        public int Capacity { get; }
+        public int Count { get; private set; }
 
-        public bool IsFull;
+        public TargetList(int capacity)
+        {
+            Count = 0;
+            Capacity = capacity;
+            _targetsList = new Target[Capacity];
+        }
+
+        public void AddTarget(string name, int fullSum, string comment, long dateAdded, int currentSum, string clientID)
+        {
+            if (Count < Capacity)
+            {
+                _targetsList[Count] = new Target(name, fullSum, comment, dateAdded, currentSum, clientID);
+                FunctionClass.AddToXML(_targetsList[Count]);
+                Count++;
+            }
+            else
+            {
+                throw new StackOverflowException("_targetsList is full and new target can't be added");
+            }
+        }
+
         public void AddTarget(string name, int fullSum, string comment)
         {
-            IsFull = true;
-            for (int i = 0; i < _targetsList.Length; i++)
+            if (Count < Capacity)
             {
-                if (_targetsList[i] == null)
-                {
-                    _targetsList[i] = new Target(name, fullSum, comment);
-                    IsFull = false;
-                }
+                _targetsList[Count] = new Target(name, fullSum, comment);
+                FunctionClass.AddToXML(_targetsList[Count]);
+                Count++;
+            }
+            else
+            {
+                throw new StackOverflowException("_targetsList is full and new target can't be added");
             }
         }
 
         public void AddTarget(string name, int fullSum)
         {
-            IsFull = true;
-            for (int i = 0; i < _targetsList.Length; i++)
+            if (Count < Capacity)
             {
-                if (_targetsList[i] == null)
-                {
-                    _targetsList[i] = new Target(name, fullSum);
-                    IsFull = false;
-                }
+                _targetsList[Count] = new Target(name, fullSum);
+                FunctionClass.AddToXML(_targetsList[Count]);
+                Count++;
+            }
+            else
+            {
+                throw new StackOverflowException("_targetsList is full and new target can't be added");
             }
         }
 
         public void DeleteTarget(int index)
         {
-            Target[] temp = new Target[15];
+            FunctionClass.DeleteFromXML(index, new Target("", 1));
+
+            Target[] temp = new Target[Capacity];
             int i = 0;
             int i2 = 0;
             while (i < index)
@@ -184,6 +257,7 @@ namespace Ваш_БанкирЪ
             }
             temp[i2] = null;
             _targetsList = temp;
+            Count--;
         }
 
         public IEnumerator GetEnumerator()
@@ -199,7 +273,7 @@ namespace Ваш_БанкирЪ
         public string ID { get; }
         public string Name { get; }
 
-        public Client(string name, string ID) // ОБЯЗАТЕЛЬНО СДЕЛАТЬ ПАРСЕР ИЗ XML
+        public Client(string name, string ID)
         {
             Name = name;
             this.ID = ID;

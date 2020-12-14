@@ -36,7 +36,7 @@ namespace Ваш_БанкирЪ
             this.InitializeComponent();
             ActiveClientTextBlock.Text =
                 String.Format(
-                    $"ID:{LoginPage.ActiveClient.ID} GEN:{LoginPage.ActiveClient.Generation} NAME:{LoginPage.ActiveClient.Name}");
+                    $"ID:{App.ActiveClient.ID} GEN:{App.ActiveClient.Generation} NAME:{App.ActiveClient.Name}");
         }
 
         public void AddIncomeButton_Click(object sender, RoutedEventArgs e)

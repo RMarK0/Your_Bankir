@@ -38,6 +38,11 @@ namespace Ваш_БанкирЪ
         /// например, если приложение запускается для открытия конкретного файла.
         /// </summary>
         /// <param name="e">Сведения о запросе и обработке запуска.</param>
+
+        public static FinancialChangeList FinancialChangesList;
+        public static TargetList TargetsList;
+        public static Client ActiveClient;
+
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
             Frame rootFrame = Window.Current.Content as Frame;

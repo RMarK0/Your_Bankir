@@ -27,10 +27,6 @@ namespace Ваш_БанкирЪ
     {
         private bool InitializeUser(string login, string password, ref string ID)
         {
-            XmlReader logPassReader = XmlReader.Create("data/LogPassDB.xml");
-            XmlDocument logPassDocument = new XmlDocument();
-            logPassDocument.Load(logPassReader);
-
             MD5 md5Hasher = MD5.Create();
             byte[] data = md5Hasher.ComputeHash(Encoding.UTF8.GetBytes(password));
             StringBuilder stringBuilder = new StringBuilder();
@@ -38,6 +34,9 @@ namespace Ваш_БанкирЪ
                 stringBuilder.Append(data[i].ToString("x2"));
             string inputPasswordHash = stringBuilder.ToString();
 
+            XmlReader logPassReader = XmlReader.Create("data/LogPassDB.xml");
+            XmlDocument logPassDocument = new XmlDocument();
+            logPassDocument.Load(logPassReader);
             XmlElement logPassRoot = logPassDocument.DocumentElement;
             foreach (XmlNode User in logPassRoot)
             {
@@ -52,7 +51,7 @@ namespace Ваш_БанкирЪ
                             {
                                 foreach (XmlNode childNode in User.ChildNodes)
                                 {
-                                    if (childNode.Name == "ID" && childNode != null)
+                                    if (childNode.Name == "ID")
                                         ID = childNode.InnerText;
                                 }
                                 return true;
@@ -62,14 +61,6 @@ namespace Ваш_БанкирЪ
                 }
             }
             return false;
-        }
-
-
-        private void InitializeData()
-        {
-            // Метод, осущ. ввод в массив FinancialChangesList данных из XML файла
-            // Данные ни в коем случае не должны добавляться до того, как данные из XML файла заполнят массив
-
         }
 
         public LoginPage()
@@ -88,8 +79,7 @@ namespace Ваш_БанкирЪ
             }
         }
 
-        public static FinancialChangeList FinancialChangesList;
-        public static Client ActiveClient;
+        
         private void loginButton_Clicked(object sender, RoutedEventArgs e)
         {
             string login = LoginTextBox.Text;
@@ -98,8 +88,8 @@ namespace Ваш_БанкирЪ
 
             if (InitializeUser(login, password, ref ID))
             {
-                ActiveClient = new Client(login, ID); // ОБЯЗАТЕЛЬНО СДЕЛАТЬ ПАРСЕР ИЗ XML
-                InitializeData();
+                App.ActiveClient = new Client(login, ID); // ОБЯЗАТЕЛЬНО СДЕЛАТЬ ПАРСЕР ИЗ XML
+                FunctionClass.InitializeData();
                 Frame.Navigate(typeof(MainMenuPage));
             }
             else
