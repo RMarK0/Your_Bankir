@@ -26,7 +26,7 @@ namespace Ваш_БанкирЪ
 
             App.FinancialChangesList = new FinancialChangeList(200); // сделать настройку Capacity из настроек
             App.TargetsList = new TargetList(15);                    // аналогично и тут
-
+            
             int ChangesXML = 0;
             int TargetsXML = 0;
 
@@ -44,22 +44,22 @@ namespace Ваш_БанкирЪ
                     switch (TargetChildNode.Name)
                     {
                         case ("name"):
-                            name = TargetChildNode.Value;
+                            name = TargetChildNode.InnerText;
                             break;
                         case ("fullSum"):
-                            fullSum = Convert.ToInt32(TargetChildNode.Value);
+                            fullSum = Convert.ToInt32(TargetChildNode.InnerText);
                             break;
                         case ("comment"):
-                            comment = TargetChildNode.Value;
+                            comment = TargetChildNode.InnerText;
                             break;
                         case ("currentSum"):
-                            currentSum = Convert.ToInt32(TargetChildNode.Value);
+                            currentSum = Convert.ToInt32(TargetChildNode.InnerText);
                             break;
                         case ("date"):
-                            dateAdded = Convert.ToInt64(TargetChildNode.Value);
+                            dateAdded = Convert.ToInt64(TargetChildNode.InnerText);
                             break;
                         case ("clientID"):
-                            clientId = TargetChildNode.Value;
+                            clientId = TargetChildNode.InnerText;
                             break;
                     }
                 }
@@ -81,22 +81,22 @@ namespace Ваш_БанкирЪ
                     switch (ChangeChildNode.Name)
                     {
                         case ("date"):
-                            date = Convert.ToInt64(ChangeChildNode.Value);
+                            date = Convert.ToInt64(ChangeChildNode.InnerText);
                             break;
                         case ("sum"):
-                            sum = Convert.ToInt32(ChangeChildNode.Value);
+                            sum = Convert.ToInt32(ChangeChildNode.InnerText);
                             break;
                         case ("category"):
-                            category = ChangeChildNode.Value;
+                            category = ChangeChildNode.InnerText;
                             break;
                         case ("clientID"):
-                            clientID = ChangeChildNode.Value;
+                            clientID = ChangeChildNode.InnerText;
                             break;
                         case ("isIncome"):
-                            isIncome = Convert.ToBoolean(ChangeChildNode.Value);
+                            isIncome = Convert.ToBoolean(ChangeChildNode.InnerText);
                             break;
                         case ("comment"):
-                            comment = ChangeChildNode.Value;
+                            comment = ChangeChildNode.InnerText;
                             break;
                     }
                 }

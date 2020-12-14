@@ -71,7 +71,6 @@ namespace Ваш_БанкирЪ
             if (Count < Capacity)
             {
                 _financialChangesList[Count] = new FinancialChange(sum, isIncome, comment, category, date, clientID);
-                FunctionClass.AddToXML(_financialChangesList[Count]);
                 Count++;
             }
             else
@@ -85,7 +84,6 @@ namespace Ваш_БанкирЪ
             if (Count < Capacity)
             {
                 _financialChangesList[Count] = new FinancialChange(sum, isIncome, comment, category);
-                FunctionClass.AddToXML(_financialChangesList[Count]);
                 Count++;
             }
             else
@@ -99,7 +97,6 @@ namespace Ваш_БанкирЪ
             if (Count < Capacity)
             {
                 _financialChangesList[Count] = new FinancialChange(sum, isIncome, category);
-                FunctionClass.AddToXML(_financialChangesList[Count]);
                 Count++;
             }
             else
@@ -110,7 +107,7 @@ namespace Ваш_БанкирЪ
 
         public void DeleteFinancialChange(int index)
         {
-            FunctionClass.DeleteFromXML(index, new FinancialChange(1, true, ""));
+            
 
             FinancialChange[] temp = new FinancialChange[15];
             int i = 0;
@@ -199,7 +196,6 @@ namespace Ваш_БанкирЪ
             if (Count < Capacity)
             {
                 _targetsList[Count] = new Target(name, fullSum, comment, dateAdded, currentSum, clientID);
-                FunctionClass.AddToXML(_targetsList[Count]);
                 Count++;
             }
             else
@@ -213,7 +209,6 @@ namespace Ваш_БанкирЪ
             if (Count < Capacity)
             {
                 _targetsList[Count] = new Target(name, fullSum, comment);
-                FunctionClass.AddToXML(_targetsList[Count]);
                 Count++;
             }
             else
@@ -227,7 +222,6 @@ namespace Ваш_БанкирЪ
             if (Count < Capacity)
             {
                 _targetsList[Count] = new Target(name, fullSum);
-                FunctionClass.AddToXML(_targetsList[Count]);
                 Count++;
             }
             else
@@ -238,7 +232,7 @@ namespace Ваш_БанкирЪ
 
         public void DeleteTarget(int index)
         {
-            FunctionClass.DeleteFromXML(index, new Target("", 1));
+            
 
             Target[] temp = new Target[Capacity];
             int i = 0;

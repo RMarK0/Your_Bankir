@@ -1,9 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <changes>
-  <date> </date>
-  <sum></sum>
-  <category></category>
-  <clientID></clientID>
-  <isIncome></isIncome>
-  <comment></comment>
+  <change>
+    <date>1838224</date>
+    <sum>1506</sum>
+    <category>gavno</category>
+    <clientID>1</clientID>
+    <isIncome>false</isIncome>
+    <comment>comms</comment>
+   </change>
 </changes>

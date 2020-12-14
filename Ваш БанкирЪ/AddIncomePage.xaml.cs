@@ -46,52 +46,55 @@ namespace Ваш_БанкирЪ
         {
             foreach (FinancialChange change in App.FinancialChangesList)
             {
-                long date = change.date;
-                int sum = change.sum;
-                bool isIncome = change.isIncome;
-                DateTime changeDate = DateTime.FromBinary(date);
-
-                string header;
-                
-                if (isIncome)
+                if (change != null)
                 {
-                    header = String.Format($"Доход от {changeDate.ToShortDateString()}");
+                    long date = change.date;
+                    int sum = change.sum;
+                    bool isIncome = change.isIncome;
+                    DateTime changeDate = DateTime.FromBinary(date);
+
+                    string header;
+
+                    if (isIncome)
+                    {
+                        header = String.Format($"Доход от {changeDate.ToShortDateString()}");
+                    }
+                    else
+                    {
+                        header = String.Format($"Расход от {changeDate.ToShortDateString()}");
+                    }
+
+                    Grid changeGrid = new Grid();
+                    changeGrid.Height = 70;
+                    changeGrid.Margin = new Thickness(0, 0, 0, 20);
+
+                    TextBlock headerTextBlock = new TextBlock();
+                    headerTextBlock.VerticalAlignment = VerticalAlignment.Top;
+                    headerTextBlock.HorizontalAlignment = HorizontalAlignment.Left;
+                    headerTextBlock.FontSize = 25;
+                    headerTextBlock.Text = header;
+
+                    TextBlock sumTextBlock = new TextBlock();
+                    sumTextBlock.VerticalAlignment = VerticalAlignment.Bottom;
+                    sumTextBlock.HorizontalAlignment = HorizontalAlignment.Left;
+                    sumTextBlock.FontSize = 25;
+                    sumTextBlock.Text = String.Format("{0:### ### ### ### ###} ₽", sum.ToString());
+
+                    Button deleteButton = new Button();
+                    deleteButton.VerticalAlignment = VerticalAlignment.Center;
+                    deleteButton.HorizontalAlignment = HorizontalAlignment.Right;
+                    deleteButton.Height = 70;
+                    deleteButton.Width = 70;
+
+                    Image deleteButtonIcon = new Image();
+                    deleteButtonIcon.Source = new BitmapImage(new Uri("ms-appx:///Assets/icons8-удалить-96.png"));
+                    deleteButton.Content = deleteButtonIcon;
+
+                    changeGrid.Children.Add(headerTextBlock);
+                    changeGrid.Children.Add(sumTextBlock);
+                    changeGrid.Children.Add(deleteButton);
+                    ChangesHistory.Children.Add(changeGrid);
                 }
-                else
-                {
-                    header = String.Format($"Расход от {changeDate.ToShortDateString()}");
-                }
-                
-                Grid changeGrid = new Grid();
-                changeGrid.Height = 70;
-                changeGrid.Margin = new Thickness(0, 0, 0, 20);
-
-                TextBlock headerTextBlock = new TextBlock();
-                headerTextBlock.VerticalAlignment = VerticalAlignment.Top;
-                headerTextBlock.HorizontalAlignment = HorizontalAlignment.Left;
-                headerTextBlock.FontSize = 25;
-                headerTextBlock.Text = header;
-
-                TextBlock sumTextBlock = new TextBlock();
-                sumTextBlock.VerticalAlignment = VerticalAlignment.Bottom;
-                sumTextBlock.HorizontalAlignment = HorizontalAlignment.Center;
-                sumTextBlock.FontSize = 25;
-                sumTextBlock.Text = String.Format("{0:### ### ### ### ###} ₽", sum.ToString());
-
-                Button deleteButton = new Button();
-                deleteButton.VerticalAlignment = VerticalAlignment.Center;
-                deleteButton.HorizontalAlignment = HorizontalAlignment.Right;
-                deleteButton.Height = 70;
-                deleteButton.Width = 70;
-
-                Image deleteButtonIcon = new Image();
-                deleteButtonIcon.Source = new BitmapImage(new Uri("Assets/icons8-удалить-96.png"));
-                deleteButton.Content = deleteButtonIcon;
-
-                changeGrid.Children.Add(headerTextBlock);
-                changeGrid.Children.Add(sumTextBlock);
-                changeGrid.Children.Add(deleteButton);
-                ChangesHistory.Children.Add(changeGrid);
             }
         }
 
@@ -101,7 +104,7 @@ namespace Ваш_БанкирЪ
             var currentView = SystemNavigationManager.GetForCurrentView();
             currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
 
-
+            InitializeChanges();
         }
 
         private void IncomeSumTextBox_OnBeforeTextChanging(TextBox sender, TextBoxBeforeTextChangingEventArgs args)
