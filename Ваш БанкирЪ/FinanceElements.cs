@@ -11,44 +11,44 @@ namespace Ваш_БанкирЪ
 {
     internal class FinancialChange
     {
-        public long date { get; private set; }
-        public int sum { get; private set; }
-        public string category { get; private set; }
-        public string clientID { get; private set; }
-        public bool isIncome { get; private set; }
-        public string comment { get; private set; }
+        public long Date { get; private set; }
+        public int Sum { get; private set; }
+        public string Category { get; private set; }
+        public string ClientId { get; private set; }
+        public bool IsIncome { get; private set; }
+        public string Comment { get; private set; }
 
         public FinancialChange(int sum, bool isIncome, string comment, string category)
         {
-            this.comment = comment;
-            this.sum = sum;
-            this.isIncome = isIncome;
-            this.category = category;
+            this.Comment = comment;
+            this.Sum = sum;
+            this.IsIncome = isIncome;
+            this.Category = category;
 
-            clientID = App.ActiveClient.ID;
-            date = DateTime.Now.ToBinary();
+            ClientId = App.ActiveClient.ID;
+            Date = DateTime.Now.ToBinary();
         }
 
         public FinancialChange(int sum, bool isIncome, string category)
         {
-            this.sum = sum;
-            this.isIncome = isIncome;
-            this.category = category;
+            this.Sum = sum;
+            this.IsIncome = isIncome;
+            this.Category = category;
 
-            comment = "Комментарий отсутствует";
-            clientID = App.ActiveClient.ID;
-            date = DateTime.Now.ToBinary();
+            Comment = "Комментарий отсутствует";
+            ClientId = App.ActiveClient.ID;
+            Date = DateTime.Now.ToBinary();
         }
 
         public FinancialChange(int sum, bool isIncome, string comment, string category, long date,
             string clientID)
         {
-            this.comment = comment;
-            this.sum = sum;
-            this.isIncome = isIncome;
-            this.category = category;
-            this.clientID = clientID;
-            this.date = date;
+            this.Comment = comment;
+            this.Sum = sum;
+            this.IsIncome = isIncome;
+            this.Category = category;
+            this.ClientId = clientID;
+            this.Date = date;
         }
     }
 
@@ -84,6 +84,7 @@ namespace Ваш_БанкирЪ
             if (Count < Capacity)
             {
                 _financialChangesList[Count] = new FinancialChange(sum, isIncome, comment, category);
+                FunctionClass.AddToXML(_financialChangesList[Count]);
                 Count++;
             }
             else
@@ -97,6 +98,7 @@ namespace Ваш_БанкирЪ
             if (Count < Capacity)
             {
                 _financialChangesList[Count] = new FinancialChange(sum, isIncome, category);
+                FunctionClass.AddToXML(_financialChangesList[Count]);
                 Count++;
             }
             else
@@ -107,8 +109,6 @@ namespace Ваш_БанкирЪ
 
         public void DeleteFinancialChange(int index)
         {
-            
-
             FinancialChange[] temp = new FinancialChange[15];
             int i = 0;
             int i2 = 0;
@@ -126,6 +126,7 @@ namespace Ваш_БанкирЪ
             }
             temp[i2] = null;
             _financialChangesList = temp;
+            FunctionClass.DeleteFromXML(index, new FinancialChange(1, false, ""));
             Count--;
         }
 
@@ -232,8 +233,6 @@ namespace Ваш_БанкирЪ
 
         public void DeleteTarget(int index)
         {
-            
-
             Target[] temp = new Target[Capacity];
             int i = 0;
             int i2 = 0;
@@ -251,6 +250,7 @@ namespace Ваш_БанкирЪ
             }
             temp[i2] = null;
             _targetsList = temp;
+            FunctionClass.DeleteFromXML(index, new Target("", 1));
             Count--;
         }
 

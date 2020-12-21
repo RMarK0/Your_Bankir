@@ -143,12 +143,6 @@
     <Content Include="Assets\icons8-редактировать-96.png" />
     <Content Include="Assets\icons8-удалить-96.png" />
     <Content Include="Assets\logo-placeholder.png" />
-    <Content Include="data\ChangesData.xml">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="data\TargetsData.xml">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -157,9 +151,6 @@
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
-    <Content Include="data\LogPassDB.xml">
-      <SubType>Designer</SubType>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

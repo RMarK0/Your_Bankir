@@ -34,9 +34,8 @@ namespace Ваш_БанкирЪ
                 stringBuilder.Append(data[i].ToString("x2"));
             string inputPasswordHash = stringBuilder.ToString();
 
-            XmlReader logPassReader = XmlReader.Create("data/LogPassDB.xml");
             XmlDocument logPassDocument = new XmlDocument();
-            logPassDocument.Load(logPassReader);
+            logPassDocument.Load(App.usersPath);
             XmlElement logPassRoot = logPassDocument.DocumentElement;
             foreach (XmlNode User in logPassRoot)
             {

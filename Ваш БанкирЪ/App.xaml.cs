@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Xml;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -43,8 +45,68 @@ namespace Ваш_БанкирЪ
         public static TargetList TargetsList;
         public static Client ActiveClient;
 
+        private static readonly StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
+        private static StorageFile usersFile;
+        private static StorageFile changesFile;
+        private static StorageFile targetsFile;
+
+        internal static string changesPath = storageFolder.Path + "/ChangesData.xml";
+        internal static string usersPath = storageFolder.Path + "/LogPassDB.xml";
+        internal static string targetsPath = storageFolder.Path + "/TargetsData.xml";
+        // TODO: Сделать инициализацию XML заново...
+
+        private async void InitializeFiles()
+        {
+            usersFile = await storageFolder.CreateFileAsync("LogPassDB.xml", CreationCollisionOption.OpenIfExists);
+            changesFile = await storageFolder.CreateFileAsync("ChangesData.xml", CreationCollisionOption.OpenIfExists);
+            targetsFile = await storageFolder.CreateFileAsync("TargetsData.xml", CreationCollisionOption.OpenIfExists);
+
+
+            string text = await Windows.Storage.FileIO.ReadTextAsync(usersFile);
+            if (text.Trim() == "")
+            {
+                XmlWriterSettings settings = new XmlWriterSettings {Indent = true};
+                
+                string path = storageFolder.Path + "/LogPassDB.xml"; 
+                XmlWriter writer = XmlWriter.Create(path, settings); 
+                writer.WriteStartDocument();
+                writer.WriteStartElement("users");
+                writer.WriteEndElement();
+                writer.Flush();
+                writer.Close();
+
+                FunctionClass.InitializeUserDB();
+            }
+
+            text = await Windows.Storage.FileIO.ReadTextAsync(changesFile);
+            if (text.Trim() == "")
+            {
+                string path = storageFolder.Path + "/ChangesData.xml";
+                XmlWriter writer = XmlWriter.Create(path);
+                writer.WriteStartDocument();
+                writer.WriteStartElement("changes");
+                writer.WriteEndElement();
+                writer.Flush();
+                writer.Close();
+            }
+
+            text = await Windows.Storage.FileIO.ReadTextAsync(targetsFile);
+            if (text.Trim() == "")
+            {
+                string path = storageFolder.Path + "/TargetsData.xml"; 
+                XmlWriter writer = XmlWriter.Create(path);
+                writer.WriteStartDocument();
+                writer.WriteStartElement("targets");
+                writer.WriteEndElement();
+                writer.Flush();
+                writer.Close();
+            }
+
+        }
+
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            InitializeFiles();
             Frame rootFrame = Window.Current.Content as Frame;
             ApplicationView.PreferredLaunchViewSize = new Size(900, 720);
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
