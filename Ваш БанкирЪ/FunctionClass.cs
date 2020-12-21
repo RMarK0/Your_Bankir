@@ -67,7 +67,7 @@ namespace Ваш_БанкирЪ
                 user.Attributes.Append(login);
                 user.AppendChild(passMD5);
                 user.AppendChild(ID);
-                root.AppendChild(user);
+                root?.AppendChild(user);
                 document.Save(App.usersPath);
             }
         }
@@ -173,45 +173,42 @@ namespace Ваш_БанкирЪ
 
         internal static void AddToXML(Target obj)
         {
-                XmlReader targetReader = XmlReader.Create(App.targetsPath);
-                XmlDocument targetXmlDocument = new XmlDocument();
-                targetXmlDocument.Load(targetReader);
-                XmlElement targetRoot = targetXmlDocument.DocumentElement;
+            var targetXmlDocument = new XmlDocument();
+            targetXmlDocument.Load(App.targetsPath);
+            var targetRoot = targetXmlDocument.DocumentElement;
 
-                XmlElement targetElement = targetXmlDocument.CreateElement("target");
-                XmlElement nameElement = targetXmlDocument.CreateElement("name");
-                XmlElement fullSumElement = targetXmlDocument.CreateElement("fullSum");
-                XmlElement commentElement = targetXmlDocument.CreateElement("comment");
-                XmlElement currentSumElement = targetXmlDocument.CreateElement("currentSum");
-                XmlElement dateElement = targetXmlDocument.CreateElement("date");
-                XmlElement clientIDElement = targetXmlDocument.CreateElement("clientID");
+            var targetElement = targetXmlDocument.CreateElement("target");
+            var nameElement = targetXmlDocument.CreateElement("name");
+            var fullSumElement = targetXmlDocument.CreateElement("fullSum");
+            var commentElement = targetXmlDocument.CreateElement("comment");
+            var currentSumElement = targetXmlDocument.CreateElement("currentSum");
+            var dateElement = targetXmlDocument.CreateElement("date");
+            var clientIDElement = targetXmlDocument.CreateElement("clientID");
 
-                XmlText nameText = targetXmlDocument.CreateTextNode(obj.Name);
-                XmlText fullSumText = targetXmlDocument.CreateTextNode(obj.FullSum.ToString());
-                XmlText commentText = targetXmlDocument.CreateTextNode(obj.Comment);
-                XmlText currentSumText = targetXmlDocument.CreateTextNode(obj.CurrentSum.ToString());
-                XmlText dateText = targetXmlDocument.CreateTextNode(obj.DateAdded.ToString());
-                XmlText clientIDText = targetXmlDocument.CreateTextNode(obj.ClientID);
+            var nameText = targetXmlDocument.CreateTextNode(obj.Name);
+            var fullSumText = targetXmlDocument.CreateTextNode(obj.FullSum.ToString());
+            var commentText = targetXmlDocument.CreateTextNode(obj.Comment);
+            var currentSumText = targetXmlDocument.CreateTextNode(obj.CurrentSum.ToString());
+            var dateText = targetXmlDocument.CreateTextNode(obj.DateAdded.ToString());
+            var clientIDText = targetXmlDocument.CreateTextNode(obj.ClientID);
 
-                nameElement.AppendChild(nameText);
-                fullSumElement.AppendChild(fullSumText);
-                commentElement.AppendChild(commentText);
-                currentSumElement.AppendChild(currentSumText);
-                dateElement.AppendChild(dateText);
-                clientIDElement.AppendChild(clientIDText);
+            nameElement.AppendChild(nameText);
+            fullSumElement.AppendChild(fullSumText);
+            commentElement.AppendChild(commentText);
+            currentSumElement.AppendChild(currentSumText);
+            dateElement.AppendChild(dateText);
+            clientIDElement.AppendChild(clientIDText);
 
-                targetElement.AppendChild(nameElement);
-                targetElement.AppendChild(fullSumElement);
-                targetElement.AppendChild(commentElement);
-                targetElement.AppendChild(currentSumElement);
-                targetElement.AppendChild(dateElement);
-                targetElement.AppendChild(clientIDElement);
+            targetElement.AppendChild(nameElement);
+            targetElement.AppendChild(fullSumElement);
+            targetElement.AppendChild(commentElement);
+            targetElement.AppendChild(currentSumElement);
+            targetElement.AppendChild(dateElement);
+            targetElement.AppendChild(clientIDElement);
 
             if (targetRoot != null) targetRoot.AppendChild(targetElement);
             else throw new NullReferenceException("targetRoot was null");
             targetXmlDocument.Save(App.targetsPath);
-
-                targetReader.Close();
         }
 
         internal static void AddToXML(FinancialChange obj)
@@ -221,7 +218,7 @@ namespace Ваш_БанкирЪ
             changesXmlDocument.Load(App.changesPath);
             XmlElement changesRoot = changesXmlDocument.DocumentElement;
 
-            XmlElement changesElement = changesXmlDocument.CreateElement("target");
+            XmlElement changesElement = changesXmlDocument.CreateElement("change");
             XmlElement dateElement = changesXmlDocument.CreateElement("date");
             XmlElement sumElement = changesXmlDocument.CreateElement("sum");
             XmlElement categoryElement = changesXmlDocument.CreateElement("category");

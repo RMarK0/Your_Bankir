@@ -21,15 +21,15 @@
                         <Setter Target="ExpensesHistoryViewer.Visibility" Value="Visible"/>
                         <Setter Target="ExpensesUserToggleText.Visibility" Value="Visible"/>
 
-                        <Setter Target="ExpensesCategory.Margin" Value="-400 -265 0 0"/>
-                        <Setter Target="ExpensesSum.Margin" Value="-400 -415 0 0"/>
-                        <Setter Target="ExpensesComments.Margin" Value="-400 45 0 0"/>
+                        <Setter Target="ExpensesCategoryComboBox.Margin" Value="-400 -265 0 0"/>
+                        <Setter Target="ExpensesSumTextBox.Margin" Value="-400 -415 0 0"/>
+                        <Setter Target="ExpensesCommentsTextBox.Margin" Value="-400 45 0 0"/>
                         <Setter Target="ExpensesAddButton.Margin" Value="0 380 400 0"/>
 
-                        <Setter Target="ExpensesCategory.Width" Value="600"/>
-                        <Setter Target="ExpensesSum.Width" Value="600"/>
+                        <Setter Target="ExpensesCategoryComboBox.Width" Value="600"/>
+                        <Setter Target="ExpensesSumTextBox.Width" Value="600"/>
                         <Setter Target="ExpensesAddButton.Width" Value="600"/>
-                        <Setter Target="ExpensesComments.Width" Value="600"/>
+                        <Setter Target="ExpensesCommentsTextBox.Width" Value="600"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="SmallWindowTrigger">
@@ -43,26 +43,26 @@
                         <Setter Target="ExpensesHistoryViewer.Visibility" Value="Collapsed"/>
                         <Setter Target="ExpensesUserToggleText.Visibility" Value="Collapsed"/>
 
-                        <Setter Target="ExpensesCategory.Margin" Value="0 -265 0 0"/>
-                        <Setter Target="ExpensesSum.Margin" Value="0 -415 0 0"/>
-                        <Setter Target="ExpensesComments.Margin" Value="0 45 0 0"/>
+                        <Setter Target="ExpensesCategoryComboBox.Margin" Value="0 -265 0 0"/>
+                        <Setter Target="ExpensesSumTextBox.Margin" Value="0 -415 0 0"/>
+                        <Setter Target="ExpensesCommentsTextBox.Margin" Value="0 45 0 0"/>
                         <Setter Target="ExpensesAddButton.Margin" Value="0 380 0 0"/>
 
-                        <Setter Target="ExpensesCategory.Width" Value="480"/>
-                        <Setter Target="ExpensesSum.Width" Value="480"/>
+                        <Setter Target="ExpensesCategoryComboBox.Width" Value="480"/>
+                        <Setter Target="ExpensesSumTextBox.Width" Value="480"/>
                         <Setter Target="ExpensesAddButton.Width" Value="480"/>
-                        <Setter Target="ExpensesComments.Width" Value="480"/>
+                        <Setter Target="ExpensesCommentsTextBox.Width" Value="480"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
 
-        <TextBox x:Name="ExpensesSum" PlaceholderText="Введите сумму расхода..." FontSize="30" 
-                 Width="600" Height="55"
+        <TextBox x:Name="ExpensesSumTextBox" PlaceholderText="Введите сумму расхода..." FontSize="30" 
+                 Width="600" Height="55" BeforeTextChanging="ExpensesSum_OnBeforeTextChanging"
                  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-400 -415 0 0"/>
 
-        <ComboBox Name="ExpensesCategory" PlaceholderText="Выберите категорию" FontSize="30"
+        <ComboBox x:Name="ExpensesCategoryComboBox" PlaceholderText="Выберите категорию" FontSize="30"
                   Width="600" Height="70"
                   HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-400 -265 0 0">
             <x:String>Транспорт</x:String>
@@ -75,7 +75,7 @@
             <x:String>Другое</x:String>
         </ComboBox>
 
-        <TextBox x:Name="ExpensesComments" PlaceholderText="Введите комментарий..." FontSize="30" Width="600" Height="210"
+        <TextBox x:Name="ExpensesCommentsTextBox" PlaceholderText="Введите комментарий..." FontSize="30" Width="600" Height="210"
                  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-400 45 0 0" 
                  AcceptsReturn="True" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
 
@@ -83,11 +83,25 @@
                       Height="405" Width="400" BorderThickness="5"
                       HorizontalAlignment="Center" VerticalAlignment="Center" Margin="650 0 0 65" BorderBrush="#33FFFFFF" 
                       >
+            <StackPanel Padding="20" x:Name="ChangesHistory">
+
+            </StackPanel>
         </ScrollViewer>
 
-        <Button x:Name="ExpensesAddButton" Width="600" Height="80"
+        <Button x:Name="ExpensesAddButton" Width="600" Height="80" Click="ExpensesAddButton_OnClick"
                 HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 380 400 0"
-                Content="Добавить расход" FontSize="30" VerticalContentAlignment="Center"/>
+                Content="Добавить расход" FontSize="30" VerticalContentAlignment="Center">
+            <Button.Flyout>
+                <Flyout x:Name="ExpenseErrorFlyout">
+                    <Flyout.Content>
+                        <StackPanel>
+                            <TextBlock x:Name="ExpenseErrorText" Text="" />
+                            <Button Click="ExpenseErrorButton_OnClick" Content="OK"/>
+                        </StackPanel>
+                    </Flyout.Content>
+                </Flyout>
+            </Button.Flyout>
+        </Button>
 
         <Rectangle x:Name="HistorySwitchBackground" Width="400" Height="60"
                    HorizontalAlignment="Center" VerticalAlignment="Center" Margin="650 400 0 0"

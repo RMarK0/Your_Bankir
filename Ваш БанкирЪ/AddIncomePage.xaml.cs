@@ -186,7 +186,7 @@ namespace Ваш_БанкирЪ
         private void IncomeAddButton_OnClick(object sender, RoutedEventArgs e)
         {
             string comment = IncomeCommentsTextBox.Text;
-            if (IncomeSumTextBox.Text.Trim() != "")
+            if (IncomeSumTextBox.Text.Trim() != "" && Convert.ToInt32(IncomeSumTextBox.Text) < int.MaxValue)
             {
                 int sum = Convert.ToInt32(IncomeSumTextBox.Text);
                 if (IncomeCategoryComboBox.SelectedItem != null)
@@ -215,7 +215,7 @@ namespace Ваш_БанкирЪ
             }
             else
             {
-                IncomeErrorText.Text = "Сумма не введена";
+                IncomeErrorText.Text = "Введите корректную сумму";
                 IncomeErrorFlyout.ShowAt(IncomeAddButton);
             }
         }
