@@ -39,7 +39,7 @@ namespace Ваш_БанкирЪ
 
         private void OnBackRequested(object sender, BackRequestedEventArgs e)
         {
-            Frame.Navigate(typeof(MainMenuPage));
+            Frame.Navigate(typeof(SettingsPage));
             e.Handled = true;
         }
 

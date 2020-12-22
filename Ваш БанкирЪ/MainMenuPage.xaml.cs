@@ -66,7 +66,6 @@ namespace Ваш_БанкирЪ
 
         public void ExitButton_Click(object sender, RoutedEventArgs e)
         {
-            //Session.Close(); или что-то типа этого
             Frame.Navigate(typeof(LoginPage));
         }
     }

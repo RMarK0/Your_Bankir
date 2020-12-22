@@ -9,8 +9,28 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        <Button x:Name="NavigateToChangePassword" VerticalAlignment="Center" HorizontalAlignment="Center"
+                Width="450" Height="100" FontSize="30" Content="Изменить пароль" 
+                Margin="0 0 0 250" Click="NavigateToChangePassword_OnClick"/>
+        <Button x:Name="AboutAppButton" VerticalAlignment="Center" HorizontalAlignment="Center"
+                Width="450" Height="100" FontSize="30" Click="AboutAppButton_OnClick"
+                Content="О программе" Margin="0 0 0 -250">
+            <Button.Flyout>
+                <Flyout x:Name="AboutAppFlyout">
+                    <Flyout.Content>
+                        <StackPanel>
+                            <TextBlock Text="Версия 0.2.8 Pre-release © Dmitry Rybalko 2020" Margin="0 0 0 20"/>
+                            <TextBlock Text="https://github.com/RMarK0/Your_Bankir" Margin="0 0 0 20"/>
+                            <Button Content="Закрыть" x:Name="FlyoutButton" Click="FlyoutButton_OnClick"/>
+                        </StackPanel>
+                    </Flyout.Content>
+                </Flyout>
+            </Button.Flyout>
+        </Button>
 
-        
+        <Button x:Name="WIPButton" VerticalAlignment="Center" HorizontalAlignment="Center"
+                Width="450" Height="100" FontSize="30" Content="Заглушка кнопки (WIP)" 
+                Margin="0 0 0 0"/>
 
     </Grid>
 </Page>

@@ -58,7 +58,7 @@ namespace Ваш_БанкирЪ
         internal static string changesPath = storageFolder.Path + "/ChangesData.xml";
         internal static string usersPath = storageFolder.Path + "/LogPassDB.xml";
         internal static string targetsPath = storageFolder.Path + "/TargetsData.xml";
-        // TODO: Сделать инициализацию XML заново...
+        
 
         private async void InitializeFiles()
         {

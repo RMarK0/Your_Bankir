@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -22,9 +23,44 @@ namespace Ваш_БанкирЪ
     /// </summary>
     public sealed partial class SettingsPage : Page
     {
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            SystemNavigationManager.GetForCurrentView().BackRequested -= OnBackRequested;
+        }
+
+        private void OnBackRequested(object sender, BackRequestedEventArgs e)
+        {
+            Frame.Navigate(typeof(MainMenuPage));
+            e.Handled = true;
+        }
+
+
         public SettingsPage()
         {
             this.InitializeComponent();
+            var currentView = SystemNavigationManager.GetForCurrentView();
+            currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
+
+        }
+
+        private void NavigateToChangePassword_OnClick(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(PasswordChangePage));
+        }
+
+        private void AboutAppButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            AboutAppFlyout.ShowAt(AboutAppButton);
+        }
+
+        private void FlyoutButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            AboutAppFlyout.Hide();
         }
     }
 }
