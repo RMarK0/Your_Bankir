@@ -76,13 +76,10 @@ namespace Ваш_БанкирЪ
         {
             // Метод, осущ. ввод в массив FinancialChangesList и TargetList данных из XML файла
             // Данные ни в коем случае не должны добавляться до того, как данные из XML файла заполнят массив
-
-            XmlReader targetReader = XmlReader.Create(App.targetsPath);
-            XmlReader changesReader = XmlReader.Create(App.changesPath);
             XmlDocument targetXmlDocument = new XmlDocument();
             XmlDocument changesXmlDocument = new XmlDocument();
-            targetXmlDocument.Load(targetReader);
-            changesXmlDocument.Load(changesReader);
+            targetXmlDocument.Load(App.targetsPath);
+            changesXmlDocument.Load(App.changesPath);
 
             XmlElement targetRoot = targetXmlDocument.DocumentElement;
             XmlElement changesRoot = changesXmlDocument.DocumentElement;
@@ -166,12 +163,9 @@ namespace Ваш_БанкирЪ
                 if (date != -1 && sum != -1 && category != "" && clientID != "" && comment != "")
                     App.FinancialChangesList.AddFinancialChange(sum, isIncome, comment, category, date, clientID);
             }
-
-            targetReader.Close();
-            changesReader.Close();
         }
 
-        internal static void AddToXML(Target obj)
+        internal static void AddToXml(Target obj)
         {
             var targetXmlDocument = new XmlDocument();
             targetXmlDocument.Load(App.targetsPath);
@@ -211,7 +205,7 @@ namespace Ваш_БанкирЪ
             targetXmlDocument.Save(App.targetsPath);
         }
 
-        internal static void AddToXML(FinancialChange obj)
+        internal static void AddToXml(FinancialChange obj)
         {
             // XmlReader changesReader = XmlReader.Create("data/ChangesData.xml");
             XmlDocument changesXmlDocument = new XmlDocument();
@@ -287,14 +281,12 @@ namespace Ваш_БанкирЪ
 
         internal static string GetClientFromID(string clientID)
         {
-            string output;
-
             XmlReader clientReader = XmlReader.Create(App.usersPath);
             XmlDocument clientDocument = new XmlDocument();
             clientDocument.Load(clientReader);
 
             XmlElement clientRoot = clientDocument.DocumentElement;
-            string xPath = String.Format($"user[ID='{clientID}']");
+            string xPath = string.Format($"user[ID='{clientID}']");
 
             XmlNode clientNode = clientRoot.SelectSingleNode(xPath);
             if (clientNode != null)
@@ -302,7 +294,7 @@ namespace Ваш_БанкирЪ
                 if (clientNode.Attributes != null)
                 {
                     XmlNode attribute = clientNode.Attributes.GetNamedItem("login");
-                    output = attribute.Value;
+                    var output = attribute.Value;
                     return output;
                 }
                 else
@@ -315,5 +307,32 @@ namespace Ваш_БанкирЪ
                 throw new Exception("Client node with provided ID wasn't found");
             }
         }
+
+        internal static void InitializeFinances(ref int CurrentSum, ref int TotalExpenses, ref int TotalIncomes, ref int ThisMonthExpenses)
+        {
+            foreach (FinancialChange change in App.FinancialChangesList)
+            {
+                if (change != null)
+                {
+                    if (change.IsIncome)
+                    {
+                        TotalIncomes += change.Sum;
+                    }
+                    else
+                    {
+                        TotalExpenses += change.Sum;
+                    }
+
+                    DateTime temp = DateTime.FromBinary(change.Date);
+                    if (!change.IsIncome && temp.Month == DateTime.Now.Month)
+                    {
+                        ThisMonthExpenses += change.Sum;
+                    }
+                }
+            }
+            CurrentSum = TotalIncomes - TotalExpenses;
+        }
+
+
     }
 }

@@ -20,6 +20,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using static Ваш_БанкирЪ.App;
 
 namespace Ваш_БанкирЪ
 {
@@ -27,68 +28,60 @@ namespace Ваш_БанкирЪ
     {
         private bool InitializeUser(string login, string password, ref string ID)
         {
-            MD5 md5Hasher = MD5.Create();
-            byte[] data = md5Hasher.ComputeHash(Encoding.UTF8.GetBytes(password));
-            StringBuilder stringBuilder = new StringBuilder();
-            for (int i = 0; i < data.Length; i++)
-                stringBuilder.Append(data[i].ToString("x2"));
-            string inputPasswordHash = stringBuilder.ToString();
+            var md5Hasher = MD5.Create();
+            var data = md5Hasher.ComputeHash(Encoding.UTF8.GetBytes(password));
 
-            XmlDocument logPassDocument = new XmlDocument();
-            logPassDocument.Load(App.usersPath);
-            XmlElement logPassRoot = logPassDocument.DocumentElement;
+            var stringBuilder = new StringBuilder();
+            for (var i = 0; i < data.Length; i++)
+                stringBuilder.Append(data[i].ToString("x2"));
+            var inputPasswordHash = stringBuilder.ToString();
+
+            var logPassDocument = new XmlDocument();
+            logPassDocument.Load(usersPath);
+            var logPassRoot = logPassDocument.DocumentElement;
             foreach (XmlNode User in logPassRoot)
-            {
                 if (User.Attributes.Count > 0)
                 {
-                    XmlNode loginNode = User.Attributes.GetNamedItem("login");
+                    var loginNode = User.Attributes.GetNamedItem("login");
                     if (loginNode.Value == login)
-                    {
                         foreach (XmlNode userChildNode in User.ChildNodes)
-                        {
                             if (userChildNode.Name == "passMD5" && userChildNode.InnerText == inputPasswordHash)
                             {
                                 foreach (XmlNode childNode in User.ChildNodes)
-                                {
                                     if (childNode.Name == "ID")
                                         ID = childNode.InnerText;
-                                }
                                 return true;
                             }
-                        }
-                    }
                 }
-            }
+
             return false;
         }
 
         public LoginPage()
         {
-            ApplicationView.PreferredLaunchViewSize = new Size { Height = 720, Width = 1280 };
+            ApplicationView.PreferredLaunchViewSize = new Size {Height = 720, Width = 1280};
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
 
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private void Grid_KeyDown(object sender, KeyRoutedEventArgs e)
         {
-            if (e.Key == VirtualKey.Enter)
-            {
-                loginButton_Clicked(sender, e);
-            }
+            if (e.Key == VirtualKey.Enter) loginButton_Clicked(sender, e);
         }
 
-        
         private void loginButton_Clicked(object sender, RoutedEventArgs e)
         {
-            string login = LoginTextBox.Text;
-            string password = PasswordBox.Password;
+            var login = LoginTextBox.Text;
+            var password = PasswordBox.Password;
             string ID = null;
 
             if (InitializeUser(login, password, ref ID))
             {
-                App.ActiveClient = new Client(login, ID); // ОБЯЗАТЕЛЬНО СДЕЛАТЬ ПАРСЕР ИЗ XML
+                ActiveClient = new Client(login, ID);
                 FunctionClass.InitializeData();
+                FunctionClass.InitializeFinances(ref CurrentSum, ref TotalExpenses, ref TotalIncomes,
+                    ref ThisMonthExpenses);
                 Frame.Navigate(typeof(MainMenuPage));
             }
             else

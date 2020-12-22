@@ -66,7 +66,7 @@
         <TextBlock x:Name="BalanceSumTextBox" Text="12345 ₽" FontSize="40" Width="250" Height="50"
                    TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"
                    Margin="600 0 0 100"/>
-        <TextBlock x:Name="PrevMonthExpensesTextBox" Text="Расходы за пред. месяц:" FontSize="40" Width="450" Height="50"
+        <TextBlock x:Name="PrevMonthExpensesTextBox" Text="Расходы за этот месяц:" FontSize="40" Width="450" Height="50"
                    TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"
                    Margin="600 0 0 -100"/>
         <TextBlock x:Name="PrevMonthExpensesSumTextBox" Text="54321 ₽" FontSize="40" Width="250" Height="50"

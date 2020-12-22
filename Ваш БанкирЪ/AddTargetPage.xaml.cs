@@ -45,5 +45,59 @@ namespace Ваш_БанкирЪ
             var currentView = SystemNavigationManager.GetForCurrentView();
             currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
         }
+
+
+        private void AddTargetButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            string name;
+            int sum;
+            string comment;
+
+            if (TargetNameTextBox.Text.Trim() != "" && TargetNameTextBox.Text.Length < 15)
+            {
+                name = TargetNameTextBox.Text.Trim();
+                if (TargetSumTextBox.Text != "" && Convert.ToInt32(TargetSumTextBox.Text) < int.MaxValue)
+                {
+                    sum = Convert.ToInt32(TargetSumTextBox.Text);
+
+                    if (TargetCommsTextBox.Text.Trim() != "")
+                    {
+                        comment = TargetCommsTextBox.Text;
+                        App.TargetsList.AddTarget(name, sum, comment);
+                    }
+                    else
+                    {
+                        App.TargetsList.AddTarget(name, sum);
+                    }
+
+                    TargetNameTextBox.Text = "";
+                    TargetCommsTextBox.Text = "";
+                    TargetSumTextBox.Text = "";
+
+                    AddTargetFlyoutText.Text = "Цель успешно добавлена";
+                    AddTargetFlyout.ShowAt(AddTargetButton);
+                }
+                else
+                {
+                    AddTargetFlyoutText.Text = "Введите корректную сумму";
+                    AddTargetFlyout.ShowAt(AddTargetButton);
+                }
+            }
+            else
+            {
+                AddTargetFlyoutText.Text = "Введите корректное название";
+                AddTargetFlyout.ShowAt(AddTargetButton);
+            }
+        }
+
+        private void TargetSumTextBox_OnBeforeTextChanging(TextBox sender, TextBoxBeforeTextChangingEventArgs args)
+        {
+            args.Cancel = args.NewText.Any(c => !char.IsDigit(c));
+        }
+
+        private void AddTargetFlyoutButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            AddTargetFlyout.Hide();
+        }
     }
 }

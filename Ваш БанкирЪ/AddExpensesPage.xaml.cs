@@ -72,8 +72,8 @@ namespace Ваш_БанкирЪ
                 VerticalAlignment = VerticalAlignment.Bottom,
                 HorizontalAlignment = HorizontalAlignment.Left,
                 FontSize = 25,
-                Text = $"{sum:### ### ### ### ### ###} ₽",
-                Margin = new Thickness(-30, 0, 0, 0)
+                Text = $"{sum:### ### ### ###} ₽",
+                Margin = new Thickness(-10, 0, 0, 0)
             };
 
             StackPanel infoStackPanel = new StackPanel();

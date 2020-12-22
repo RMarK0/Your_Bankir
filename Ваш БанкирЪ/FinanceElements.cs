@@ -84,7 +84,7 @@ namespace Ваш_БанкирЪ
             if (Count < Capacity)
             {
                 _financialChangesList[Count] = new FinancialChange(sum, isIncome, comment, category);
-                FunctionClass.AddToXML(_financialChangesList[Count]);
+                FunctionClass.AddToXml(_financialChangesList[Count]);
                 Count++;
             }
             else
@@ -98,7 +98,7 @@ namespace Ваш_БанкирЪ
             if (Count < Capacity)
             {
                 _financialChangesList[Count] = new FinancialChange(sum, isIncome, category);
-                FunctionClass.AddToXML(_financialChangesList[Count]);
+                FunctionClass.AddToXml(_financialChangesList[Count]);
                 Count++;
             }
             else
@@ -210,6 +210,7 @@ namespace Ваш_БанкирЪ
             if (Count < Capacity)
             {
                 _targetsList[Count] = new Target(name, fullSum, comment);
+                FunctionClass.AddToXml(new Target(name, fullSum, comment));
                 Count++;
             }
             else
@@ -223,6 +224,7 @@ namespace Ваш_БанкирЪ
             if (Count < Capacity)
             {
                 _targetsList[Count] = new Target(name, fullSum);
+                FunctionClass.AddToXml(new Target(name, fullSum));
                 Count++;
             }
             else

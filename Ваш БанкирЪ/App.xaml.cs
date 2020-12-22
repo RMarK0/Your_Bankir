@@ -41,6 +41,11 @@ namespace Ваш_БанкирЪ
         /// </summary>
         /// <param name="e">Сведения о запросе и обработке запуска.</param>
 
+        public static int CurrentSum;
+        public static int TotalExpenses;
+        public static int TotalIncomes;
+        public static int ThisMonthExpenses;
+
         public static FinancialChangeList FinancialChangesList;
         public static TargetList TargetsList;
         public static Client ActiveClient;
@@ -107,6 +112,7 @@ namespace Ваш_БанкирЪ
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
             InitializeFiles();
+            
             Frame rootFrame = Window.Current.Content as Frame;
             ApplicationView.PreferredLaunchViewSize = new Size(900, 720);
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;

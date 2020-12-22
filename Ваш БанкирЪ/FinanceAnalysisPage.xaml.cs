@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using WinRTXamlToolkit.Controls.DataVisualization.Charting;
+using static Ваш_БанкирЪ.App;
 
 // Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -54,15 +55,10 @@ namespace Ваш_БанкирЪ
             this.InitializeComponent();
             var currentView = SystemNavigationManager.GetForCurrentView();
             currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
-
-            List<ChartData> ChartInfo = new List<ChartData>
-            {
-                new ChartData() {DataName = "Порно", DataValue = 20},
-                new ChartData() {DataName = "Социальные сети", DataValue = 10},
-                new ChartData() {DataName = "Почта", DataValue = 5},
-                new ChartData() {DataName = "Скачивание другого браузера", DataValue = 200}
-            };
-            (PieChart.Series[0] as PieSeries).ItemsSource = ChartInfo;
         }
+
+       
+
+
     }
 }
