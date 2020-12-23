@@ -43,7 +43,7 @@ namespace Ваш_БанкирЪ
             e.Handled = true;
         }
 
-        private static bool ComparePassword(string password, string login, string ID)
+        private static bool ComparePassword(string password, string login)
         {
             var md5Hasher = MD5.Create();
             var data = md5Hasher.ComputeHash(Encoding.UTF8.GetBytes(password));
@@ -63,12 +63,8 @@ namespace Ваш_БанкирЪ
                     if (loginNode.Value == login)
                         foreach (XmlNode userChildNode in User.ChildNodes)
                             if (userChildNode.Name == "passMD5" && userChildNode.InnerText == inputPasswordHash)
-                            {
-                                foreach (XmlNode childNode in User.ChildNodes)
-                                    if (childNode.Name == "ID")
-                                        ID = childNode.InnerText;
                                 return true;
-                            }
+                            
                 }
             return false;
         }
@@ -88,7 +84,7 @@ namespace Ваш_БанкирЪ
             if (OldPasswordBox.Password != "")
             {
                 var password = OldPasswordBox.Password;
-                if (ComparePassword(password, login, ID))
+                if (ComparePassword(password, login))
                 {
                     if (NewPasswordBox.Password == RepeatPasswordBox.Password)
                     {
@@ -99,19 +95,25 @@ namespace Ваш_БанкирЪ
                             var md5Hasher = MD5.Create();
                             var data = md5Hasher.ComputeHash(Encoding.UTF8.GetBytes(newPassword));
 
+                            var stringBuilder = new StringBuilder();
+                            for (var i = 0; i < data.Length; i++)
+                                stringBuilder.Append(data[i].ToString("x2"));
+                            var passwordHash = stringBuilder.ToString();
+
                             XmlDocument xDoc = new XmlDocument();
                             xDoc.Load(usersPath);
                             XmlElement xRoot = xDoc.DocumentElement;
 
-                            XmlNode userNode = xRoot?.SelectSingleNode($"user[ID={ID}]");
+                            XmlNode userNode = xRoot?.SelectSingleNode($"user[ID='{ID}']");
                             if (userNode != null)
                                 foreach (XmlNode node in userNode.ChildNodes)
                                 {
                                     if (node.Name == "passMD5")
                                     {
-                                        node.InnerText = data.ToString();
+                                        node.InnerText = passwordHash;
                                     }
                                 }
+                            xDoc.Save(usersPath);
 
                             FlyoutTextBlock.Text = "Пароль успешно изменен";
                             ChangePasswordButtonFlyout.ShowAt(ChangePasswordButton);
