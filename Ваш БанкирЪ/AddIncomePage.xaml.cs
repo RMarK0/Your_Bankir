@@ -101,13 +101,13 @@ namespace Ваш_БанкирЪ
                 VerticalAlignment = VerticalAlignment.Bottom,
                 HorizontalAlignment = HorizontalAlignment.Left,
                 FontSize = 25,
-                Text = $"{sum:### ### ### ###} ₽",
+                Text = $"{sum:### ### ###} ₽",
                 Margin = new Thickness(-10, 0, 0, 0)
             };
 
-            StackPanel infoStackPanel = new StackPanel();
+            Grid infoGrid = new Grid();
 
-            Flyout infoFlyout = new Flyout { Content = infoStackPanel };
+            Flyout infoFlyout = new Flyout { Content = infoGrid };
 
             Button infoOkButton = new Button { Content = "Закрыть" };
             infoOkButton.Click += (sender, args) => infoFlyout.Hide();
@@ -121,11 +121,12 @@ namespace Ваш_БанкирЪ
                 TextWrapping = TextWrapping.WrapWholeWords,
                 MaxWidth = 300,
                 MaxHeight = 400,
-                VerticalAlignment = VerticalAlignment.Top
+                VerticalAlignment = VerticalAlignment.Top,
+                Margin = new Thickness(0, 0, 0, 50)
             };
 
-            infoStackPanel.Children.Add(infoOkButton);
-            infoStackPanel.Children.Add(infoTextBlock);
+            infoGrid.Children.Add(infoOkButton);
+            infoGrid.Children.Add(infoTextBlock);
 
             Image infoButtonIcon = new Image
             {
@@ -186,7 +187,7 @@ namespace Ваш_БанкирЪ
         private void IncomeAddButton_OnClick(object sender, RoutedEventArgs e)
         {
             string comment = IncomeCommentsTextBox.Text;
-            if (IncomeSumTextBox.Text.Trim() != "" && Convert.ToInt32(IncomeSumTextBox.Text) < int.MaxValue)
+            if (IncomeSumTextBox.Text.Trim() != "" && IncomeSumTextBox.Text.Length < 10)
             {
                 int sum = Convert.ToInt32(IncomeSumTextBox.Text);
                 if (IncomeCategoryComboBox.SelectedItem != null)

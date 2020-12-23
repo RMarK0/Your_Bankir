@@ -24,6 +24,25 @@
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="Grid.Row" Value="1"/>
         </Style>
+
+        <Style TargetType="Image" x:Key="SmallWindowImages">
+            <Setter Property="Width" Value="70"/>
+            <Setter Property="Height" Value="70"/>
+        </Style>
+        <Style TargetType="Image" x:Key="LargeWindowImages">
+            <Setter Property="Width" Value="90"/>
+            <Setter Property="Height" Value="90"/>
+        </Style>
+
+        <Style TargetType="Grid" x:Key="SmallWindowGrid">
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Height" Value="130"/>
+        </Style>
+        <Style TargetType="Grid" x:Key="LargeWindowGrid">
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Height" Value="170"/>
+        </Style>
+
     </Page.Resources>
 
 
@@ -49,6 +68,27 @@
                         <Setter Target="FinanceAnalysisButton.Margin" Value="420 0 0 230"/>
                         <Setter Target="SettingsButton.Style" Value="{StaticResource LargeWindowStyle}"/>
                         <Setter Target="SettingsButton.Margin" Value="0 0 0 -190"/>
+
+                        <Setter Target="AddExpensesImage.Style" Value="{StaticResource LargeWindowImages}"/>
+                        <Setter Target="AddIncomeImage.Style" Value="{StaticResource LargeWindowImages}"/>
+                        <Setter Target="AddTargetImage.Style" Value="{StaticResource LargeWindowImages}"/>
+                        <Setter Target="ExitImage.Style" Value="{StaticResource LargeWindowImages}"/>
+                        <Setter Target="FinanceAnalysisImage.Style" Value="{StaticResource LargeWindowImages}"/>
+                        <Setter Target="SettingsImage.Style" Value="{StaticResource LargeWindowImages}"/>
+
+                        <Setter Target="AddExpensesGrid.Style" Value="{StaticResource LargeWindowGrid}"/>
+                        <Setter Target="AddIncomeGrid.Style" Value="{StaticResource LargeWindowGrid}"/>
+                        <Setter Target="AddTargetGrid.Style" Value="{StaticResource LargeWindowGrid}"/>
+                        <Setter Target="ExitGrid.Style" Value="{StaticResource LargeWindowGrid}"/>
+                        <Setter Target="FinanceAnalysisGrid.Style" Value="{StaticResource LargeWindowGrid}"/>
+                        <Setter Target="SettingsGrid.Style" Value="{StaticResource LargeWindowGrid}"/>
+
+                        <Setter Target="AddExpensesText.FontSize" Value="22"/>
+                        <Setter Target="AddIncomeText.FontSize" Value="22"/>
+                        <Setter Target="AddTargetText.FontSize" Value="22"/>
+                        <Setter Target="ExitText.FontSize" Value="22"/>
+                        <Setter Target="FinanceAnalysisText.FontSize" Value="22"/>
+                        <Setter Target="SettingsText.FontSize" Value="22"/>
                     </VisualState.Setters>
 
                 </VisualState>
@@ -70,6 +110,27 @@
                         <Setter Target="FinanceAnalysisButton.Margin" Value="310 0 0 180"/>
                         <Setter Target="SettingsButton.Style" Value="{StaticResource SmallWindowStyle}"/>
                         <Setter Target="SettingsButton.Margin" Value="0 0 0 -130"/>
+
+                        <Setter Target="AddExpensesImage.Style" Value="{StaticResource SmallWindowImages}"/>
+                        <Setter Target="AddIncomeImage.Style" Value="{StaticResource SmallWindowImages}"/>
+                        <Setter Target="AddTargetImage.Style" Value="{StaticResource SmallWindowImages}"/>
+                        <Setter Target="ExitImage.Style" Value="{StaticResource SmallWindowImages}"/>
+                        <Setter Target="FinanceAnalysisImage.Style" Value="{StaticResource SmallWindowImages}"/>
+                        <Setter Target="SettingsImage.Style" Value="{StaticResource SmallWindowImages}"/>
+
+                        <Setter Target="AddExpensesGrid.Style" Value="{StaticResource SmallWindowGrid}"/>
+                        <Setter Target="AddIncomeGrid.Style" Value="{StaticResource SmallWindowGrid}"/>
+                        <Setter Target="AddTargetGrid.Style" Value="{StaticResource SmallWindowGrid}"/>
+                        <Setter Target="ExitGrid.Style" Value="{StaticResource SmallWindowGrid}"/>
+                        <Setter Target="FinanceAnalysisGrid.Style" Value="{StaticResource SmallWindowGrid}"/>
+                        <Setter Target="SettingsGrid.Style" Value="{StaticResource SmallWindowGrid}"/>
+
+                        <Setter Target="AddExpensesText.FontSize" Value="16"/>
+                        <Setter Target="AddIncomeText.FontSize" Value="16"/>
+                        <Setter Target="AddTargetText.FontSize" Value="16"/>
+                        <Setter Target="ExitText.FontSize" Value="16"/>
+                        <Setter Target="FinanceAnalysisText.FontSize" Value="16"/>
+                        <Setter Target="SettingsText.FontSize" Value="16"/>
                     </VisualState.Setters>
                 </VisualState>
 
@@ -83,31 +144,52 @@
 
         <Image Source="Assets/logo-placeholder.png"
                HorizontalAlignment="Center" VerticalAlignment="Center"
-               Height="168" Width="168" Margin="0,0,0,0" Grid.Row="0"/>
+               Height="168" Width="168" Margin="0 0 0 0" Grid.Row="0"/>
 
         <Button x:Name="AddExpensesButton" Click="AddExpensesButton_Click">
-            <Image Source="Assets/icons8-отменить-платеж-96 (1).png" HorizontalAlignment="Center" VerticalAlignment="Center" Height="90" Width="90"/>
+            <Grid VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="AddExpensesGrid">
+                <Image Source="Assets/icons8-отменить-платеж-96 (1).png" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                       Margin="0 0 0 10" x:Name="AddExpensesImage"/>
+                <TextBlock Text="Добавить расход" VerticalAlignment="Bottom" HorizontalAlignment="Center" x:Name="AddExpensesText"/>
+            </Grid>
         </Button>
         <Button x:Name="AddIncomeButton" Click="AddIncomeButton_Click">
-            <Image Source="Assets/icons8-добавить-квитанцию-96 (1).png" HorizontalAlignment="Center" VerticalAlignment="Center" Height="90" Width="90"/>
+            <Grid VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="AddIncomeGrid">
+                <Image Source="Assets/icons8-добавить-квитанцию-96 (1).png" HorizontalAlignment="Center" VerticalAlignment="Center"
+                       Margin="0 0 0 10" x:Name="AddIncomeImage"/>
+                <TextBlock Text="Добавить доход" VerticalAlignment="Bottom" HorizontalAlignment="Center" x:Name="AddIncomeText"/>
+            </Grid>
         </Button>
         <Button x:Name="FinanceAnalysisButton" Click="FinanceAnalysisButton_Click">
-            <Image Source="Assets/icons8-график-96 (1).png" HorizontalAlignment="Center" VerticalAlignment="Center" Height="90" Width="90"/>
+            <Grid VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="FinanceAnalysisGrid">
+                <Image Source="Assets/icons8-график-96 (1).png" HorizontalAlignment="Center" VerticalAlignment="Center"
+                       Margin="0 0 0 10" x:Name="FinanceAnalysisImage"/>
+                <TextBlock Text="Статистика" VerticalAlignment="Bottom" HorizontalAlignment="Center" x:Name="FinanceAnalysisText"/>
+            </Grid>
         </Button>
         <Button x:Name="AddTargetButton" Click="AddTargetButton_Click">
-            <Image Source="Assets/icons8-получить-доллары-наличными-96 (1).png" HorizontalAlignment="Center" VerticalAlignment="Center" Height="90" Width="90"/>
+            <Grid VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="AddTargetGrid">
+                <Image Source="Assets/icons8-получить-доллары-наличными-96 (1).png" HorizontalAlignment="Center" VerticalAlignment="Center"
+                       Margin="0 0 0 10" x:Name="AddTargetImage"/>
+                <TextBlock Text="Финансовые цели" VerticalAlignment="Bottom" HorizontalAlignment="Center" x:Name="AddTargetText"/>
+            </Grid>
         </Button>
         <Button x:Name="SettingsButton" Click="SettingsButton_Click">
-            <Image Source="Assets/icons8-настройки-96 (1).png" HorizontalAlignment="Center" VerticalAlignment="Center" Height="90" Width="90"/>
+            <Grid VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="SettingsGrid">
+                <Image Source="Assets/icons8-настройки-96 (1).png" HorizontalAlignment="Center" VerticalAlignment="Center"
+                       Margin="0 0 0 10" x:Name="SettingsImage"/>
+                <TextBlock Text="Настройки" VerticalAlignment="Bottom" HorizontalAlignment="Center" x:Name="SettingsText"/>
+            </Grid>
         </Button>
         <Button x:Name="ExitButton" Click="ExitButton_Click">
-            <Image Source="Assets/icons8-выход-96 (1).png" HorizontalAlignment="Center" VerticalAlignment="Center" Height="90" Width="90"/>
+            <Grid VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="ExitGrid">
+                <Image Source="Assets/icons8-выход-96 (1).png" HorizontalAlignment="Center" VerticalAlignment="Center"
+                       Margin="0 0 0 10" x:Name="ExitImage"/>
+                <TextBlock Text="Выход" VerticalAlignment="Bottom" HorizontalAlignment="Center" x:Name="ExitText"/>
+            </Grid>
         </Button>
 
         <TextBlock x:Name="ActiveClientTextBlock" HorizontalAlignment="Center" VerticalAlignment="Bottom" 
                    Grid.Row="1" FontSize="20" Margin="0 0 0 5" Text=""/>
-
     </Grid>
 </Page>
-    
-    <!-- TODO: 2. Сделать адаптивку и протестить цели и анализ финансов; -->
