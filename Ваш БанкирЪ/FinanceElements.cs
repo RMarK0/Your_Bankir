@@ -142,7 +142,7 @@ namespace Ваш_БанкирЪ
         public int FullSum { get; private set; }
         public string Comment { get; private set; }
 
-        public int CurrentSum { get; private set; } 
+        public int CurrentSum { get; internal set; } 
         public long DateAdded { get; private set; } 
         public string ClientID { get; private set; } 
 
@@ -210,7 +210,7 @@ namespace Ваш_БанкирЪ
             if (Count < Capacity)
             {
                 _targetsList[Count] = new Target(name, fullSum, comment);
-                FunctionClass.AddToXml(new Target(name, fullSum, comment));
+                FunctionClass.AddToXml(_targetsList[Count]);
                 Count++;
             }
             else
@@ -224,7 +224,7 @@ namespace Ваш_БанкирЪ
             if (Count < Capacity)
             {
                 _targetsList[Count] = new Target(name, fullSum);
-                FunctionClass.AddToXml(new Target(name, fullSum));
+                FunctionClass.AddToXml(_targetsList[Count]);
                 Count++;
             }
             else

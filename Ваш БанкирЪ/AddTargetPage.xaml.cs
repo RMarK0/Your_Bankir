@@ -56,7 +56,7 @@ namespace Ваш_БанкирЪ
             if (TargetNameTextBox.Text.Trim() != "" && TargetNameTextBox.Text.Length < 15)
             {
                 name = TargetNameTextBox.Text.Trim();
-                if (TargetSumTextBox.Text != "" && Convert.ToInt32(TargetSumTextBox.Text) < int.MaxValue)
+                if (TargetSumTextBox.Text != "")
                 {
                     sum = Convert.ToInt32(TargetSumTextBox.Text);
 
@@ -93,6 +93,8 @@ namespace Ваш_БанкирЪ
         private void TargetSumTextBox_OnBeforeTextChanging(TextBox sender, TextBoxBeforeTextChangingEventArgs args)
         {
             args.Cancel = args.NewText.Any(c => !char.IsDigit(c));
+            if (TargetSumTextBox.Text.Length > 8)
+                args.Cancel = args.NewText.Any();
         }
 
         private void AddTargetFlyoutButton_OnClick(object sender, RoutedEventArgs e)

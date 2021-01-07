@@ -251,9 +251,8 @@ namespace Ваш_БанкирЪ
 
         internal static void DeleteFromXML(int index, Target obj)
         {
-            XmlReader targetReader = XmlReader.Create(App.targetsPath);
             XmlDocument targetXmlDocument = new XmlDocument();
-            targetXmlDocument.Load(targetReader);
+            targetXmlDocument.Load(App.targetsPath);
 
             XmlElement targetRoot = targetXmlDocument.DocumentElement;
 
@@ -261,14 +260,13 @@ namespace Ваш_БанкирЪ
             else throw new NullReferenceException("targetRoot was null");
             targetRoot.RemoveChild(targetRoot.ChildNodes[index]);
 
-            targetReader.Close();
+            targetXmlDocument.Save(App.targetsPath);
         }
 
         internal static void DeleteFromXML(int index, FinancialChange obj)
         {
-            XmlReader changesReader = XmlReader.Create(App.changesPath);
             XmlDocument changesXmlDocument = new XmlDocument();
-            changesXmlDocument.Load(changesReader);
+            changesXmlDocument.Load(App.changesPath);
 
             XmlElement changesRoot = changesXmlDocument.DocumentElement;
 
@@ -276,7 +274,7 @@ namespace Ваш_БанкирЪ
             else throw new NullReferenceException("changesRoot was null");
             changesRoot.RemoveChild(changesRoot.ChildNodes[index]);
 
-            changesReader.Close();
+            changesXmlDocument.Save(App.changesPath);
         }
 
         internal static string GetClientFromID(string clientID)

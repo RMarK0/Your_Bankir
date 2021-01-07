@@ -34,7 +34,7 @@
                 </Flyout>
             </Button.Flyout>
         </Button>
-        <TextBlock Text="v 0.2.8 Pre-release" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Row="1" Margin="0 0 0 25"/>
-        <TextBlock Text="Dmitry Rybalko" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Row="1" Margin="0 0 0 5"/>
+        <TextBlock x:Name="versionTextBox" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Row="1" Margin="0 0 0 25"/>
+        <TextBlock Text="© Dmitry Rybalko" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Row="1" Margin="0 0 0 5"/>
     </Grid>
 </Page>

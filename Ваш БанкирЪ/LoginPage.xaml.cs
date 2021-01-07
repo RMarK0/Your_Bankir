@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Security.Cryptography;
 using System.Text;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.ServiceModel.Dispatcher;
 using System.Xml.Linq;
+using Windows.ApplicationModel;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.System;
@@ -63,6 +65,8 @@ namespace Ваш_БанкирЪ
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
 
             InitializeComponent();
+            
+            versionTextBox.Text = versionInfo.ToString();
         }
 
         private void Grid_KeyDown(object sender, KeyRoutedEventArgs e)

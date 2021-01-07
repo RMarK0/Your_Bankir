@@ -10,17 +10,9 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid x:Name="MainGrid">
-
-        <Button x:Name="PrevMonthButton" Content="🢀" FontSize="25" Width="50" Height="50"
-                HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 450 1000 0"
-                VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-        <Button x:Name="NextMonthButton" Content="🢂" FontSize="25" Width="50" Height="50"
-                HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 450 200 0"
-                VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-
-        <TextBlock x:Name="DiagramDateTextBlock" Text="Тест месяц 2019" Width="350" Height="50" FontSize="35"
-                   TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 450 600 0"
-                   />
+        <TextBlock x:Name="DiagramDateTextBlock" Text="Страница в разработке" Height="50" FontSize="35"
+                   TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 0 0"
+        />
         
 
     </Grid>

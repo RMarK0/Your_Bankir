@@ -53,34 +53,22 @@
         <ScrollViewer x:Name="ActiveTargetsViewer" HorizontalScrollBarVisibility="Disabled" HorizontalScrollMode="Disabled"
                       Width="480" Height="500"
                       HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 500 0">
-            <StackPanel Padding="20">
+            <StackPanel x:Name="TargetViewerStackPanel" Padding="20">
 
-                <Grid Height="80" Margin="0 0 0 30">
-                    <ProgressBar Width="270" Height="35" Value="40"
-                                 HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                    <TextBlock Text="Автомобиль Хонда" HorizontalAlignment="Left" VerticalAlignment="Bottom" 
-                               FontSize="30" MaxWidth="270"/>
-
-                    <Button Width="60" Height="60" HorizontalAlignment="Right" >
-                        <Image Source="Assets/icons8-редактировать-96.png"/>
-                    </Button>
-                    <Button Width="60" Height="60" HorizontalAlignment="Right" Margin="0 0 70 0">
-                        <Image Source="Assets/icons8-информация-96.png"/>
-                    </Button>
-                </Grid>
+                
 
             </StackPanel>
         </ScrollViewer>
         <TextBlock x:Name="BalanceTextBox" Text="Баланс:" FontSize="40" Width="250" Height="50"
                    TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"
                    Margin="600 0 0 200"/>
-        <TextBlock x:Name="BalanceSumTextBox" Text="12345 ₽" FontSize="40" Width="250" Height="50"
+        <TextBlock x:Name="BalanceSumTextBox" Text="" FontSize="40" Width="250" Height="50"
                    TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"
                    Margin="600 0 0 100"/>
         <TextBlock x:Name="PrevMonthExpensesTextBox" Text="Расходы за этот месяц:" FontSize="40" Width="450" Height="50"
                    TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"
                    Margin="600 0 0 -100"/>
-        <TextBlock x:Name="PrevMonthExpensesSumTextBox" Text="54321 ₽" FontSize="40" Width="250" Height="50"
+        <TextBlock x:Name="PrevMonthExpensesSumTextBox" Text="" FontSize="40" Width="250" Height="50"
                    TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"
                    Margin="600 0 0 -200"/>
 

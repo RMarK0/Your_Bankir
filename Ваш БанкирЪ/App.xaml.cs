@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Xml;
 using Windows.ApplicationModel;
@@ -58,7 +59,8 @@ namespace Ваш_БанкирЪ
         internal static string changesPath = storageFolder.Path + "/ChangesData.xml";
         internal static string usersPath = storageFolder.Path + "/LogPassDB.xml";
         internal static string targetsPath = storageFolder.Path + "/TargetsData.xml";
-        
+
+        internal static Version versionInfo = typeof(App).GetTypeInfo().Assembly.GetName().Version;
 
         private async void InitializeFiles()
         {
