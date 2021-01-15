@@ -10,10 +10,8 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid x:Name="MainGrid">
-        <TextBlock x:Name="DiagramDateTextBlock" Text="Страница в разработке" Height="50" FontSize="35"
-                   TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 0 0"
-        />
-        
+        <TextBlock x:Name="MonthTextBlock" Text="Страница в разработке" FontSize="35" VerticalAlignment="Center" HorizontalAlignment="Center"
+                   Margin="0 0 0 0"/>
 
     </Grid>
 </Page>

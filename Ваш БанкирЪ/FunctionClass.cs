@@ -120,7 +120,7 @@ namespace Ваш_БанкирЪ
                             case ("currentSum"):
                                 currentSum = Convert.ToInt32(targetChildNode.InnerText);
                                 break;
-                            case ("dateAdded"):
+                            case ("date"):
                                 dateAdded = Convert.ToInt64(targetChildNode.InnerText);
                                 break;
                             case ("clientID"):
