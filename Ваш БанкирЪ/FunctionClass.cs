@@ -87,47 +87,55 @@ namespace Ваш_БанкирЪ
             App.FinancialChangesList = new FinancialChangeList(200); // сделать настройку Capacity из настроек
             App.TargetsList = new TargetList(15);                    // аналогично и тут
             
-            int ChangesXML = 0; // сделать проверку на соотв. массиву
+            int ChangesXML = 0;
             int TargetsXML = 0;
 
             foreach (XmlNode Target in targetRoot)
+                TargetsXML++;
+
+            if (App.TargetsList.Capacity > TargetsXML)
             {
                 string name = "";
                 int fullSum = -1;
                 string comment = "";
                 int currentSum = -1;
                 long dateAdded = -1;
-                string clientId = ""; 
+                string clientID = "";
 
-                foreach (XmlNode TargetChildNode in Target.ChildNodes)
+                foreach (XmlNode Target in targetRoot)
                 {
-                    switch (TargetChildNode.Name)
+                    foreach (XmlNode targetChildNode in Target.ChildNodes)
                     {
-                        case ("name"):
-                            name = TargetChildNode.InnerText;
-                            break;
-                        case ("fullSum"):
-                            fullSum = Convert.ToInt32(TargetChildNode.InnerText);
-                            break;
-                        case ("comment"):
-                            comment = TargetChildNode.InnerText;
-                            break;
-                        case ("currentSum"):
-                            currentSum = Convert.ToInt32(TargetChildNode.InnerText);
-                            break;
-                        case ("date"):
-                            dateAdded = Convert.ToInt64(TargetChildNode.InnerText);
-                            break;
-                        case ("clientID"):
-                            clientId = TargetChildNode.InnerText;
-                            break;
+                        switch (targetChildNode.Name)
+                        {
+                            case ("name"):
+                                name = targetChildNode.InnerText;
+                                break;
+                            case ("fullSum"):
+                                fullSum = Convert.ToInt32(targetChildNode.InnerText);
+                                break;
+                            case ("comment"):
+                                comment = targetChildNode.InnerText;
+                                break;
+                            case ("currentSum"):
+                                currentSum = Convert.ToInt32(targetChildNode.InnerText);
+                                break;
+                            case ("dateAdded"):
+                                dateAdded = Convert.ToInt64(targetChildNode.InnerText);
+                                break;
+                            case ("clientID"):
+                                clientID = targetChildNode.InnerText;
+                                break;
+                        }
                     }
+                    App.TargetsList.AddTarget(name, fullSum, comment, dateAdded, currentSum, clientID);
                 }
-                if (name != "" && fullSum != -1 && comment != "" && currentSum != -1 && dateAdded != -1 && clientId != "")
-                    App.TargetsList.AddTarget(name, fullSum, comment, dateAdded, currentSum, clientId);
             }
-
+            
             foreach (XmlNode Change in changesRoot)
+                ChangesXML++;
+            
+            if (App.FinancialChangesList.Capacity > ChangesXML)
             {
                 long date = -1;
                 int sum = -1;
@@ -136,10 +144,12 @@ namespace Ваш_БанкирЪ
                 bool isIncome = false;
                 string comment = "";
 
-                foreach (XmlNode ChangeChildNode in Change.ChildNodes)
+                foreach (XmlNode Change in changesRoot)
                 {
-                    switch (ChangeChildNode.Name)
+                    foreach (XmlNode ChangeChildNode in Change.ChildNodes)
                     {
+                        switch (ChangeChildNode.Name)
+                        {
                         case ("date"):
                             date = Convert.ToInt64(ChangeChildNode.InnerText);
                             break;
@@ -158,10 +168,10 @@ namespace Ваш_БанкирЪ
                         case ("comment"):
                             comment = ChangeChildNode.InnerText;
                             break;
+                        }
                     }
-                }
-                if (date != -1 && sum != -1 && category != "" && clientID != "" && comment != "")
                     App.FinancialChangesList.AddFinancialChange(sum, isIncome, comment, category, date, clientID);
+                }
             }
         }
 

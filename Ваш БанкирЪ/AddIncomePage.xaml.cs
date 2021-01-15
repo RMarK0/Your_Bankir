@@ -27,6 +27,8 @@ namespace Ваш_БанкирЪ
     /// </summary>
     public sealed partial class AddIncomePage : Page
     {
+        public static AddIncomePage IncomePage;
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
@@ -117,7 +119,7 @@ namespace Ваш_БанкирЪ
             TextBlock infoTextBlock = new TextBlock
             {
                 Text = String.Format(
-                    $"{FunctionClass.GetClientFromID(clientID)} в {changeDate.ToShortDateString()}: \n " +
+                    $"{FunctionClass.GetClientFromID(clientID)} в {changeDate.ToShortDateString()}: \n" +
                     $"{comment}"),
                 TextWrapping = TextWrapping.WrapWholeWords,
                 MaxWidth = 300,
@@ -173,6 +175,7 @@ namespace Ваш_БанкирЪ
 
         public AddIncomePage()
         {
+            IncomePage = this;
             this.InitializeComponent();
             var currentView = SystemNavigationManager.GetForCurrentView();
             currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
@@ -204,6 +207,8 @@ namespace Ваш_БанкирЪ
                     }
 
                     UpdateHistory();
+                    App.TotalIncomes += sum;
+                    App.CurrentSum += sum;
                     IncomeErrorText.Text = "Доход успешно добавлен";
                     IncomeSumTextBox.Text = "";
                     IncomeCommentsTextBox.Text = "";

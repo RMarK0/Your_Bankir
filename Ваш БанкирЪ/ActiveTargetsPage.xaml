@@ -54,9 +54,7 @@
                       Width="480" Height="500"
                       HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 500 0">
             <StackPanel x:Name="TargetViewerStackPanel" Padding="20">
-
                 
-
             </StackPanel>
         </ScrollViewer>
         <TextBlock x:Name="BalanceTextBox" Text="Баланс:" FontSize="40" Width="250" Height="50"

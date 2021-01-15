@@ -24,6 +24,8 @@ namespace Ваш_БанкирЪ
     /// </summary>
     public sealed partial class AddExpensesPage : Page
     {
+        public static AddExpensesPage ExpensesPage;
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
@@ -87,7 +89,7 @@ namespace Ваш_БанкирЪ
             TextBlock infoTextBlock = new TextBlock
             {
                 Text = String.Format(
-                    $"{FunctionClass.GetClientFromID(clientID)} в {changeDate.ToShortDateString()}: \n " +
+                    $"{FunctionClass.GetClientFromID(clientID)} в {changeDate.ToShortDateString()}: \n" +
                     $"{comment}"),
                 TextWrapping = TextWrapping.WrapWholeWords,
                 MaxWidth = 300,
@@ -164,11 +166,11 @@ namespace Ваш_БанкирЪ
                     CreateHistoryNode(date, sum, isIncome, comment, clientID, category);
                 }
             }
-
         }
 
         public AddExpensesPage()
         {
+            ExpensesPage = this;
             this.InitializeComponent();
             var currentView = SystemNavigationManager.GetForCurrentView();
             currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
@@ -201,6 +203,8 @@ namespace Ваш_БанкирЪ
                     }
 
                     UpdateHistory();
+                    App.CurrentSum -= sum;
+                    App.TotalExpenses += sum;
                     ExpenseErrorText.Text = "Расход успешно добавлен";
                     ExpensesSumTextBox.Text = "";
                     ExpensesCommentsTextBox.Text = "";

@@ -30,14 +30,13 @@ namespace Ваш_БанкирЪ
         public long DateAdded { get; internal set; }
         public string ClientID { get; internal set; }
 
-        public Grid targetGrid;
+        public Grid TargetGrid;
         private ProgressBar progressBar;
         private TextBlock headerTextBlock;
         private Button editButton;
         private Button infoButton;
         private Flyout infoFlyout;
         private Flyout editFlyout;
-        internal Flyout deleteButtonFlyout;
 
         private Image infoIcon;
         private Image editIcon;
@@ -46,7 +45,6 @@ namespace Ваш_БанкирЪ
         private Grid editFlyoutGrid;
 
         private Button infoFlyoutCloseButton;
-        private Button editFlyoutCloseButton;
         private Button flyoutDeleteTargetButton;
         private Button flyoutSaveChangesButton;
 
@@ -70,7 +68,7 @@ namespace Ваш_БанкирЪ
 
             DateTime _dateAdded = DateTime.FromBinary(DateAdded);
 
-            targetGrid = new Grid()
+            TargetGrid = new Grid()
             {
                 Height = 80,
                 Margin = new Thickness(0, 0, 0, 30)
@@ -111,14 +109,6 @@ namespace Ваш_БанкирЪ
                 HorizontalAlignment = HorizontalAlignment.Right,
                 Margin = new Thickness(0, 0, 70, 0),
                 Content = infoIcon
-            };
-
-            deleteButtonFlyout = new Flyout();
-            deleteButtonFlyout.Content = new TextBlock()
-            {
-                Text = "Цель успешно удалена. Обновите страницу чтобы изменения вступили в силу.",
-                TextWrapping = TextWrapping.WrapWholeWords,
-                MaxWidth = 300
             };
 
             editButton = new Button()
@@ -165,10 +155,10 @@ namespace Ваш_БанкирЪ
             infoButton.Click += (sender, args) => infoFlyout.ShowAt(infoButton);
             infoFlyoutCloseButton.Click += (sender, args) => infoFlyout.Hide();
 
-            targetGrid.Children.Add(progressBar);
-            targetGrid.Children.Add(editButton);
-            targetGrid.Children.Add(infoButton);
-            targetGrid.Children.Add(headerTextBlock);
+            TargetGrid.Children.Add(progressBar);
+            TargetGrid.Children.Add(editButton);
+            TargetGrid.Children.Add(infoButton);
+            TargetGrid.Children.Add(headerTextBlock);
 
             editFlyoutTextBox = new TextBox()
             {
@@ -216,8 +206,6 @@ namespace Ваш_БанкирЪ
 
             flyoutSaveChangesButton.Click += (sender, args) => EditTarget(Convert.ToInt32(editFlyoutTextBox.Text), this);
             flyoutDeleteTargetButton.Click += (sender, args) => DeleteTarget(this);
-
-
         }
 
         public void ClearFlyoutTextBox()
@@ -228,7 +216,7 @@ namespace Ваш_БанкирЪ
         internal void DeleteTarget(TargetNode targetNode)
         {
             int index = 0;
-            foreach (Target target in App.TargetsList)
+            foreach (Target target in TargetsList)
             {
                 if (target != null)
                 {
@@ -237,54 +225,66 @@ namespace Ваш_БанкирЪ
                         target.CurrentSum == targetNode.CurrentSum && target.DateAdded == targetNode.DateAdded &&
                         target.ClientID == targetNode.ClientID)
                     {
-                        App.TargetsList.DeleteTarget(index);
+                        TargetsList.DeleteTarget(index);
                     }
                     else
                         index++;
                 }
             }
-            targetNode.deleteButtonFlyout.ShowAt(targetNode.flyoutDeleteTargetButton);
+            ActiveTargetsPage.targetsPage.UpdateTargets();
         }
 
         internal static void EditTarget(int newSum, TargetNode targetNode)
         {
-            XmlDocument xDoc = new XmlDocument();
-            xDoc.Load(App.targetsPath);
-            XmlElement xRoot = xDoc.DocumentElement;
-
-            XmlNode _targetNode = xRoot?.SelectSingleNode($"target[name='{targetNode.Name}' and fullSum='{targetNode.FullSum}'" +
-                                                          $" and comment='{targetNode.Comment}' and currentSum='{targetNode.CurrentSum}'" +
-                                                          $" and date='{targetNode.DateAdded}' and clientID='{targetNode.ClientID}']");
-            if (_targetNode != null)
+            if (newSum <= targetNode.FullSum)
             {
-                foreach (Target target in App.TargetsList)
+                XmlDocument xDoc = new XmlDocument();
+                xDoc.Load(targetsPath);
+                XmlElement xRoot = xDoc.DocumentElement;
+
+                XmlNode _targetNode = xRoot?.SelectSingleNode(
+                    $"target[name='{targetNode.Name}' and fullSum='{targetNode.FullSum}'" +
+                    $" and comment='{targetNode.Comment}' and currentSum='{targetNode.CurrentSum}'" +
+                    $" and date='{targetNode.DateAdded}' and clientID='{targetNode.ClientID}']");
+                if (_targetNode != null)
                 {
-                    if (target != null)
+                    foreach (Target target in TargetsList)
                     {
-                        if (target.Name == targetNode.Name && target.FullSum == targetNode.FullSum &&
-                          target.Comment == targetNode.Comment &&
-                          target.CurrentSum == targetNode.CurrentSum && target.DateAdded == targetNode.DateAdded &&
-                          target.ClientID == targetNode.ClientID)
-                        target.CurrentSum = newSum;
+                        if (target != null)
+                        {
+                            if (target.Name == targetNode.Name && target.FullSum == targetNode.FullSum &&
+                                target.Comment == targetNode.Comment &&
+                                target.CurrentSum == targetNode.CurrentSum &&
+                                target.DateAdded == targetNode.DateAdded &&
+                                target.ClientID == targetNode.ClientID)
+                            {
+                                target.CurrentSum = newSum;
+                            }
+                        }
+                    }
+
+                    targetNode.CurrentSum = newSum;
+                    foreach (XmlNode childNode in _targetNode.ChildNodes)
+                    {
+                        if (childNode != null)
+                        {
+                            if (childNode.Name == "currentSum")
+                                childNode.InnerText = newSum.ToString();
+                            targetNode.ClearFlyoutTextBox();
+                        }
                     }
                 }
-                targetNode.CurrentSum = newSum;
-                foreach (XmlNode childNode in _targetNode.ChildNodes)
-                {
-                    if (childNode != null)
-                    {
-                        if (childNode.Name == "currentSum")
-                            childNode.InnerText = newSum.ToString();
-                        targetNode.ClearFlyoutTextBox();
-                    }
-                }
+
+                xDoc.Save(targetsPath);
+                ActiveTargetsPage.targetsPage.UpdateTargets();
             }
-            xDoc.Save(App.targetsPath);
         }
     }
 
     public sealed partial class ActiveTargetsPage : Page
     {
+        public static ActiveTargetsPage targetsPage;
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
@@ -305,14 +305,14 @@ namespace Ваш_БанкирЪ
         {
             TargetViewerStackPanel.Children.Clear();
 
-            string Name = null;
-            int FullSum = Int32.MinValue;
-            string Comment = null;
-            int CurrentSum = Int32.MinValue;
-            long DateAdded = Int64.MinValue;
-            string ClientID = null;
+            string Name;
+            int FullSum;
+            string Comment;
+            int CurrentSum;
+            long DateAdded;
+            string ClientID;
 
-            foreach (Target target in App.TargetsList)
+            foreach (Target target in TargetsList)
             {
                 if (target != null)
                 {
@@ -325,7 +325,7 @@ namespace Ваш_БанкирЪ
 
                     TargetNode newNode = new TargetNode();
                     newNode.CreateTargetNode(Name, FullSum, Comment, CurrentSum, DateAdded, ClientID);
-                    TargetViewerStackPanel.Children.Add(newNode.targetGrid);
+                    TargetViewerStackPanel.Children.Add(newNode.TargetGrid);
                 }
             }
         }
@@ -349,6 +349,7 @@ namespace Ваш_БанкирЪ
             var currentView = SystemNavigationManager.GetForCurrentView();
             currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
 
+            targetsPage = this;
             UpdateTargets();
             UpdateSums();
         }
