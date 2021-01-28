@@ -46,7 +46,6 @@ namespace Ваш_БанкирЪ
             currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
         }
 
-
         private void AddTargetButton_OnClick(object sender, RoutedEventArgs e)
         {
             string name;
@@ -100,6 +99,12 @@ namespace Ваш_БанкирЪ
         private void AddTargetFlyoutButton_OnClick(object sender, RoutedEventArgs e)
         {
             AddTargetFlyout.Hide();
+        }
+
+        private void TargetNameTextBox_OnBeforeTextChanging(TextBox sender, TextBoxBeforeTextChangingEventArgs args)
+        {
+            if (TargetNameTextBox.Text.Length == 14)
+                args.Cancel = args.NewText.Any();
         }
     }
 }

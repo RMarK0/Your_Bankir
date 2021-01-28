@@ -68,7 +68,7 @@
         </Button>
 
                 <TextBox x:Name="TargetNameTextBox" Height="70" PlaceholderText="Введите название..." FontSize="35"
-                 VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 0 450"/>
+                 VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 0 450" BeforeTextChanging="TargetNameTextBox_OnBeforeTextChanging"/>
         <TextBox x:Name="TargetSumTextBox" Height="70" PlaceholderText="Введите сумму..." FontSize="35"
                  VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 0 280" BeforeTextChanging="TargetSumTextBox_OnBeforeTextChanging"/>
         <TextBox x:Name="TargetCommsTextBox" Height="210" PlaceholderText="Введите комментарий..." FontSize="35"

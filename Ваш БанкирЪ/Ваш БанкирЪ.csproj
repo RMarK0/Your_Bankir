@@ -18,6 +18,14 @@
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
     <PackageCertificateKeyFile>Ваш БанкирЪ_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
+    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
+    <AppxPackageDir>G:\Курсач\AppPackages\</AppxPackageDir>
+    <AppxBundle>Auto</AppxBundle>
+    <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
+    <AppInstallerUpdateFrequency>1</AppInstallerUpdateFrequency>
+    <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
+    <PackageCertificateThumbprint>A6D409955E3CB2BD912B1B99AE7840BABBDE970B</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -110,10 +118,16 @@
     <Compile Include="AddTargetPage.xaml.cs">
       <DependentUpon>AddTargetPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CreateNewUserPage.xaml.cs">
+      <DependentUpon>CreateNewUserPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FinanceAnalysisPage.xaml.cs">
       <DependentUpon>FinanceAnalysisPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="FinanceElements.cs" />
+    <Compile Include="FirstStartupPage.xaml.cs">
+      <DependentUpon>FirstStartupPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FunctionClass.cs" />
     <Compile Include="MainMenuPage.xaml.cs">
       <DependentUpon>MainMenuPage.xaml</DependentUpon>
@@ -136,6 +150,7 @@
     <None Include="Ваш БанкирЪ_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\background-filler-gif.gif" />
     <Content Include="Assets\icons8-выход-96 %281%29.png" />
     <Content Include="Assets\icons8-график-96 %281%29.png" />
     <Content Include="Assets\icons8-добавить-квитанцию-96 %281%29.png" />
@@ -180,7 +195,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="CreateNewUserPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="FinanceAnalysisPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FirstStartupPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

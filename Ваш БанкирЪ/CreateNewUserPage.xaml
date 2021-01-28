@@ -1,0 +1,40 @@
+﻿<Page
+    x:Class="Ваш_БанкирЪ.CreateNewUserPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Ваш_БанкирЪ"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <TextBox x:Name="UsernameTextBox" VerticalAlignment="Center" HorizontalAlignment="Center"
+                 Margin="0 0 0 200" Height="60" Width="480" PlaceholderText="Введите имя пользователя..." FontSize="30"/>
+        <PasswordBox x:Name="PasswordTextBox" VerticalAlignment="Center" HorizontalAlignment="Center"
+                 Margin="0 0 0 50" Height="60" Width="480" PlaceholderText="Введите пароль..." FontSize="30"/>
+        <PasswordBox x:Name="RepeatPasswordTextBox" VerticalAlignment="Center" HorizontalAlignment="Center"
+                     Margin="0 100 0 0" Height="60" Width="480" PlaceholderText="Повторите пароль..." FontSize="30"/>
+        <ComboBox x:Name="UserGenerationComboBox" Height="60" Width="480" PlaceholderText="Выберите поколение" FontSize="30"
+                  VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 250 0 0">
+            <x:String>Старшее</x:String>
+            <x:String>Среднее</x:String>
+            <x:String>Младшее</x:String>
+        </ComboBox>
+        <Button x:Name="CreateUserButton" VerticalAlignment="Center" HorizontalAlignment="Center"
+                Margin="0 430 0 0" Height="70" Width="350" Content="Создать пользователя" FontSize="30"
+                Click="CreateUserButton_OnClick">
+            <Button.Flyout>
+                <Flyout x:Name="CreateUserFlyout">
+                    <StackPanel MaxWidth="350">
+                        <TextBlock x:Name="CreateUserFlyoutTextBlock" TextWrapping="WrapWholeWords"/>
+                        <Button x:Name="CreateUserFlyoutButton" Content="Закрыть" Click="CreateUserFlyoutButton_OnClick"/>
+                    </StackPanel>
+                </Flyout>
+            </Button.Flyout>
+        </Button>
+        
+        <TextBlock x:Name="HeaderTextBlock" Text="Создание пользователя" VerticalAlignment="Center" HorizontalAlignment="Center"
+                   Margin="0 0 0 450" FontSize="40" FontWeight="Bold"/>
+    </Grid>
+</Page>

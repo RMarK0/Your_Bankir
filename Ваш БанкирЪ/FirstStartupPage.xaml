@@ -1,0 +1,61 @@
+﻿<Page
+    x:Class="Ваш_БанкирЪ.FirstStartupPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Ваш_БанкирЪ"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <Storyboard x:Key="GradientAnimation" RepeatBehavior="Forever" SpeedRatio="0.2">
+            <ColorAnimationUsingKeyFrames
+                Storyboard.TargetName="StartupGrid"
+                Storyboard.TargetProperty="(UIElement.Background).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)"
+                EnableDependentAnimation="True">
+                <LinearColorKeyFrame KeyTime="0:0:0" Value="#aa0000"/>
+                <LinearColorKeyFrame KeyTime="0:0:1" Value="#aaaa00"/>
+                <LinearColorKeyFrame KeyTime="0:0:2" Value="#00aa00"/>
+                <LinearColorKeyFrame KeyTime="0:0:3" Value="#00aaaa"/>
+                <LinearColorKeyFrame KeyTime="0:0:4" Value="#0000aa"/>
+                <LinearColorKeyFrame KeyTime="0:0:5" Value="#aa00aa"/>
+                <LinearColorKeyFrame KeyTime="0:0:6" Value="#aa0000"/>
+            </ColorAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames
+                Storyboard.TargetName="StartupGrid"
+                Storyboard.TargetProperty="(UIElement.Background).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)"
+                EnableDependentAnimation="True">
+                <LinearColorKeyFrame KeyTime="0:0:0" Value="#aa0000"/>
+                <LinearColorKeyFrame KeyTime="0:0:1" Value="#aaaa00"/>
+                <LinearColorKeyFrame KeyTime="0:0:2" Value="#00aa00"/>
+                <LinearColorKeyFrame KeyTime="0:0:3" Value="#00aaaa"/>
+                <LinearColorKeyFrame KeyTime="0:0:4" Value="#0000aa"/>
+                <LinearColorKeyFrame KeyTime="0:0:5" Value="#aa00aa"/>
+                <LinearColorKeyFrame KeyTime="0:0:6" Value="#aa0000"/>
+            </ColorAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Storyboard x:Name="TextFadeIn">
+            <FadeInThemeAnimation TargetName="HeaderTextBlock"/>
+        </Storyboard>
+        <Storyboard x:Name="TextFadeOut">
+            <FadeOutThemeAnimation TargetName="HeaderTextBlock"/>
+        </Storyboard>
+
+
+    </Page.Resources>
+
+    <Grid x:Name="StartupGrid">
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Offset="0"/>
+                <GradientStop Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <TextBlock x:Name="HeaderTextBlock" Text="Привет" FontSize="35" 
+                   VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+
+    </Grid>
+</Page>

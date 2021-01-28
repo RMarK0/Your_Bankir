@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection.Metadata;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
@@ -11,168 +12,44 @@ namespace Ваш_БанкирЪ
 {
     public static class FunctionClass
     {
-        public static void InitializeUserDB()
+        internal static void AddToXml(Client obj, string password)
         {
-            XmlDocument document = new XmlDocument();
-            document.Load(App.usersPath);
-            XmlElement root = document.DocumentElement;
+            var md5Hasher = MD5.Create();
+            var data = md5Hasher.ComputeHash(Encoding.UTF8.GetBytes(password));
 
-            string loginStr, passMD5Str, IDStr;
+            var stringBuilder = new StringBuilder();
+            for (var i = 0; i < data.Length; i++)
+                stringBuilder.Append(data[i].ToString("x2"));
+            var passwordHash = stringBuilder.ToString();
 
-            for (int i = 1; i < 7; i++)
-            {
-                IDStr = i.ToString();
-                switch (i)
-                {
-                    case (1):
-                        loginStr = "Dmitry";
-                        passMD5Str = "1364475428ad82dda84cbf2dce41e909";
-                        break;
-                    case (2):
-                        loginStr = "Zhanna";
-                        passMD5Str = "325ccfad88a9025cbb704ed0f12fa602";
-                        break;
-                    case (3):
-                        loginStr = "Andrey";
-                        passMD5Str = "3fbb16dead2a8acac3fe81e6dcc7b3c2";
-                        break;
-                    case (4):
-                        loginStr = "Taya";
-                        passMD5Str = "9627d171eff9e712f370d981d8cca894";
-                        break;
-                    case (5):
-                        loginStr = "Leonid";
-                        passMD5Str = "0a7083c14b732d58416ecaf9b082cd97";
-                        break;
-                    case (6):
-                        loginStr = "Galina";
-                        passMD5Str = "bc6c62b9d688cdf9e2e8fd3747fe8272";
-                        break;
-                    default:
-                        throw new Exception("No available name for this ID");
-                }
+            var usersXmlDocument = new XmlDocument();
+            usersXmlDocument.Load(App.usersPath);
+            var usersRoot = usersXmlDocument.DocumentElement;
 
-                XmlElement user = document.CreateElement("user");
-                XmlAttribute login = document.CreateAttribute("login");
-                XmlElement passMD5 = document.CreateElement("passMD5");
-                XmlElement ID = document.CreateElement("ID");
+            XmlElement userElement = usersXmlDocument.CreateElement("user");
+            XmlElement loginElement = usersXmlDocument.CreateElement("login");
+            XmlElement passwordElement = usersXmlDocument.CreateElement("passMD5");
+            XmlElement generationElement = usersXmlDocument.CreateElement("generation");
+            XmlElement idElement = usersXmlDocument.CreateElement("ID");
 
-                XmlText IDText = document.CreateTextNode(IDStr);
-                XmlText loginText = document.CreateTextNode(loginStr);
-                XmlText passText = document.CreateTextNode(passMD5Str);
+            XmlText loginText = usersXmlDocument.CreateTextNode(obj.Name);
+            XmlText passwordText = usersXmlDocument.CreateTextNode(passwordHash);
+            XmlText generationText = usersXmlDocument.CreateTextNode(obj.Generation);
+            XmlText idText = usersXmlDocument.CreateTextNode(obj.ID);
 
-                login.AppendChild(loginText);
-                passMD5.AppendChild(passText);
-                ID.AppendChild(IDText);
-                user.Attributes.Append(login);
-                user.AppendChild(passMD5);
-                user.AppendChild(ID);
-                root?.AppendChild(user);
-                document.Save(App.usersPath);
-            }
-        }
+            loginElement.AppendChild(loginText);
+            passwordElement.AppendChild(passwordText);
+            generationElement.AppendChild(generationText);
+            idElement.AppendChild(idText);
 
-        public static void InitializeData()
-        {
-            // Метод, осущ. ввод в массив FinancialChangesList и TargetList данных из XML файла
-            // Данные ни в коем случае не должны добавляться до того, как данные из XML файла заполнят массив
-            XmlDocument targetXmlDocument = new XmlDocument();
-            XmlDocument changesXmlDocument = new XmlDocument();
-            targetXmlDocument.Load(App.targetsPath);
-            changesXmlDocument.Load(App.changesPath);
+            userElement.AppendChild(loginElement);
+            userElement.AppendChild(passwordElement);
+            userElement.AppendChild(generationElement);
+            userElement.AppendChild(idElement);
 
-            XmlElement targetRoot = targetXmlDocument.DocumentElement;
-            XmlElement changesRoot = changesXmlDocument.DocumentElement;
-
-            App.FinancialChangesList = new FinancialChangeList(200); // сделать настройку Capacity из настроек
-            App.TargetsList = new TargetList(15);                    // аналогично и тут
-            
-            int ChangesXML = 0;
-            int TargetsXML = 0;
-
-            foreach (XmlNode Target in targetRoot)
-                TargetsXML++;
-
-            if (App.TargetsList.Capacity > TargetsXML)
-            {
-                string name = "";
-                int fullSum = -1;
-                string comment = "";
-                int currentSum = -1;
-                long dateAdded = -1;
-                string clientID = "";
-
-                foreach (XmlNode Target in targetRoot)
-                {
-                    foreach (XmlNode targetChildNode in Target.ChildNodes)
-                    {
-                        switch (targetChildNode.Name)
-                        {
-                            case ("name"):
-                                name = targetChildNode.InnerText;
-                                break;
-                            case ("fullSum"):
-                                fullSum = Convert.ToInt32(targetChildNode.InnerText);
-                                break;
-                            case ("comment"):
-                                comment = targetChildNode.InnerText;
-                                break;
-                            case ("currentSum"):
-                                currentSum = Convert.ToInt32(targetChildNode.InnerText);
-                                break;
-                            case ("date"):
-                                dateAdded = Convert.ToInt64(targetChildNode.InnerText);
-                                break;
-                            case ("clientID"):
-                                clientID = targetChildNode.InnerText;
-                                break;
-                        }
-                    }
-                    App.TargetsList.AddTarget(name, fullSum, comment, dateAdded, currentSum, clientID);
-                }
-            }
-            
-            foreach (XmlNode Change in changesRoot)
-                ChangesXML++;
-            
-            if (App.FinancialChangesList.Capacity > ChangesXML)
-            {
-                long date = -1;
-                int sum = -1;
-                string category = "";
-                string clientID = "";
-                bool isIncome = false;
-                string comment = "";
-
-                foreach (XmlNode Change in changesRoot)
-                {
-                    foreach (XmlNode ChangeChildNode in Change.ChildNodes)
-                    {
-                        switch (ChangeChildNode.Name)
-                        {
-                        case ("date"):
-                            date = Convert.ToInt64(ChangeChildNode.InnerText);
-                            break;
-                        case ("sum"):
-                            sum = Convert.ToInt32(ChangeChildNode.InnerText);
-                            break;
-                        case ("category"):
-                            category = ChangeChildNode.InnerText;
-                            break;
-                        case ("clientID"):
-                            clientID = ChangeChildNode.InnerText;
-                            break;
-                        case ("isIncome"):
-                            isIncome = Convert.ToBoolean(ChangeChildNode.InnerText);
-                            break;
-                        case ("comment"):
-                            comment = ChangeChildNode.InnerText;
-                            break;
-                        }
-                    }
-                    App.FinancialChangesList.AddFinancialChange(sum, isIncome, comment, category, date, clientID);
-                }
-            }
+            if (usersRoot != null) usersRoot.AppendChild(userElement);
+            else throw new NullReferenceException("targetRoot was null");
+            usersXmlDocument.Save(App.usersPath);
         }
 
         internal static void AddToXml(Target obj)
@@ -340,7 +217,5 @@ namespace Ваш_БанкирЪ
             }
             CurrentSum = TotalIncomes - TotalExpenses;
         }
-
-
     }
 }

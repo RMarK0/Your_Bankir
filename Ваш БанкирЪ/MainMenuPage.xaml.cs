@@ -6,6 +6,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -13,6 +14,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 // Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234238
@@ -25,18 +27,33 @@ namespace Ваш_БанкирЪ
 
     public sealed partial class MainMenuPage : Page
     {
+        public Page mainMenuPage;
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var currentView = SystemNavigationManager.GetForCurrentView();
             currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Disabled;
         }
-        
+
         public MainMenuPage()
         {
+            mainMenuPage = this;
             this.InitializeComponent();
+
             ActiveClientTextBlock.Text =
                 String.Format(
                     $"ID:{App.ActiveClient.ID} GEN:{App.ActiveClient.Generation} NAME:{App.ActiveClient.Name}");
+            if (Windows.Foundation.Metadata.ApiInformation.IsTypePresent(
+                "Windows.UI.Xaml.Media.XamlCompositionBrushBase"))
+            {
+                Background = new AcrylicBrush()
+                {
+                    BackgroundSource = AcrylicBackgroundSource.HostBackdrop,
+                    TintOpacity = 0.88,
+                    TintColor = Color.FromArgb(255, 0, 0, 0),
+                    Opacity = 1
+                };
+            }
         }
 
         public void AddIncomeButton_Click(object sender, RoutedEventArgs e)

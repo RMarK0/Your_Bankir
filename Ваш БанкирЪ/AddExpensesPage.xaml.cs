@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -12,6 +13,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
@@ -176,11 +178,25 @@ namespace Ваш_БанкирЪ
             currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
 
             InitializeChanges();
+
+            if (Windows.Foundation.Metadata.ApiInformation.IsTypePresent(
+                "Windows.UI.Xaml.Media.XamlCompositionBrushBase"))
+            {
+                this.Background = new AcrylicBrush()
+                {
+                    BackgroundSource = AcrylicBackgroundSource.HostBackdrop,
+                    TintOpacity = 0.9,
+                    TintColor = Color.FromArgb(255, 0, 0, 0),
+                    Opacity = 1
+                };
+            }
         }
 
         private void ExpensesSum_OnBeforeTextChanging(TextBox sender, TextBoxBeforeTextChangingEventArgs args)
         {
             args.Cancel = args.NewText.Any(c => !char.IsDigit(c));
+            if (ExpensesSumTextBox.Text.Length > 8)
+                args.Cancel = args.NewText.Any();
         }
 
         private void ExpensesAddButton_OnClick(object sender, RoutedEventArgs e)
@@ -205,6 +221,7 @@ namespace Ваш_БанкирЪ
                     UpdateHistory();
                     App.CurrentSum -= sum;
                     App.TotalExpenses += sum;
+                    App.ThisMonthExpenses += sum;
                     ExpenseErrorText.Text = "Расход успешно добавлен";
                     ExpensesSumTextBox.Text = "";
                     ExpensesCommentsTextBox.Text = "";

@@ -14,6 +14,7 @@ using Windows.ApplicationModel;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.System;
+using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -28,8 +29,12 @@ namespace Ваш_БанкирЪ
 {
     public sealed partial class LoginPage : Page
     {
-        private bool InitializeUser(string login, string password, ref string ID)
+        public static LoginPage loginPage;
+
+        private bool InitializeUser(string login, string password, ref string ID, ref string generation)
         {
+            bool isCorrect = false;
+
             var md5Hasher = MD5.Create();
             var data = md5Hasher.ComputeHash(Encoding.UTF8.GetBytes(password));
 
@@ -41,21 +46,39 @@ namespace Ваш_БанкирЪ
             var logPassDocument = new XmlDocument();
             logPassDocument.Load(usersPath);
             var logPassRoot = logPassDocument.DocumentElement;
-            foreach (XmlNode User in logPassRoot)
-                if (User.Attributes.Count > 0)
+            foreach (XmlNode user in logPassRoot)
+            {
+                if (user.HasChildNodes)
                 {
-                    var loginNode = User.Attributes.GetNamedItem("login");
-                    if (loginNode.Value == login)
-                        foreach (XmlNode userChildNode in User.ChildNodes)
-                            if (userChildNode.Name == "passMD5" && userChildNode.InnerText == inputPasswordHash)
-                            {
-                                foreach (XmlNode childNode in User.ChildNodes)
-                                    if (childNode.Name == "ID")
-                                        ID = childNode.InnerText;
-                                return true;
-                            }
+                    foreach (XmlNode userChildNode in user.ChildNodes)
+                    {
+                        switch (userChildNode.Name)
+                        {
+                            case ("login"):
+                                if (userChildNode.InnerText == login)
+                                {
+                                    foreach (XmlNode child in user.ChildNodes)
+                                    {
+                                        if (child.Name == "passMD5" && child.InnerText == inputPasswordHash)
+                                        {
+                                            isCorrect = true;
+                                        }
+                                    }
+                                }
+                                break;
+                            case ("generation"):
+                                generation = userChildNode.InnerText;
+                                break;
+                            case ("ID"):
+                                ID = userChildNode.InnerText;
+                                break;
+                        }
+                    }
                 }
+            }
 
+            if (isCorrect)
+                return true;
             return false;
         }
 
@@ -65,8 +88,11 @@ namespace Ваш_БанкирЪ
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
 
             InitializeComponent();
-            
-            versionTextBox.Text = versionInfo.ToString();
+            loginPage = this;
+            versionTextBlock.Text = String.Format($"{versionInfo} © Dmitry Rybalko");
+
+
+
         }
 
         private void Grid_KeyDown(object sender, KeyRoutedEventArgs e)
@@ -79,11 +105,11 @@ namespace Ваш_БанкирЪ
             var login = LoginTextBox.Text;
             var password = PasswordBox.Password;
             string ID = null;
+            string generation = "";
 
-            if (InitializeUser(login, password, ref ID))
+            if (InitializeUser(login, password, ref ID, ref generation))
             {
-                ActiveClient = new Client(login, ID);
-                FunctionClass.InitializeData();
+                ActiveClient = new Client(login, ID, generation);
                 FunctionClass.InitializeFinances(ref CurrentSum, ref TotalExpenses, ref TotalIncomes,
                     ref ThisMonthExpenses);
                 Frame.Navigate(typeof(MainMenuPage));
@@ -97,6 +123,11 @@ namespace Ваш_БанкирЪ
         private void PasswordErrorButton_OnClick(object sender, RoutedEventArgs e)
         {
             PasswordErrorFlyout.Hide();
+        }
+
+        private void CreateNewUserButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(CreateNewUserPage));
         }
     }
 }

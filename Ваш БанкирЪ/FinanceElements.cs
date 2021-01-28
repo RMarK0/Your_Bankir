@@ -269,26 +269,11 @@ namespace Ваш_БанкирЪ
         public string ID { get; }
         public string Name { get; }
 
-        public Client(string name, string ID)
+        public Client(string name, string id, string generation)
         {
+            Generation = generation;
             Name = name;
-            this.ID = ID;
-            if (ID == "1" || ID == "4")
-            {
-                Generation = "Young";
-            }
-            else if (ID == "2" || ID == "3")
-            {
-                Generation = "Adult";
-            }
-            else if (ID == "5" || ID == "6")
-            {
-                Generation = "Old";
-            }
-            else
-            {
-                throw new NotImplementedException($"No assigned generations for ID {this.ID}");
-            }
+            ID = id;
         }
     }
 }

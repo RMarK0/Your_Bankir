@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using static Ваш_БанкирЪ.App;
 
 // Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -39,11 +40,26 @@ namespace Ваш_БанкирЪ
             e.Handled = true;
         }
 
+        public void UpdateSums()
+        {
+            string currentBalance = "0 ₽";
+            string lastMonthExpenses = "0 ₽";
+            if (ThisMonthExpenses != 0)
+                lastMonthExpenses = $"{ThisMonthExpenses:### ### ###} ₽";
+            if (CurrentSum != 0)
+                currentBalance = $"{CurrentSum:### ### ###} ₽";
+
+            BalanceSumTextBox.Text = currentBalance;
+            PrevMonthExpensesSumTextBox.Text = lastMonthExpenses;
+        }
+
         public AddTargetSelectPage()
         {
             this.InitializeComponent();
             var currentView = SystemNavigationManager.GetForCurrentView();
             currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
+
+            UpdateSums();
         }
 
         private void AddTargetButton_OnClick(object sender, RoutedEventArgs e)
