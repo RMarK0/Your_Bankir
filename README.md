@@ -6,4 +6,4 @@
 
 Последняя версия, доступная для скачивания - 0.2.8.3 Pre-release
 
-Ссылка - https://drive.google.com/file/d/1AJyt26vqDRW2XMEMEHqdpJk049PjQ2HQ/view?usp=sharing
+Ссылка - https://bit.ly/39u25iS
