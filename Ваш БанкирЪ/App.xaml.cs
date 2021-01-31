@@ -38,8 +38,6 @@ namespace Ваш_БанкирЪ
             this.Suspending += OnSuspending;
 
             timer = new DispatcherTimer() { Interval = new TimeSpan(0,0,1) };
-            timer.Tick += TimerOnTick;
-            timer.Start();
         }
 
         private void TimerOnTick(object sender, object e)
@@ -47,41 +45,34 @@ namespace Ваш_БанкирЪ
             secondsCounted++;
             if (isFirstStartup)
             {
-                if (secondsCounted == 3)
+                switch (secondsCounted)
                 {
-                    startupPage.TextFadingOut();
+                    case 3:
+                        startupPage.TextFadingOut();
+                        break;
+                    case 4:
+                        startupPage.ChangeHeaderText("Мы проводим первую настройку приложения");
+                        startupPage.TextFadingIn();
+                        break;
+                    case 7:
+                        startupPage.TextFadingOut();
+                        break;
+                    case 8:
+                        startupPage.ChangeHeaderText("Сейчас вы создадите вашу учетную запись");
+                        startupPage.TextFadingIn();
+                        break;
+                    case 11:
+                        startupPage.TextFadingOut();
+                        break;
+                    case 12:
+                        startupPage.ChangeHeaderText("Приступаем");
+                        startupPage.TextFadingIn();
+                        break;
+                    case 16:
+                        rootFrame.Navigate(typeof(CreateNewUserPage));
+                        timer.Stop();
+                        break;
                 }
-
-                if (secondsCounted == 4)
-                {
-                    startupPage.ChangeHeaderText("Мы проводим первую настройку приложения");
-                    startupPage.TextFadingIn();
-                }
-                
-                if (secondsCounted == 7)
-                {
-                    startupPage.TextFadingOut();
-                }
-
-                if (secondsCounted == 8)
-                {
-                    startupPage.ChangeHeaderText("Сейчас вы создадите вашу учетную запись");
-                    startupPage.TextFadingIn();
-                }
-
-                if (secondsCounted == 11)
-                {
-                    startupPage.TextFadingOut();
-                }
-
-                if (secondsCounted == 12)
-                {
-                    startupPage.ChangeHeaderText("Приступаем");
-                    startupPage.TextFadingIn();
-                }
-
-                if (secondsCounted == 16)
-                    rootFrame.Navigate(typeof(CreateNewUserPage));
             }
         }
 
@@ -309,9 +300,11 @@ namespace Ваш_БанкирЪ
                     //TODO: Загрузить состояние из ранее приостановленного приложения
                 }
 
-                if (e.PreviousExecutionState == ApplicationExecutionState.NotRunning)
+                if (e.PreviousExecutionState == ApplicationExecutionState.NotRunning && FirstStart())
                 {
                     isFirstStartup = true;
+                    timer.Tick += TimerOnTick;
+                    timer.Start();
                 }
 
                 // Размещение фрейма в текущем окне
@@ -326,9 +319,8 @@ namespace Ваш_БанкирЪ
                     // Если стек навигации не восстанавливается для перехода к первой странице,
                     // настройка новой страницы путем передачи необходимой информации в качестве параметра
                     // параметр
-                    if (e.PreviousExecutionState != ApplicationExecutionState.NotRunning)
+                    if (!FirstStart() || e.PreviousExecutionState != ApplicationExecutionState.NotRunning)
                     {
-
                         rootFrame.Navigate(typeof(LoginPage), e.Arguments);
                     }
                     else if (e.PreviousExecutionState == ApplicationExecutionState.NotRunning && FirstStart())

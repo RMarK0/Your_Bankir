@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using Windows.System;
 
 namespace Ваш_БанкирЪ
 {
@@ -176,16 +177,14 @@ namespace Ваш_БанкирЪ
             XmlNode clientNode = clientRoot.SelectSingleNode(xPath);
             if (clientNode != null)
             {
-                if (clientNode.Attributes != null)
+                foreach (XmlNode clientChild in clientNode.ChildNodes)
                 {
-                    XmlNode attribute = clientNode.Attributes.GetNamedItem("login");
-                    var output = attribute.Value;
-                    return output;
+                    if (clientChild.Name == "login")
+                    {
+                        return clientChild.InnerText;
+                    }
                 }
-                else
-                {
-                    throw new Exception($"No attributes for client with ID {clientID}");
-                }
+                return "unknown user";
             }
             else
             {

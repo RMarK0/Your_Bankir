@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -46,6 +47,19 @@ namespace Ваш_БанкирЪ
             var currentView = SystemNavigationManager.GetForCurrentView();
             currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
 
+            AboutAppFlyoutTextBlock.Text = String.Format($"Версия {App.versionInfo} Pre-release © Dmitry Rybalko 2020");
+
+            if (Windows.Foundation.Metadata.ApiInformation.IsTypePresent(
+                "Windows.UI.Xaml.Media.XamlCompositionBrushBase"))
+            {
+                this.Background = new AcrylicBrush()
+                {
+                    BackgroundSource = AcrylicBackgroundSource.HostBackdrop,
+                    TintOpacity = 0.9,
+                    TintColor = Color.FromArgb(255, 0, 0, 0),
+                    Opacity = 1
+                };
+            }
         }
 
         private void NavigateToChangePassword_OnClick(object sender, RoutedEventArgs e)

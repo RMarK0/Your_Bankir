@@ -6,6 +6,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Xml;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -47,10 +48,24 @@ namespace Ваш_БанкирЪ
         public CreateNewUserPage()
         {
             this.InitializeComponent();
+
+            if (Windows.Foundation.Metadata.ApiInformation.IsTypePresent(
+                "Windows.UI.Xaml.Media.XamlCompositionBrushBase"))
+            {
+                this.Background = new AcrylicBrush()
+                {
+                    BackgroundSource = AcrylicBackgroundSource.HostBackdrop,
+                    TintOpacity = 0.9,
+                    TintColor = Color.FromArgb(255, 0, 0, 0),
+                    Opacity = 1
+                };
+            }
         }
 
         private void CreateUserFlyoutButton_OnClick(object sender, RoutedEventArgs e)
         {
+            if (CreateUserFlyoutTextBlock.Text == "Пользователь успешно создан")
+                Frame.Navigate(typeof(LoginPage));
             CreateUserFlyout.Hide();
         }
 

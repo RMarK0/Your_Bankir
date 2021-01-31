@@ -91,7 +91,17 @@ namespace Ваш_БанкирЪ
             loginPage = this;
             versionTextBlock.Text = String.Format($"{versionInfo} © Dmitry Rybalko");
 
-
+            if (Windows.Foundation.Metadata.ApiInformation.IsTypePresent(
+                "Windows.UI.Xaml.Media.XamlCompositionBrushBase"))
+            {
+                this.Background = new AcrylicBrush()
+                {
+                    BackgroundSource = AcrylicBackgroundSource.HostBackdrop,
+                    TintOpacity = 0.9,
+                    TintColor = Color.FromArgb(255, 0, 0, 0),
+                    Opacity = 1
+                };
+            }
 
         }
 

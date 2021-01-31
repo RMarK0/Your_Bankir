@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="b4be2c83-59a1-4f24-9c05-f4e612c952e8" Publisher="CN=rybal" Version="0.2.8.0" />
+  <Identity Name="b4be2c83-59a1-4f24-9c05-f4e612c952e8" Publisher="CN=rybal" Version="0.2.9.0" />
   <mp:PhoneIdentity PhoneProductId="b4be2c83-59a1-4f24-9c05-f4e612c952e8" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Ваш БанкирЪ</DisplayName>
@@ -25,7 +25,4 @@
       </uap:VisualElements>
     </Application>
   </Applications>
-  <Capabilities>
-    <Capability Name="internetClient" />
-  </Capabilities>
 </Package>
