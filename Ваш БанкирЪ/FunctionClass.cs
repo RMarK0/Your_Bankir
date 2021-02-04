@@ -8,6 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using Windows.System;
+using Windows.UI;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 
 namespace Ваш_БанкирЪ
 {
@@ -194,6 +198,11 @@ namespace Ваш_БанкирЪ
 
         internal static void InitializeFinances(ref int CurrentSum, ref int TotalExpenses, ref int TotalIncomes, ref int ThisMonthExpenses)
         {
+            CurrentSum = 0;
+            TotalExpenses = 0;
+            TotalIncomes = 0;
+            ThisMonthExpenses = 0;
+
             foreach (FinancialChange change in App.FinancialChangesList)
             {
                 if (change != null)
@@ -208,7 +217,7 @@ namespace Ваш_БанкирЪ
                     }
 
                     DateTime temp = DateTime.FromBinary(change.Date);
-                    if (!change.IsIncome && temp.Month == DateTime.Now.Month)
+                    if (!change.IsIncome && temp.Month == DateTime.Now.Month && temp.Year == DateTime.Now.Year)
                     {
                         ThisMonthExpenses += change.Sum;
                     }

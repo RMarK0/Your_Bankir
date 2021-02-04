@@ -223,8 +223,6 @@ namespace Ваш_БанкирЪ
                     }
 
                     UpdateHistory();
-                    App.TotalIncomes += sum;
-                    App.CurrentSum += sum;
                     IncomeErrorText.Text = "Доход успешно добавлен";
                     IncomeSumTextBox.Text = "";
                     IncomeCommentsTextBox.Text = "";

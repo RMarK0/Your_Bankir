@@ -28,8 +28,8 @@ namespace Ваш_БанкирЪ
     /// </summary>
     sealed partial class App : Application
     {
-        private DispatcherTimer timer;
-        private int secondsCounted;
+        public static DispatcherTimer timer;
+        public static int secondsCounted;
         private bool isFirstStartup = false;
 
         public App()
@@ -40,7 +40,7 @@ namespace Ваш_БанкирЪ
             timer = new DispatcherTimer() { Interval = new TimeSpan(0,0,1) };
         }
 
-        private void TimerOnTick(object sender, object e)
+        private async void TimerOnTick(object sender, object e)
         {
             secondsCounted++;
             if (isFirstStartup)
@@ -71,9 +71,14 @@ namespace Ваш_БанкирЪ
                     case 16:
                         rootFrame.Navigate(typeof(CreateNewUserPage));
                         timer.Stop();
+                        isFirstStartup = false;
                         break;
                 }
             }
+            await Task.Run(() =>
+            {
+
+            });
         }
 
         public static int CurrentSum;
@@ -155,98 +160,85 @@ namespace Ваш_БанкирЪ
             XmlElement targetRoot = targetXmlDocument.DocumentElement;
             XmlElement changesRoot = changesXmlDocument.DocumentElement;
 
-            App.FinancialChangesList = new FinancialChangeList(200); // сделать не массив, а List
-            App.TargetsList = new TargetList(15);                    // аналогично и тут
+            App.FinancialChangesList = new FinancialChangeList(); // сделать не массив, а List
+            App.TargetsList = new TargetList();                    // аналогично и тут
 
-            int ChangesXML = 0;
-            int TargetsXML = 0;
+            string name = "";
+            int fullSum = -1;
+            string comment = "";
+            int currentSum = -1;
+            long dateAdded = -1;
+            string clientID = "";
 
             foreach (XmlNode Target in targetRoot)
-                TargetsXML++;
-
-            if (App.TargetsList.Capacity > TargetsXML)
             {
-                string name = "";
-                int fullSum = -1;
-                string comment = "";
-                int currentSum = -1;
-                long dateAdded = -1;
-                string clientID = "";
-
-                foreach (XmlNode Target in targetRoot)
+                foreach (XmlNode targetChildNode in Target.ChildNodes)
                 {
-                    foreach (XmlNode targetChildNode in Target.ChildNodes)
+                    switch (targetChildNode.Name)
                     {
-                        switch (targetChildNode.Name)
-                        {
-                            case ("name"):
-                                name = targetChildNode.InnerText;
-                                break;
-                            case ("fullSum"):
-                                fullSum = Convert.ToInt32(targetChildNode.InnerText);
-                                break;
-                            case ("comment"):
-                                comment = targetChildNode.InnerText;
-                                break;
-                            case ("currentSum"):
-                                currentSum = Convert.ToInt32(targetChildNode.InnerText);
-                                break;
-                            case ("date"):
-                                dateAdded = Convert.ToInt64(targetChildNode.InnerText);
-                                break;
-                            case ("clientID"):
-                                clientID = targetChildNode.InnerText;
-                                break;
-                        }
+                        case ("name"):
+                            name = targetChildNode.InnerText;
+                            break;
+                        case ("fullSum"):
+                            fullSum = Convert.ToInt32(targetChildNode.InnerText);
+                            break;
+                        case ("comment"):
+                            comment = targetChildNode.InnerText;
+                            break;
+                        case ("currentSum"):
+                            currentSum = Convert.ToInt32(targetChildNode.InnerText);
+                            break;
+                        case ("date"):
+                            dateAdded = Convert.ToInt64(targetChildNode.InnerText);
+                            break;
+                        case ("clientID"):
+                            clientID = targetChildNode.InnerText;
+                            break;
                     }
-                    App.TargetsList.AddTarget(name, fullSum, comment, dateAdded, currentSum, clientID);
                 }
+
+                TargetsList.AddTarget(name, fullSum, comment, dateAdded, currentSum, clientID);
             }
+            
+
+            long date = -1;
+            var sum = -1;
+            var category = "";
+            var clientId = "";
+            var isIncome = false;
+            var comm = "";
 
             foreach (XmlNode Change in changesRoot)
-                ChangesXML++;
-
-            if (App.FinancialChangesList.Capacity > ChangesXML)
             {
-                long date = -1;
-                int sum = -1;
-                string category = "";
-                string clientID = "";
-                bool isIncome = false;
-                string comment = "";
-
-                foreach (XmlNode Change in changesRoot)
-                {
-                    foreach (XmlNode ChangeChildNode in Change.ChildNodes)
+                foreach (XmlNode ChangeChildNode in Change.ChildNodes)
+                    switch (ChangeChildNode.Name)
                     {
-                        switch (ChangeChildNode.Name)
-                        {
-                            case ("date"):
-                                date = Convert.ToInt64(ChangeChildNode.InnerText);
-                                break;
-                            case ("sum"):
-                                sum = Convert.ToInt32(ChangeChildNode.InnerText);
-                                break;
-                            case ("category"):
-                                category = ChangeChildNode.InnerText;
-                                break;
-                            case ("clientID"):
-                                clientID = ChangeChildNode.InnerText;
-                                break;
-                            case ("isIncome"):
-                                isIncome = Convert.ToBoolean(ChangeChildNode.InnerText);
-                                break;
-                            case ("comment"):
-                                comment = ChangeChildNode.InnerText;
-                                break;
-                        }
+                        case "date":
+                            date = Convert.ToInt64(ChangeChildNode.InnerText);
+                            break;
+                        case "sum":
+                            sum = Convert.ToInt32(ChangeChildNode.InnerText);
+                            break;
+                        case "category":
+                            category = ChangeChildNode.InnerText;
+                            break;
+                        case "clientID":
+                            clientId = ChangeChildNode.InnerText;
+                            break;
+                        case "isIncome":
+                            isIncome = Convert.ToBoolean(ChangeChildNode.InnerText);
+                            break;
+                        case "comment":
+                            comm = ChangeChildNode.InnerText;
+                            break;
                     }
-                    App.FinancialChangesList.AddFinancialChange(sum, isIncome, comment, category, date, clientID);
-                }
+
+                FinancialChangesList.AddFinancialChange(sum, isIncome, comm, category, date, clientId);
             }
+            
 
             XmlDocument usersXmlDocument = new XmlDocument();
-            usersXmlDocument.Load(App.usersPath);
+            usersXmlDocument.Load(usersPath);
             XmlElement root = usersXmlDocument.DocumentElement;
             ExistingClientsList = new List<Client>();
 
@@ -254,7 +246,7 @@ namespace Ваш_БанкирЪ
             {
                 string generation = "";
                 string id = "";
-                string name = "";
+                string username = "";
                 foreach (XmlNode userChildNode in user.ChildNodes)
                 {
                     switch (userChildNode.Name)
@@ -266,14 +258,13 @@ namespace Ваш_БанкирЪ
                             id = userChildNode.InnerText;
                             break;
                         case ("name"):
-                            name = userChildNode.InnerText;
+                            username = userChildNode.InnerText;
                             break;
                     }
                 }
-                Client temp = new Client(name, id, generation);
+                Client temp = new Client(username, id, generation);
                 App.ExistingClientsList.Add(temp);
             }
-
         }
 
         protected override async void OnLaunched(LaunchActivatedEventArgs e)

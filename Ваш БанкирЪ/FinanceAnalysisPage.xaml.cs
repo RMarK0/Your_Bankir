@@ -6,6 +6,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Xml;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -56,6 +57,19 @@ namespace Ваш_БанкирЪ
             this.InitializeComponent();
             var currentView = SystemNavigationManager.GetForCurrentView();
             currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
+
+            if (Windows.Foundation.Metadata.ApiInformation.IsTypePresent(
+                "Windows.UI.Xaml.Media.XamlCompositionBrushBase"))
+            {
+                BottomFiller.Fill = new AcrylicBrush()
+                {
+                    BackgroundSource = AcrylicBackgroundSource.HostBackdrop,
+                    TintOpacity = 0.75,
+                    TintColor = Color.FromArgb(255, 0, 0, 0),
+                    Opacity = 1
+                };
+            }
+            
         }
     }
 }

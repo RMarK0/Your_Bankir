@@ -54,78 +54,42 @@ namespace Ваш_БанкирЪ
 
     public class FinancialChangeList : IEnumerable
     {
-        private FinancialChange[] _financialChangesList;
-        public int Capacity { get; }
+        private readonly List<FinancialChange> _financialChangesList;
         public int Count { get; private set; }
 
-        public FinancialChangeList(int capacity)
+        public FinancialChangeList()
         {
-            Capacity = capacity;
             Count = 0;
-            _financialChangesList = new FinancialChange[Capacity];
+            _financialChangesList = new List<FinancialChange>();
         }
 
         public void AddFinancialChange(int sum, bool isIncome, string comment, string category, long date,
             string clientID)
         {
-            if (Count < Capacity)
-            {
-                _financialChangesList[Count] = new FinancialChange(sum, isIncome, comment, category, date, clientID);
-                Count++;
-            }
-            else
-            {
-                throw new StackOverflowException("_financialChangesList is full, can't add new change to array");
-            }
+            FinancialChange item = new FinancialChange(sum, isIncome, comment, category, date, clientID);
+            _financialChangesList.Add(item);
+            Count++;
         }
 
         public void AddFinancialChange(int sum, bool isIncome, string comment, string category)
         {
-            if (Count < Capacity)
-            {
-                _financialChangesList[Count] = new FinancialChange(sum, isIncome, comment, category);
-                FunctionClass.AddToXml(_financialChangesList[Count]);
-                Count++;
-            }
-            else
-            {
-                throw new StackOverflowException("_financialChangesList is full, can't add new change to array");
-            }
+            FinancialChange item = new FinancialChange(sum, isIncome, comment, category);
+            _financialChangesList.Add(item);
+            FunctionClass.AddToXml(item);
+            Count++;
         }
 
         public void AddFinancialChange(int sum, bool isIncome, string category)
         {
-            if (Count < Capacity)
-            {
-                _financialChangesList[Count] = new FinancialChange(sum, isIncome, category);
-                FunctionClass.AddToXml(_financialChangesList[Count]);
-                Count++;
-            }
-            else
-            {
-                throw new StackOverflowException("_financialChangesList is full, can't add new change to array");
-            }
+            FinancialChange item = new FinancialChange(sum, isIncome, category);
+            _financialChangesList.Add(item);
+            FunctionClass.AddToXml(item);
+            Count++;
         }
 
         public void DeleteFinancialChange(int index)
         {
-            FinancialChange[] temp = new FinancialChange[15];
-            int i = 0;
-            int i2 = 0;
-            while (i < index)
-            {
-                temp[i2] = _financialChangesList[i];
-                i2++;
-                i++;
-            }
-            i++;
-            for (; i < _financialChangesList.Length; i++)
-            {
-                temp[i2] = _financialChangesList[i];
-                i2++;
-            }
-            temp[i2] = null;
-            _financialChangesList = temp;
+            _financialChangesList.RemoveAt(index);
             FunctionClass.DeleteFromXML(index, new FinancialChange(1, false, ""));
             Count--;
         }
@@ -181,77 +145,41 @@ namespace Ваш_БанкирЪ
 
     public class TargetList : IEnumerable
     {
-        private Target[] _targetsList;
-        public int Capacity { get; }
+        private readonly List<Target> _targetsList;
         public int Count { get; private set; }
 
-        public TargetList(int capacity)
+        public TargetList()
         {
             Count = 0;
-            Capacity = capacity;
-            _targetsList = new Target[Capacity];
+            _targetsList = new List<Target>();
         }
 
         public void AddTarget(string name, int fullSum, string comment, long dateAdded, int currentSum, string clientID)
         {
-            if (Count < Capacity)
-            {
-                _targetsList[Count] = new Target(name, fullSum, comment, dateAdded, currentSum, clientID);
-                Count++;
-            }
-            else
-            {
-                throw new StackOverflowException("_targetsList is full and new target can't be added");
-            }
+            Target item = new Target(name, fullSum, comment, dateAdded, currentSum, clientID);
+            _targetsList.Add(item);
+            Count++;
         }
 
         public void AddTarget(string name, int fullSum, string comment)
         {
-            if (Count < Capacity)
-            {
-                _targetsList[Count] = new Target(name, fullSum, comment);
-                FunctionClass.AddToXml(_targetsList[Count]);
-                Count++;
-            }
-            else
-            {
-                throw new StackOverflowException("_targetsList is full and new target can't be added");
-            }
+            Target item = new Target(name, fullSum, comment);
+            _targetsList.Add(item);
+            FunctionClass.AddToXml(item);
+            Count++;
         }
 
         public void AddTarget(string name, int fullSum)
         {
-            if (Count < Capacity)
-            {
-                _targetsList[Count] = new Target(name, fullSum);
-                FunctionClass.AddToXml(_targetsList[Count]);
-                Count++;
-            }
-            else
-            {
-                throw new StackOverflowException("_targetsList is full and new target can't be added");
-            }
+            Target item = new Target(name, fullSum);
+            _targetsList.Add(item);
+            FunctionClass.AddToXml(item);
+            Count++;
         }
 
         public void DeleteTarget(int index)
         {
-            Target[] temp = new Target[Capacity];
-            int i = 0;
-            int i2 = 0;
-            while (i < index)
-            {
-                temp[i2] = _targetsList[i];
-                i2++;
-                i++;
-            }
-            i++;
-            for (; i < _targetsList.Length; i++)
-            {
-                temp[i2] = _targetsList[i];
-                i2++;
-            }
-            temp[i2] = null;
-            _targetsList = temp;
+            _targetsList.RemoveAt(index);
             FunctionClass.DeleteFromXML(index, new Target("", 1));
             Count--;
         }

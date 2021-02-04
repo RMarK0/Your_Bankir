@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using static Ваш_БанкирЪ.App;
 
 // Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -219,9 +220,6 @@ namespace Ваш_БанкирЪ
                     }
 
                     UpdateHistory();
-                    App.CurrentSum -= sum;
-                    App.TotalExpenses += sum;
-                    App.ThisMonthExpenses += sum;
                     ExpenseErrorText.Text = "Расход успешно добавлен";
                     ExpensesSumTextBox.Text = "";
                     ExpensesCommentsTextBox.Text = "";

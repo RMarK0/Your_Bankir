@@ -10,8 +10,29 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid x:Name="MainGrid">
-        <TextBlock x:Name="MonthTextBlock" Text="Страница в разработке" FontSize="35" VerticalAlignment="Center" HorizontalAlignment="Center"
-                   Margin="0 0 0 0"/>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="200"/>
+        </Grid.RowDefinitions>
 
+        <ScrollViewer x:Name="StatisticsViewer" Grid.Row="0">
+            <Grid x:Name="StatisticsGrid">
+                <TextBlock FontSize="20" Text=""/>
+            </Grid>
+        </ScrollViewer>
+
+        <Rectangle Grid.Row="1" Height="200" Width="6000" VerticalAlignment="Center" HorizontalAlignment="Center"
+                   x:Name="BottomFiller"/>
+        <Button Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="70" Height="70"
+                Margin="0 0 350 50" Content="🢀" FontSize="30"/>
+        <Button Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="70" Height="70"
+                Margin="350 0 0 50" Content="🢂" FontSize="30"/>
+        <TextBlock Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Декабрь 2020" 
+                   Margin="0 0 0 50" FontSize="30"/>
+        <TextBlock Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Только для этого пользователя"
+                   Margin="0 100 100 0" FontSize="30"/>
+        <ToggleSwitch Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" OnContent="" OffContent="" IsOn="False"
+                      Margin="520 100 0 0" />
+        
     </Grid>
 </Page>

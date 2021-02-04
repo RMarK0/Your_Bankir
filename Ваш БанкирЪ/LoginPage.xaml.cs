@@ -120,8 +120,6 @@ namespace Ваш_БанкирЪ
             if (InitializeUser(login, password, ref ID, ref generation))
             {
                 ActiveClient = new Client(login, ID, generation);
-                FunctionClass.InitializeFinances(ref CurrentSum, ref TotalExpenses, ref TotalIncomes,
-                    ref ThisMonthExpenses);
                 Frame.Navigate(typeof(MainMenuPage));
             }
             else

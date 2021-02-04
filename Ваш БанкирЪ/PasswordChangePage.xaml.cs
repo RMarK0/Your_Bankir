@@ -65,7 +65,6 @@ namespace Ваш_БанкирЪ
                         foreach (XmlNode userChildNode in User.ChildNodes)
                             if (userChildNode.Name == "passMD5" && userChildNode.InnerText == inputPasswordHash)
                                 return true;
-                            
                 }
             return false;
         }
