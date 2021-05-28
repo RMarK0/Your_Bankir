@@ -81,8 +81,7 @@
 
         <ScrollViewer x:Name="ExpensesHistoryViewer" HorizontalScrollBarVisibility="Disabled" HorizontalScrollMode="Disabled"
                       Height="405" Width="400" BorderThickness="5"
-                      HorizontalAlignment="Center" VerticalAlignment="Center" Margin="650 0 0 65" BorderBrush="#33FFFFFF" 
-                      >
+                      HorizontalAlignment="Center" VerticalAlignment="Center" Margin="650 0 0 65" BorderBrush="#33FFFFFF">
             <StackPanel Padding="20" x:Name="ChangesHistory">
                 
             </StackPanel>
@@ -108,10 +107,9 @@
                    Fill="#33FFFFFF"/>
 
         <TextBlock x:Name="ExpensesUserToggleText" Text="Только для этого пользователя" FontSize="20"
-                   HorizontalAlignment="Center" VerticalAlignment="Center" Margin="590 395 0 0"
-                   />
+                   HorizontalAlignment="Center" VerticalAlignment="Center" Margin="590 395 0 0"/>
         
-        <ToggleSwitch x:Name="ExpensesUserToggle" OnContent="" OffContent="" IsOn="False"
+        <ToggleSwitch x:Name="ExpensesUserToggle" OnContent="" OffContent="" IsOn="False" Toggled="ExpensesUserToggle_OnToggled"
                       HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1050 400 0 0"/>
     </Grid>
 </Page>

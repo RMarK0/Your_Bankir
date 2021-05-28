@@ -84,12 +84,11 @@ namespace Ваш_БанкирЪ
                 {
                     if (client != null)
                     {
+                        id++;
                         if (client.Name == UsernameTextBox.Text.Trim())
                         {
                             userExists = true;
-                            id++;
                         }
-
                     }
                 }
 

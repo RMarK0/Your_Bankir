@@ -141,7 +141,7 @@ namespace Ваш_БанкирЪ
             //changesReader.Close();
         }
 
-        internal static void DeleteFromXML(int index, Target obj)
+        internal static void DeleteFromXml(int index, Target obj)
         {
             XmlDocument targetXmlDocument = new XmlDocument();
             targetXmlDocument.Load(App.targetsPath);
@@ -155,7 +155,7 @@ namespace Ваш_БанкирЪ
             targetXmlDocument.Save(App.targetsPath);
         }
 
-        internal static void DeleteFromXML(int index, FinancialChange obj)
+        internal static void DeleteFromXml(int index, FinancialChange obj)
         {
             XmlDocument changesXmlDocument = new XmlDocument();
             changesXmlDocument.Load(App.changesPath);

@@ -153,8 +153,10 @@ namespace Ваш_БанкирЪ
 
         }
 
-        private void InitializeChanges()
+        private void InitializeChanges(bool SwitchIsOn)
         {
+            ChangesHistory.Children.Clear();
+
             foreach (FinancialChange change in App.FinancialChangesList)
             {
                 if (change != null)
@@ -165,8 +167,13 @@ namespace Ваш_БанкирЪ
                     string comment = change.Comment;
                     string clientID = change.ClientId;
                     string category = change.Category;
-
-                    CreateHistoryNode(date, sum, isIncome, comment, clientID, category);
+                    if (SwitchIsOn)
+                    {
+                        if (clientID == ActiveClient.ID)
+                            CreateHistoryNode(date, sum, isIncome, comment, clientID, category);
+                    }
+                    else
+                        CreateHistoryNode(date, sum, isIncome, comment, clientID, category);
                 }
             }
         }
@@ -178,7 +185,8 @@ namespace Ваш_БанкирЪ
             var currentView = SystemNavigationManager.GetForCurrentView();
             currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
 
-            InitializeChanges();
+            InitializeChanges(ExpensesUserToggle.IsOn);
+
 
             if (Windows.Foundation.Metadata.ApiInformation.IsTypePresent(
                 "Windows.UI.Xaml.Media.XamlCompositionBrushBase"))
@@ -241,6 +249,11 @@ namespace Ваш_БанкирЪ
         private void ExpenseErrorButton_OnClick(object sender, RoutedEventArgs e)
         {
             ExpenseErrorFlyout.Hide();
+        }
+
+        private void ExpensesUserToggle_OnToggled(object sender, RoutedEventArgs e)
+        {
+            InitializeChanges(ExpensesUserToggle.IsOn);
         }
     }
 }

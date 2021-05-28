@@ -226,12 +226,13 @@ namespace Ваш_БанкирЪ
                         target.CurrentSum == targetNode.CurrentSum && target.DateAdded == targetNode.DateAdded &&
                         target.ClientID == targetNode.ClientID)
                     {
-                        TargetsList.DeleteTarget(index);
+                        break;
                     }
                     else
                         index++;
                 }
             }
+            TargetsList.DeleteTarget(index); // v0.2.9.4
             ActiveTargetsPage.targetsPage.UpdateTargets();
         }
 

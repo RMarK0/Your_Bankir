@@ -52,26 +52,25 @@ namespace Ваш_БанкирЪ
                 {
                     foreach (XmlNode userChildNode in user.ChildNodes)
                     {
-                        switch (userChildNode.Name)
+                        if (userChildNode.Name == "login" && userChildNode.InnerText == login)
                         {
-                            case ("login"):
-                                if (userChildNode.InnerText == login)
+                            foreach (XmlNode userInfoNode in user.ChildNodes)
+                            {
+                                switch (userInfoNode.Name)
                                 {
-                                    foreach (XmlNode child in user.ChildNodes)
-                                    {
-                                        if (child.Name == "passMD5" && child.InnerText == inputPasswordHash)
-                                        {
+                                    case "passMD5":
+                                        if (userInfoNode.InnerText == inputPasswordHash)
                                             isCorrect = true;
-                                        }
-                                    }
+                                        break;
+                                    case "generation":
+                                        generation = userInfoNode.InnerText;
+                                        break;
+                                    case "ID":
+                                        ID = userInfoNode.InnerText;
+                                        break;
                                 }
-                                break;
-                            case ("generation"):
-                                generation = userChildNode.InnerText;
-                                break;
-                            case ("ID"):
-                                ID = userChildNode.InnerText;
-                                break;
+                            }
+
                         }
                     }
                 }
@@ -102,7 +101,6 @@ namespace Ваш_БанкирЪ
                     Opacity = 1
                 };
             }
-
         }
 
         private void Grid_KeyDown(object sender, KeyRoutedEventArgs e)

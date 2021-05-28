@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Globalization;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Xml;
 using Windows.Foundation;
@@ -52,9 +53,142 @@ namespace Ваш_БанкирЪ
             e.Handled = true;
         }
 
+        public void InitializeCharts(Client client)
+        {
+            List<ChartData> ExpensesChartInfo = new List<ChartData>();
+            List<ChartData> IncomesChartInfo = new List<ChartData>();
+
+            foreach (FinancialChange change in FinancialChangesList)
+            {
+                DateTime changeDate = DateTime.FromBinary(change.Date);
+                if (changeDate.Month == displayedDate.Month && changeDate.Year == displayedDate.Year)
+                {
+                    int SumValue = 0;
+                    string Category = null;
+                    bool categoryExists = false;
+
+                    if (change.IsIncome)
+                    {
+                        foreach (ChartData node in IncomesChartInfo)
+                        {
+                            if (change.Category == node.DataName)
+                            {
+                                categoryExists = true;
+                                break;
+                            }
+                            
+                        }
+
+                        if (!categoryExists)
+                            Category = change.Category;
+
+                        foreach (FinancialChange ch in FinancialChangesList)
+                        {
+                            if (client != null)
+                            {
+                                if (ch.Category == Category && ch.ClientId == client.ID)
+                                    SumValue += ch.Sum;
+
+                            }
+                            else
+                            {
+                                if (ch.Category == Category)
+                                    SumValue += ch.Sum;
+                            }
+                        }
+
+                        if (Category != null)
+                            IncomesChartInfo.Add(new ChartData {DataName = Category, DataValue = SumValue});
+                    }
+                    else
+                    {
+                        foreach (ChartData node in ExpensesChartInfo)
+                        {
+                            if (change.Category == node.DataName)
+                            {
+                                categoryExists = true;
+                                break;
+                            }
+                        }
+
+                        if (!categoryExists)
+                            Category = change.Category;
+
+                        foreach (FinancialChange ch in FinancialChangesList)
+                        {
+                            if (client != null)
+                            {
+                                if (ch.Category == Category && ch.ClientId == client.ID)
+                                    SumValue += ch.Sum;
+
+                            }
+                            else
+                            {
+                                if (ch.Category == Category)
+                                    SumValue += ch.Sum;
+                            }
+                        }
+                        
+                        if (Category != null)
+                            ExpensesChartInfo.Add(new ChartData {DataName = Category, DataValue = SumValue});
+                    }
+                }
+            }
+            ((PieSeries) IncomesChart.Series[0]).ItemsSource = IncomesChartInfo;
+            ((PieSeries) ExpensesChart.Series[0]).ItemsSource = ExpensesChartInfo;
+
+            InitializeFinancialLists(ExpensesChartInfo, IncomesChartInfo);
+        }
+
+        public void InitializeFinancialLists(List<ChartData> expensesList, List<ChartData> incomesList)
+        {
+            foreach (ChartData item in expensesList)
+            {
+                //TextBlock textBlock
+
+            }
+
+            foreach (ChartData item in incomesList)
+            {
+
+
+            }
+            //  TODO: сделать списки под диаграммами по категориям трат
+        }
+
+        public void InitializeDisplayedDate()
+        {
+            displayedDate = DateTime.Now.Date;
+            DisplayedDateTextBlock.Text = String.Format($"{dateFormat.GetMonthName(displayedDate.Month)} {displayedDate.Year}");
+        }
+
+        public void IncrementDisplayedDate(object sender, RoutedEventArgs e)
+        {
+            displayedDate = displayedDate.AddMonths(1);
+            DisplayedDateTextBlock.Text = String.Format($"{dateFormat.GetMonthName(displayedDate.Month)} {displayedDate.Year}");
+            if (UserSwitch.IsOn)
+                InitializeCharts(ActiveClient);
+            else
+                InitializeCharts(null);
+        }
+
+        public void DecrementDisplayedDate(object sender, RoutedEventArgs e)
+        {
+            displayedDate = displayedDate.AddMonths(-1);
+            DisplayedDateTextBlock.Text = String.Format($"{dateFormat.GetMonthName(displayedDate.Month)} {displayedDate.Year}");
+            if (UserSwitch.IsOn)
+                InitializeCharts(ActiveClient);
+            else
+                InitializeCharts(null);
+        }
+
+        private readonly DateTimeFormatInfo dateFormat = new DateTimeFormatInfo();
+        private DateTime displayedDate;
         public FinanceAnalysisPage()
         {
             this.InitializeComponent();
+            InitializeDisplayedDate();
+            InitializeCharts(null);
             var currentView = SystemNavigationManager.GetForCurrentView();
             currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
 
@@ -69,7 +203,18 @@ namespace Ваш_БанкирЪ
                     Opacity = 1
                 };
             }
-            
+        }
+
+        private void ToggleSwitch_OnToggled(object sender, RoutedEventArgs e)
+        {
+            if (UserSwitch.IsOn)
+            {
+                InitializeCharts(ActiveClient);
+            }
+            else
+            {
+                InitializeCharts(null);
+            }
         }
     }
 }

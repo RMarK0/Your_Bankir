@@ -107,7 +107,7 @@
                    HorizontalAlignment="Center" VerticalAlignment="Center" Margin="590 395 0 0"
                    />
 
-        <ToggleSwitch x:Name="IncomeUserToggle" OnContent="" OffContent="" IsOn="False"
+        <ToggleSwitch x:Name="IncomeUserToggle" OnContent="" OffContent="" IsOn="False" Toggled="IncomeUserToggle_OnToggled"
                       HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1050 400 0 0"/>
     </Grid>
 </Page>

@@ -19,6 +19,7 @@ using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using WinRTXamlToolkit.Controls;
+using static Ваш_БанкирЪ.App;
 
 // Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -155,8 +156,10 @@ namespace Ваш_БанкирЪ
             ChangesHistory.Children.Add(changeGrid);
         }
 
-        private void InitializeChanges()
+        private void InitializeChanges(bool SwitchIsOn)
         {
+            ChangesHistory.Children.Clear();
+
             foreach (FinancialChange change in App.FinancialChangesList)
             {
                 if (change != null)
@@ -168,7 +171,13 @@ namespace Ваш_БанкирЪ
                     string clientID = change.ClientId;
                     string category = change.Category;
 
-                   CreateHistoryNode(date, sum, isIncome, comment, clientID, category);
+                    if (SwitchIsOn)
+                    {
+                        if (clientID == ActiveClient.ID)
+                            CreateHistoryNode(date, sum, isIncome, comment, clientID, category);
+                    }
+                    else
+                        CreateHistoryNode(date, sum, isIncome, comment, clientID, category);
                 }
             }
             
@@ -182,7 +191,7 @@ namespace Ваш_БанкирЪ
             var currentView = SystemNavigationManager.GetForCurrentView();
             currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
 
-            InitializeChanges();
+            InitializeChanges(IncomeUserToggle.IsOn);
 
             if (Windows.Foundation.Metadata.ApiInformation.IsTypePresent(
                 "Windows.UI.Xaml.Media.XamlCompositionBrushBase"))
@@ -244,6 +253,11 @@ namespace Ваш_БанкирЪ
         private void ErrorFlyout_Click(object sender, RoutedEventArgs e)
         {
             IncomeErrorFlyout.Hide();
+        }
+
+        private void IncomeUserToggle_OnToggled(object sender, RoutedEventArgs e)
+        {
+            InitializeChanges(IncomeUserToggle.IsOn);
         }
     }
 }

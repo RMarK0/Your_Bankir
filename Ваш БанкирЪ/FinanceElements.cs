@@ -90,7 +90,7 @@ namespace Ваш_БанкирЪ
         public void DeleteFinancialChange(int index)
         {
             _financialChangesList.RemoveAt(index);
-            FunctionClass.DeleteFromXML(index, new FinancialChange(1, false, ""));
+            FunctionClass.DeleteFromXml(index, new FinancialChange(1, false, ""));
             Count--;
         }
 
@@ -180,7 +180,7 @@ namespace Ваш_БанкирЪ
         public void DeleteTarget(int index)
         {
             _targetsList.RemoveAt(index);
-            FunctionClass.DeleteFromXML(index, new Target("", 1));
+            FunctionClass.DeleteFromXml(index, new Target("", 1));
             Count--;
         }
 
