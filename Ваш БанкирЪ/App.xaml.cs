@@ -161,7 +161,7 @@ namespace Ваш_БанкирЪ
             XmlElement changesRoot = changesXmlDocument.DocumentElement;
 
             App.FinancialChangesList = new FinancialChangeList(); // сделать не массив, а List
-            App.TargetsList = new TargetList();                    // аналогично и тут
+            App.TargetsList = new TargetList();                   // аналогично и тут
 
             string name = "";
             int fullSum = -1;
